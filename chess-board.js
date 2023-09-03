@@ -1,4 +1,4 @@
-export const versionInfo = {major: 0, minor: 9, release: 1};
+export const versionInfo = {major: 0, minor: 10, release: 7};
 export const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
 export const onePixel = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=`
@@ -49,6 +49,12 @@ export const boardColors = {
         dark: "#769656"
     }
 };
+
+export const pad = (str, len = 2, padchar = '0', padLeft = true) => {
+    const dif = len - str.toString().length;
+    if (dif <= 0) return str;
+    return padLeft === true ? `${padchar.repeat(dif)}${str}` : `${str}${padchar.repeat(dif)}` 
+}
 
 export const isOdd = number => (number % 2) !== 0
 export const isEven = number => !isOdd(number)
@@ -1123,6 +1129,8 @@ export class FakeValidator extends ChessValidator {
         return {fen: newFen, move: {from, to, promotion, figure, san: `${figure}${square2san(to)}`}};
     }
 }
+
+export const pgnDate = (date = new Date()) => `${pad(date.getFullYear(), 4)}.${pad(date.getMonth() + 1)}.${pad(date.getDate())}`
 
 export class ChessGame extends ChessValidator {
     constructor(white = 'White Player', black = 'Black Player', fen = defaultFen, debug = false) {
