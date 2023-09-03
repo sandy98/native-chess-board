@@ -30,6 +30,7 @@ export const whiteFigures = ["R","N","B","Q","K", "P"];
 export const figures = blackFigures.concat(whiteFigures).concat(['0']);
 export const rowArray = [0, 1, 2, 3, 4, 5, 6, 7];
 export const colArray = [0, 1, 2, 3, 4, 5, 6, 7];
+export const headerRegex = /^\[(?<header>\w+)\s+"(?<value>[a-zA-Z\.\,\s\d\?\!\-\_]*)"\]$/;
 export const algebraicRegex = /^[a-h][1-8][a-h][1-8][QRBN]?$/;
 export const regexFigure = /^(?<figure>[NBRQK])(?<disambig>[a-h]?[1-8]?)?[x]?(?<to>[a-h][1-8])$/
 export const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>[QRBN]?)?$/
@@ -58,6 +59,8 @@ export const pad = (str, len = 2, padchar = '0', padLeft = true) => {
 
 export const isOdd = number => (number % 2) !== 0
 export const isEven = number => !isOdd(number)
+export const capitalize = str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`
+export const title = str => str.split(/\s+/g).map(capitalize).join(' ')
 
 export const rowcol2name = (row, col) => `${String.fromCharCode(col + 97)}${String.fromCharCode(row + 49)}`
 export const name2rowcol = name => ({row: name.charCodeAt(1) - 49, col: name.charCodeAt(0) - 97})
@@ -93,9 +96,10 @@ export const smotheredFen = '4k3/4P3/3K4/8/8/8/8/8 w - - 1 50';
 export const helpedMateFen = 'r1bqkbnr/pppnpppp/7P/3p4/8/8/PPPPPPP1/RNBQKBNR b KQkq - 0 3';
 export const KnightandBishopFen = '4k3/8/8/8/8/8/8/N3K2B w KQkq - 0 1';
 
-export const evergreen = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2","r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3","r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3","r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4","r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R b KQkq b3 0 4","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/5N2/P1PP1PPP/RNBQK2R w KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/2P2N2/P2P1PPP/RNBQK2R b KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/b3p3/2B1P3/2P2N2/P2P1PPP/RNBQK2R w KQkq - 1 6","r1bqk1nr/pppp1ppp/2n5/b3p3/2BPP3/2P2N2/P4PPP/RNBQK2R b KQkq d3 0 6","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQK2R w KQkq - 0 7","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQ1RK1 b kq - 1 7","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/2Pp1N2/P4PPP/RNBQ1RK1 w kq - 0 8","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 b kq - 1 8","r1b1k1nr/pppp1ppp/2n2q2/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 w kq - 2 9","r1b1k1nr/pppp1ppp/2n2q2/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 b kq - 0 9","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 w kq - 1 10","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 b kq - 2 10","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 w kq - 3 11","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/BQPp1N2/P4PPP/RN2R1K1 b kq - 4 11","r1b1k2r/p1ppnppp/2n3q1/bp2P3/2B5/BQPp1N2/P4PPP/RN2R1K1 w kq b6 0 12","r1b1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 b kq - 0 12","1rb1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 1 13","1rb1k2r/p1ppnppp/2n3q1/b3P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 b k - 2 13","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 3 14","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 b k - 4 14","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 w k - 5 15","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 b k - 6 15","1r2k2r/pbppnppp/1bn5/4Pq2/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 w k - 7 16","1r2k2r/pbppnppp/1bn5/4Pq2/Q3N3/B1PB1N2/P4PPP/R3R1K1 b k - 0 16","1r2k2r/pbppnppp/1bn5/4P2q/Q3N3/B1PB1N2/P4PPP/R3R1K1 w k - 1 17","1r2k2r/pbppnppp/1bn2N2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 2 17","1r2k2r/pbppnp1p/1bn2p2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 w k - 0 18","1r2k2r/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 0 18","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 w - - 1 19","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/3RR1K1 b - - 2 19","1r2k1r1/pbppnp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3RR1K1 w - - 0 20","1r2k1r1/pbppRp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3R2K1 b - - 0 20","1r2k1r1/pbppnp1p/1b3P2/8/Q7/B1PB1q2/P4PPP/3R2K1 w - - 0 21","1r2k1r1/pbpQnp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 b - - 0 21","1r4r1/pbpknp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 w - - 0 22","1r4r1/pbpknp1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 b - - 1 22","1r2k1r1/pbp1np1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 w - - 2 23","1r2k1r1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 b - - 3 23","1r3kr1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 w - - 4 24","1r3kr1/pbpBBp1p/1b3P2/8/8/2P2q2/P4PPP/3R2K1 b - - 0 24"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"2"},{"san":"Nc6","from":57,"to":42,"figure":"n","promotion":null,"number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"3"},{"san":"b4","from":9,"to":25,"figure":"P","promotion":null,"number":"4"},{"san":"Bxb4","from":34,"to":25,"figure":"b","promotion":null,"number":"4"},{"san":"c3","from":10,"to":18,"figure":"P","promotion":null,"number":"5"},{"san":"Ba5","from":25,"to":32,"figure":"b","promotion":null,"number":"5"},{"san":"d4","from":11,"to":27,"figure":"P","promotion":null,"number":"6"},{"san":"exd4","from":36,"to":27,"figure":"p","promotion":null,"number":"6"},{"san":"O-O","from":4,"to":6,"figure":"K","promotion":null,"number":"7"},{"san":"d3","from":27,"to":19,"figure":"p","promotion":null,"number":"7"},{"san":"Qb3","from":3,"to":17,"figure":"Q","promotion":null,"number":"8"},{"san":"Qf6","from":59,"to":45,"figure":"q","promotion":null,"number":"8"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"9"},{"san":"Qg6","from":45,"to":46,"figure":"q","promotion":null,"number":"9"},{"san":"Re1","from":5,"to":4,"figure":"R","promotion":null,"number":"10"},{"san":"Nge7","from":62,"to":52,"figure":"n","promotion":null,"number":"10"},{"san":"Ba3","from":2,"to":16,"figure":"B","promotion":null,"number":"11"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"11"},{"san":"Qxb5","from":17,"to":33,"figure":"Q","promotion":null,"number":"12"},{"san":"Rb8","from":56,"to":57,"figure":"r","promotion":null,"number":"12"},{"san":"Qa4","from":33,"to":24,"figure":"Q","promotion":null,"number":"13"},{"san":"Bb6","from":32,"to":41,"figure":"b","promotion":null,"number":"13"},{"san":"Nbd2","from":1,"to":11,"figure":"N","promotion":null,"number":"14"},{"san":"Bb7","from":58,"to":49,"figure":"b","promotion":null,"number":"14"},{"san":"Ne4","from":11,"to":28,"figure":"N","promotion":null,"number":"15"},{"san":"Qf5","from":46,"to":37,"figure":"q","promotion":null,"number":"15"},{"san":"Bxd3","from":26,"to":19,"figure":"B","promotion":null,"number":"16"},{"san":"Qh5","from":37,"to":39,"figure":"q","promotion":null,"number":"16"},{"san":"Nf6+","from":28,"to":45,"figure":"N","promotion":null,"number":"17"},{"san":"gxf6","from":54,"to":45,"figure":"p","promotion":null,"number":"17"},{"san":"exf6","from":36,"to":45,"figure":"P","promotion":null,"number":"18"},{"san":"Rg8","from":63,"to":62,"figure":"r","promotion":null,"number":"18"},{"san":"Rad1","from":0,"to":3,"figure":"R","promotion":null,"number":"19"},{"san":"Qxf3","from":39,"to":21,"figure":"q","promotion":null,"number":"19"},{"san":"Rxe7+","from":4,"to":52,"figure":"R","promotion":null,"number":"20"},{"san":"Nxe7","from":42,"to":52,"figure":"n","promotion":null,"number":"20"},{"san":"Qxd7+","from":24,"to":51,"figure":"Q","promotion":null,"number":"21"},{"san":"Kxd7","from":60,"to":51,"figure":"k","promotion":null,"number":"21"},{"san":"Bf5+","from":19,"to":37,"figure":"B","promotion":null,"number":"22"},{"san":"Ke8","from":51,"to":60,"figure":"k","promotion":null,"number":"22"},{"san":"Bd7+","from":37,"to":51,"figure":"B","promotion":null,"number":"23"},{"san":"Kf8","from":60,"to":61,"figure":"k","promotion":null,"number":"23"},{"san":"Bxe7#","from":16,"to":52,"figure":"B","promotion":null,"number":"24"}]}';
-export const inmortal = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2","rnbqkbnr/pppp1ppp/8/8/4Pp2/8/PPPP2PP/RNBQKBNR w KQkq - 0 3","rnbqkbnr/pppp1ppp/8/8/2B1Pp2/8/PPPP2PP/RNBQK1NR b KQkq - 1 3","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQK1NR w KQkq - 2 4","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 3 4","rnb1kb1r/pppp1ppp/5n2/8/2B1Pp1q/8/PPPP2PP/RNBQ1KNR w kq - 4 5","rnb1kb1r/pppp1ppp/5n2/8/2B1Pp1q/5N2/PPPP2PP/RNBQ1K1R b kq - 5 5","rnb1kb1r/pppp1ppp/5n1q/8/2B1Pp2/5N2/PPPP2PP/RNBQ1K1R w kq - 6 6","rnb1kb1r/pppp1ppp/5n1q/8/2B1Pp2/3P1N2/PPP3PP/RNBQ1K1R b kq - 0 6","rnb1kb1r/pppp1ppp/7q/7n/2B1Pp2/3P1N2/PPP3PP/RNBQ1K1R w kq - 1 7","rnb1kb1r/pppp1ppp/7q/7n/2B1Pp1N/3P4/PPP3PP/RNBQ1K1R b kq - 2 7","rnb1kb1r/p1pp1ppp/7q/1p5n/2B1Pp1N/3P4/PPP3PP/RNBQ1K1R w kq b6 0 8","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R b kq - 0 8","rnb1kb1r/p2p1ppp/2p4q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R w kq - 0 9","rnb1kb1r/p2p1ppp/2p4q/1B3N1n/4Pp2/3P4/PPP3PP/RNBQ1K1R b kq - 1 9","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4Pp2/3P4/PPP3PP/RNBQ1K1R w kq - 2 10","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4PpP1/3P4/PPP4P/RNBQ1K1R b kq g3 0 10","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1K1R w kq - 1 11","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpPP/3P4/PPP5/RNBQ1K1R b kq h3 0 11","rnb1kb1r/p2p1ppp/2p2nq1/1B3N2/4PpPP/3P4/PPP5/RNBQ1K1R w kq - 1 12","rnb1kb1r/p2p1ppp/2p2nq1/1B3N1P/4PpP1/3P4/PPP5/RNBQ1K1R b kq - 0 12","rnb1kb1r/p2p1ppp/2p2n2/1B3NqP/4PpP1/3P4/PPP5/RNBQ1K1R w kq - 1 13","rnb1kb1r/p2p1ppp/2p2n2/1B3NqP/4PpP1/3P4/PPP5/RNBQ1KR1 b kq - 2 13","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P4/PPP5/RNBQ1KR1 w kq - 0 14","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 b kq - 1 14","rnb1kbnr/p2p1ppp/8/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 w kq - 2 15","rnb1kbnr/p2p1ppp/8/1p3NqP/4PBP1/3P1Q2/PPP5/RN3KR1 b kq - 0 15","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/3P1Q2/PPP5/RN3KR1 w kq - 1 16","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/2NP1Q2/PPP5/R4KR1 b kq - 2 16","rnb1k1nr/p2p1ppp/5q2/1pb2N1P/4PBP1/2NP1Q2/PPP5/R4KR1 w kq - 3 17","rnb1k1nr/p2p1ppp/5q2/1pbN1N1P/4PBP1/3P1Q2/PPP5/R4KR1 b kq - 4 17","rnb1k1nr/p2p1ppp/8/1pbN1N1P/4PBP1/3P1Q2/PqP5/R4KR1 w kq - 0 18","rnb1k1nr/p2p1ppp/3B4/1pbN1N1P/4P1P1/3P1Q2/PqP5/R4KR1 b kq - 1 18","rnb1k1nr/p2p1ppp/3B4/1p1N1N1P/4P1P1/3P1Q2/PqP5/R4Kb1 w kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/PqP5/R4Kb1 b kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P5/q4Kb1 w kq - 0 20","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 1 20","r1b1k1nr/p2p1ppp/n2B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 w kq - 2 21","r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 0 21","r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 w - - 1 22","r1bk2nr/p2p1pNp/n2B1Q2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 2 22","r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 0 23","r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 1 23"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"f4","from":13,"to":29,"figure":"P","promotion":null,"number":"2"},{"san":"exf4","from":36,"to":29,"figure":"p","promotion":null,"number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Qh4+","from":59,"to":31,"figure":"q","promotion":null,"number":"3"},{"san":"Kf1","from":4,"to":5,"figure":"K","promotion":null,"number":"4"},{"san":"Nf6","from":62,"to":45,"figure":"n","promotion":null,"number":"4"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"5"},{"san":"Qh6","from":31,"to":47,"figure":"q","promotion":null,"number":"5"},{"san":"d3","from":11,"to":19,"figure":"P","promotion":null,"number":"6"},{"san":"Nh5","from":45,"to":39,"figure":"n","promotion":null,"number":"6"},{"san":"Nh4","from":21,"to":31,"figure":"N","promotion":null,"number":"7"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"7"},{"san":"Bxb5","from":26,"to":33,"figure":"B","promotion":null,"number":"8"},{"san":"c6","from":50,"to":42,"figure":"p","promotion":null,"number":"8"},{"san":"Nf5","from":31,"to":37,"figure":"N","promotion":null,"number":"9"},{"san":"Qg5","from":47,"to":38,"figure":"q","promotion":null,"number":"9"},{"san":"g4","from":14,"to":30,"figure":"P","promotion":null,"number":"10"},{"san":"Nf6","from":39,"to":45,"figure":"n","promotion":null,"number":"10"},{"san":"h4","from":15,"to":31,"figure":"P","promotion":null,"number":"11"},{"san":"Qg6","from":38,"to":46,"figure":"q","promotion":null,"number":"11"},{"san":"h5","from":31,"to":39,"figure":"P","promotion":null,"number":"12"},{"san":"Qg5","from":46,"to":38,"figure":"q","promotion":null,"number":"12"},{"san":"Rg1","from":7,"to":6,"figure":"R","promotion":null,"number":"13"},{"san":"cxb5","from":42,"to":33,"figure":"p","promotion":null,"number":"13"},{"san":"Qf3","from":3,"to":21,"figure":"Q","promotion":null,"number":"14"},{"san":"Ng8","from":45,"to":62,"figure":"n","promotion":null,"number":"14"},{"san":"Bxf4","from":2,"to":29,"figure":"B","promotion":null,"number":"15"},{"san":"Qf6","from":38,"to":45,"figure":"q","promotion":null,"number":"15"},{"san":"Nc3","from":1,"to":18,"figure":"N","promotion":null,"number":"16"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"16"},{"san":"Nd5","from":18,"to":35,"figure":"N","promotion":null,"number":"17"},{"san":"Qxb2","from":45,"to":9,"figure":"q","promotion":null,"number":"17"},{"san":"Bd6","from":29,"to":43,"figure":"B","promotion":null,"number":"18"},{"san":"Bxg1","from":34,"to":6,"figure":"b","promotion":null,"number":"18"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"19"},{"san":"Qxa1+","from":9,"to":0,"figure":"q","promotion":null,"number":"19"},{"san":"Ke2","from":5,"to":12,"figure":"K","promotion":null,"number":"20"},{"san":"Na6","from":57,"to":40,"figure":"n","promotion":null,"number":"20"},{"san":"Nxg7+","from":37,"to":54,"figure":"N","promotion":null,"number":"21"},{"san":"Kd8","from":60,"to":59,"figure":"k","promotion":null,"number":"21"},{"san":"Qf6+","from":21,"to":45,"figure":"Q","promotion":null,"number":"22"},{"san":"Nxf6","from":62,"to":45,"figure":"n","promotion":null,"number":"22"},{"san":"Be7#","from":43,"to":52,"figure":"B","promotion":null,"number":"23"}]}';
-
+export const evergreen_json = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2","r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3","r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3","r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4","r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R b KQkq b3 0 4","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/5N2/P1PP1PPP/RNBQK2R w KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/2P2N2/P2P1PPP/RNBQK2R b KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/b3p3/2B1P3/2P2N2/P2P1PPP/RNBQK2R w KQkq - 1 6","r1bqk1nr/pppp1ppp/2n5/b3p3/2BPP3/2P2N2/P4PPP/RNBQK2R b KQkq d3 0 6","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQK2R w KQkq - 0 7","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQ1RK1 b kq - 1 7","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/2Pp1N2/P4PPP/RNBQ1RK1 w kq - 0 8","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 b kq - 1 8","r1b1k1nr/pppp1ppp/2n2q2/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 w kq - 2 9","r1b1k1nr/pppp1ppp/2n2q2/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 b kq - 0 9","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 w kq - 1 10","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 b kq - 2 10","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 w kq - 3 11","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/BQPp1N2/P4PPP/RN2R1K1 b kq - 4 11","r1b1k2r/p1ppnppp/2n3q1/bp2P3/2B5/BQPp1N2/P4PPP/RN2R1K1 w kq b6 0 12","r1b1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 b kq - 0 12","1rb1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 1 13","1rb1k2r/p1ppnppp/2n3q1/b3P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 b k - 2 13","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 3 14","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 b k - 4 14","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 w k - 5 15","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 b k - 6 15","1r2k2r/pbppnppp/1bn5/4Pq2/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 w k - 7 16","1r2k2r/pbppnppp/1bn5/4Pq2/Q3N3/B1PB1N2/P4PPP/R3R1K1 b k - 0 16","1r2k2r/pbppnppp/1bn5/4P2q/Q3N3/B1PB1N2/P4PPP/R3R1K1 w k - 1 17","1r2k2r/pbppnppp/1bn2N2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 2 17","1r2k2r/pbppnp1p/1bn2p2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 w k - 0 18","1r2k2r/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 0 18","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 w - - 1 19","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/3RR1K1 b - - 2 19","1r2k1r1/pbppnp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3RR1K1 w - - 0 20","1r2k1r1/pbppRp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3R2K1 b - - 0 20","1r2k1r1/pbppnp1p/1b3P2/8/Q7/B1PB1q2/P4PPP/3R2K1 w - - 0 21","1r2k1r1/pbpQnp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 b - - 0 21","1r4r1/pbpknp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 w - - 0 22","1r4r1/pbpknp1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 b - - 1 22","1r2k1r1/pbp1np1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 w - - 2 23","1r2k1r1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 b - - 3 23","1r3kr1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 w - - 4 24","1r3kr1/pbpBBp1p/1b3P2/8/8/2P2q2/P4PPP/3R2K1 b - - 0 24"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"2"},{"san":"Nc6","from":57,"to":42,"figure":"n","promotion":null,"number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"3"},{"san":"b4","from":9,"to":25,"figure":"P","promotion":null,"number":"4"},{"san":"Bxb4","from":34,"to":25,"figure":"b","promotion":null,"number":"4"},{"san":"c3","from":10,"to":18,"figure":"P","promotion":null,"number":"5"},{"san":"Ba5","from":25,"to":32,"figure":"b","promotion":null,"number":"5"},{"san":"d4","from":11,"to":27,"figure":"P","promotion":null,"number":"6"},{"san":"exd4","from":36,"to":27,"figure":"p","promotion":null,"number":"6"},{"san":"O-O","from":4,"to":6,"figure":"K","promotion":null,"number":"7"},{"san":"d3","from":27,"to":19,"figure":"p","promotion":null,"number":"7"},{"san":"Qb3","from":3,"to":17,"figure":"Q","promotion":null,"number":"8"},{"san":"Qf6","from":59,"to":45,"figure":"q","promotion":null,"number":"8"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"9"},{"san":"Qg6","from":45,"to":46,"figure":"q","promotion":null,"number":"9"},{"san":"Re1","from":5,"to":4,"figure":"R","promotion":null,"number":"10"},{"san":"Nge7","from":62,"to":52,"figure":"n","promotion":null,"number":"10"},{"san":"Ba3","from":2,"to":16,"figure":"B","promotion":null,"number":"11"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"11"},{"san":"Qxb5","from":17,"to":33,"figure":"Q","promotion":null,"number":"12"},{"san":"Rb8","from":56,"to":57,"figure":"r","promotion":null,"number":"12"},{"san":"Qa4","from":33,"to":24,"figure":"Q","promotion":null,"number":"13"},{"san":"Bb6","from":32,"to":41,"figure":"b","promotion":null,"number":"13"},{"san":"Nbd2","from":1,"to":11,"figure":"N","promotion":null,"number":"14"},{"san":"Bb7","from":58,"to":49,"figure":"b","promotion":null,"number":"14"},{"san":"Ne4","from":11,"to":28,"figure":"N","promotion":null,"number":"15"},{"san":"Qf5","from":46,"to":37,"figure":"q","promotion":null,"number":"15"},{"san":"Bxd3","from":26,"to":19,"figure":"B","promotion":null,"number":"16"},{"san":"Qh5","from":37,"to":39,"figure":"q","promotion":null,"number":"16"},{"san":"Nf6+","from":28,"to":45,"figure":"N","promotion":null,"number":"17"},{"san":"gxf6","from":54,"to":45,"figure":"p","promotion":null,"number":"17"},{"san":"exf6","from":36,"to":45,"figure":"P","promotion":null,"number":"18"},{"san":"Rg8","from":63,"to":62,"figure":"r","promotion":null,"number":"18"},{"san":"Rad1","from":0,"to":3,"figure":"R","promotion":null,"number":"19"},{"san":"Qxf3","from":39,"to":21,"figure":"q","promotion":null,"number":"19"},{"san":"Rxe7+","from":4,"to":52,"figure":"R","promotion":null,"number":"20"},{"san":"Nxe7","from":42,"to":52,"figure":"n","promotion":null,"number":"20"},{"san":"Qxd7+","from":24,"to":51,"figure":"Q","promotion":null,"number":"21"},{"san":"Kxd7","from":60,"to":51,"figure":"k","promotion":null,"number":"21"},{"san":"Bf5+","from":19,"to":37,"figure":"B","promotion":null,"number":"22"},{"san":"Ke8","from":51,"to":60,"figure":"k","promotion":null,"number":"22"},{"san":"Bd7+","from":37,"to":51,"figure":"B","promotion":null,"number":"23"},{"san":"Kf8","from":60,"to":61,"figure":"k","promotion":null,"number":"23"},{"san":"Bxe7#","from":16,"to":52,"figure":"B","promotion":null,"number":"24"}]}';
+export const evergreen_pgn = `[Event "Informal game"]\n[Site "Berlin"]\n[Date "1852.??.??"]\n[Round "?"]\n[White "Anderssen, Adolf"]\n[Black "Dufresne, Jean"]\n[Result "1-0"]\n[Termination "Checkmate"]\n\n1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Ba5 6. d4 exd4 7. O-O d3 8. Qb3 Qf6 9. e5 Qg6 10. Re1 Nge7 11. Ba3 b5 12. Qxb5 Rb8 13. Qa4 Bb6 14. Nbd2 Bb7 15. Ne4 Qf5 16. Bxd3 Qh5 17. Nf6+ gxf6 18. exf6 Rg8 19. Rad1 Qxf3 20. Rxe7+ Nxe7 21. Qxd7+ Kxd7 22. Bf5+ Ke8 23. Bd7+ Kf8 24. Bxe7# 1-0\n\n`
+export const inmortal_json = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2","rnbqkbnr/pppp1ppp/8/8/4Pp2/8/PPPP2PP/RNBQKBNR w KQkq - 0 3","rnbqkbnr/pppp1ppp/8/8/2B1Pp2/8/PPPP2PP/RNBQK1NR b KQkq - 1 3","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQK1NR w KQkq - 2 4","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 3 4","rnb1kbnr/p1pp1ppp/8/1p6/2B1Pp1q/8/PPPP2PP/RNBQ1KNR w kq b6 0 5","rnb1kbnr/p1pp1ppp/8/1B6/4Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 0 5","rnb1kb1r/p1pp1ppp/5n2/1B6/4Pp1q/8/PPPP2PP/RNBQ1KNR w kq - 1 6","rnb1kb1r/p1pp1ppp/5n2/1B6/4Pp1q/5N2/PPPP2PP/RNBQ1K1R b kq - 2 6","rnb1kb1r/p1pp1ppp/5n1q/1B6/4Pp2/5N2/PPPP2PP/RNBQ1K1R w kq - 3 7","rnb1kb1r/p1pp1ppp/5n1q/1B6/4Pp2/3P1N2/PPP3PP/RNBQ1K1R b kq - 0 7","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp2/3P1N2/PPP3PP/RNBQ1K1R w kq - 1 8","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R b kq - 2 8","rnb1kb1r/p2p1ppp/2p4q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R w kq - 0 9","rnb1kb1r/p2p1ppp/2p4q/1B3N1n/4Pp2/3P4/PPP3PP/RNBQ1K1R b kq - 1 9","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4Pp2/3P4/PPP3PP/RNBQ1K1R w kq - 2 10","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4PpP1/3P4/PPP4P/RNBQ1K1R b kq g3 0 10","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1K1R w kq - 1 11","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1KR1 b kq - 2 11","rnb1kb1r/p2p1ppp/5n2/1p3Nq1/4PpP1/3P4/PPP4P/RNBQ1KR1 w kq - 0 12","rnb1kb1r/p2p1ppp/5n2/1p3Nq1/4PpPP/3P4/PPP5/RNBQ1KR1 b kq h3 0 12","rnb1kb1r/p2p1ppp/5nq1/1p3N2/4PpPP/3P4/PPP5/RNBQ1KR1 w kq - 1 13","rnb1kb1r/p2p1ppp/5nq1/1p3N1P/4PpP1/3P4/PPP5/RNBQ1KR1 b kq - 0 13","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P4/PPP5/RNBQ1KR1 w kq - 1 14","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 b kq - 2 14","rnb1kbnr/p2p1ppp/8/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 w kq - 3 15","rnb1kbnr/p2p1ppp/8/1p3NqP/4PBP1/3P1Q2/PPP5/RN3KR1 b kq - 0 15","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/3P1Q2/PPP5/RN3KR1 w kq - 1 16","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/2NP1Q2/PPP5/R4KR1 b kq - 2 16","rnb1k1nr/p2p1ppp/5q2/1pb2N1P/4PBP1/2NP1Q2/PPP5/R4KR1 w kq - 3 17","rnb1k1nr/p2p1ppp/5q2/1pbN1N1P/4PBP1/3P1Q2/PPP5/R4KR1 b kq - 4 17","rnb1k1nr/p2p1ppp/8/1pbN1N1P/4PBP1/3P1Q2/PqP5/R4KR1 w kq - 0 18","rnb1k1nr/p2p1ppp/3B4/1pbN1N1P/4P1P1/3P1Q2/PqP5/R4KR1 b kq - 1 18","rnb1k1nr/p2p1ppp/3B4/1p1N1N1P/4P1P1/3P1Q2/PqP5/R4Kb1 w kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/PqP5/R4Kb1 b kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P5/q4Kb1 w kq - 0 20","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 1 20","r1b1k1nr/p2p1ppp/n2B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 w kq - 2 21","r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 0 21","r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 w - - 1 22","r1bk2nr/p2p1pNp/n2B1Q2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 2 22","r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 0 23","r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 1 23"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"f4","from":13,"to":29,"figure":"P","promotion":null,"number":"2"},{"san":"exf4","from":36,"to":29,"figure":"p","promotion":"","number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Qh4+","from":59,"to":31,"figure":"q","promotion":null,"number":"3"},{"san":"Kf1","from":4,"to":5,"figure":"K","promotion":null,"number":"4"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"4"},{"san":"Bxb5","from":26,"to":33,"figure":"B","promotion":null,"number":"5"},{"san":"Nf6","from":62,"to":45,"figure":"n","promotion":null,"number":"5"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"6"},{"san":"Qh6","from":31,"to":47,"figure":"q","promotion":null,"number":"6"},{"san":"d3","from":11,"to":19,"figure":"P","promotion":null,"number":"7"},{"san":"Nh5","from":45,"to":39,"figure":"n","promotion":null,"number":"7"},{"san":"Nh4","from":21,"to":31,"figure":"N","promotion":null,"number":"8"},{"san":"c6","from":50,"to":42,"figure":"p","promotion":null,"number":"8"},{"san":"Nf5","from":31,"to":37,"figure":"N","promotion":null,"number":"9"},{"san":"Qg5","from":47,"to":38,"figure":"q","promotion":null,"number":"9"},{"san":"g4","from":14,"to":30,"figure":"P","promotion":null,"number":"10"},{"san":"Nf6","from":39,"to":45,"figure":"n","promotion":null,"number":"10"},{"san":"Rg1","from":7,"to":6,"figure":"R","promotion":null,"number":"11"},{"san":"cxb5","from":42,"to":33,"figure":"p","promotion":"","number":"11"},{"san":"h4","from":15,"to":31,"figure":"P","promotion":null,"number":"12"},{"san":"Qg6","from":38,"to":46,"figure":"q","promotion":null,"number":"12"},{"san":"h5","from":31,"to":39,"figure":"P","promotion":null,"number":"13"},{"san":"Qg5","from":46,"to":38,"figure":"q","promotion":null,"number":"13"},{"san":"Qf3","from":3,"to":21,"figure":"Q","promotion":null,"number":"14"},{"san":"Ng8","from":45,"to":62,"figure":"n","promotion":null,"number":"14"},{"san":"Bxf4","from":2,"to":29,"figure":"B","promotion":null,"number":"15"},{"san":"Qf6","from":38,"to":45,"figure":"q","promotion":null,"number":"15"},{"san":"Nc3","from":1,"to":18,"figure":"N","promotion":null,"number":"16"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"16"},{"san":"Nd5","from":18,"to":35,"figure":"N","promotion":null,"number":"17"},{"san":"Qxb2","from":45,"to":9,"figure":"q","promotion":null,"number":"17"},{"san":"Bd6","from":29,"to":43,"figure":"B","promotion":null,"number":"18"},{"san":"Bxg1","from":34,"to":6,"figure":"b","promotion":null,"number":"18"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"19"},{"san":"Qxa1+","from":9,"to":0,"figure":"q","promotion":null,"number":"19"},{"san":"Ke2","from":5,"to":12,"figure":"K","promotion":null,"number":"20"},{"san":"Na6","from":57,"to":40,"figure":"n","promotion":null,"number":"20"},{"san":"Nxg7+","from":37,"to":54,"figure":"N","promotion":null,"number":"21"},{"san":"Kd8","from":60,"to":59,"figure":"k","promotion":null,"number":"21"},{"san":"Qf6+","from":21,"to":45,"figure":"Q","promotion":null,"number":"22"},{"san":"Nxf6","from":62,"to":45,"figure":"n","promotion":null,"number":"22"},{"san":"Be7#","from":43,"to":52,"figure":"B","promotion":null,"number":"23"}]}';
+export const inmortal_pgn = `[Event "Informal game"]\n[Site "London"]\n[Date "1851.??.??"]\n[Round "?"]\n[White "Anderssen, Adolf"]\n[Black "Kieseritzky, Lionel Adalbert Bagration Felix"]\n[Result "1-0"]\n[Termination "Checkmate"]\n\n1. e4 e5 2. f4 exf4 3. Bc4 Qh4+ 4. Kf1 b5 5. Bxb5 Nf6 6. Nf3 Qh6 7. d3 Nh5 8. Nh4 c6 9. Nf5 Qg5 10. g4 Nf6 11. Rg1 cxb5 12. h4 Qg6 13. h5 Qg5 14. Qf3 Ng8 15. Bxf4 Qf6 16. Nc3 Bc5 17. Nd5 Qxb2 18. Bd6 Bxg1 19. e5 Qxa1+ 20. Ke2 Na6 21. Nxg7+ Kd8 22. Qf6+ Nxf6 23. Be7# 1-0`
 
 export const fen2obj = fen => {
 const [fenPos, activeColor, castling, enPassant, halfMoveClock, fullMoveNumber] = fen.split(/\s+/g);
@@ -193,7 +197,7 @@ export class ChessValidator {
         return this.sansInfo.map(o => o.san);
     }
 
-    move = (from, to, promotion = null, fen = this.fen, onlyEval = false) => {
+    move(from, to, promotion = null, fen = this.fen, onlyEval = false) {
         this.debug && console.log(`Move from ${from} to ${to} with ${!!promotion ? promotion : 'no'} promotion.`)
         
         if (!this.isValidFen(fen)) return MoveEvaluation.INVALID_MOVE;
@@ -585,7 +589,7 @@ export class ChessValidator {
         return repetitions;
     }
 
-    get isThreeFold() {
+    isThreeFold(fen = this.fen) {
         return this.repetitions >= 3;
     }
 
@@ -667,14 +671,15 @@ export class ChessValidator {
     }
     
     toJson() {
-        return JSON.stringify({fens: this.fens, moves: this.moves})
+        return JSON.stringify({fens: this.fens, moves: this.moves, headers: this.headers ? this.headers : null})
     }
 
     fromJson(jsonstr) {
-        const { fens, moves } = JSON.parse(jsonstr);
+        const { fens, moves, headers } = JSON.parse(jsonstr);
         if (!fens || !moves) return false;
         if (moves.slice(1).some (m => !m.san)) return false;
         if (fens.some(f => this.isWrongFen(f))) return false;
+        if (headers) this.headers = headers;
         this.fens = fens;
         this.moves = moves;
         return true;
@@ -1110,7 +1115,7 @@ export class FakeValidator extends ChessValidator {
     }
 
 
-    move = (from, to, promotion = null, fen = this.fen, onlyEval = false) => {
+    move(from, to, promotion = null, fen = this.fen, onlyEval = false) {
         this.debug && console.log(`Move from ${from} to ${to} with ${!!promotion ? promotion : 'no'} promotion.`)
         
         const fenobj = fen2obj(fen);
@@ -1132,24 +1137,64 @@ export class FakeValidator extends ChessValidator {
 
 export const pgnDate = (date = new Date()) => `${pad(date.getFullYear(), 4)}.${pad(date.getMonth() + 1)}.${pad(date.getDate())}`
 
+export const seven_tag_roster = ['event','site','date','round','white','black','result'];
+
 export class ChessGame extends ChessValidator {
-    constructor(white = 'White Player', black = 'Black Player', fen = defaultFen, debug = false) {
+    constructor(event = 'Internet game',
+    site = 'Internet',
+    date = pgnDate(),
+    round = '1',
+    white = 'White Player', 
+    black = 'Black Player', 
+    result = GameResults.ONGOING,
+    fen = defaultFen, 
+    debug = false) {
         super(fen, debug);
-        this.result = GameResults.ONGOING;
-        this.headers = {white, black};
+        this.headers = {event, site, date, round, white, black, result};
     }
-    loadPgn(pgnStr) {
-        const tokensList = pgnStr.split(/\s+/g);
-        console.log(tokensList);
+
+    toPgn() {
+        let retStr = '';
+        for (let n = 0; n < seven_tag_roster.length; n += 1) {
+            retStr += `[${capitalize(seven_tag_roster[n])} "${this.headers[seven_tag_roster[n]]}"]\n`;
+        }
+        for(let h in this.headers) {
+            if (!seven_tag_roster.includes(h)) {
+                retStr += `[${capitalize(h)} "${this.headers[h]}"]\n`;
+            }
+        }
+        retStr += `\n${this.moveStr} ${this.headers.result}\n\n`
+        return retStr;
+    }
+
+    fromPgn(pgnStr) {
+        const [headers, sans] = pgnStr.split(/[\n\r]{2,}/);
+        const headerlines = headers.split(/[\n\r]/g);
+        if (headerlines.length) {
+            this.headers = {};
+        } else {
+            return;
+        }
+        for (let n = 0; n < headerlines.length; n += 1) {
+            //console.log(headerlines[n]);
+            if (headerRegex.test(headerlines[n])) {
+                const { groups: { header, value }} = headerlines[n].match(headerRegex);
+                if (header && value) {
+                    this.headers[header.toLowerCase()] = value;
+                }
+            }
+        }
+        const tokensList = sans.split(/\s+/g);
+        //console.log(tokensList);
         const movesList = tokensList.filter(t => !/^\d+\.$/.test(t) && !resultRegex.test(t))
-        console.log(movesList);
+        //console.log(movesList);
         let nummoves = 0;
         if (!movesList.length) return nummoves;
         this.fens = [this.fens[0]];
         this.moves = [this.moves[0]];
         movesList.forEach(san => {
             const fsan = /^\d/.test(san) ? san.replace(/^\d+\./, '') : san;
-            console.log(fsan);
+            //console.log(fsan);
             const pair = this.strMove(fsan);
             if (pair) {
                 this.appendFen(pair.fen);
@@ -1159,7 +1204,46 @@ export class ChessGame extends ChessValidator {
         })
         return nummoves;
     }
+
+    move(from, to, promotion = null, fen = this.fen, onlyEval = false) {
+        //const parent = new ChessValidator(fen, this.debug);
+        const retobj = super.move(from, to, promotion, fen, onlyEval);
+        if (retobj === MoveEvaluation.INVALID_MOVE || retobj === MoveEvaluation.INCOMPLETE_INFO) return retobj;
+        if (!onlyEval) {
+            const { fen } = retobj;
+            if (!this.isValidFen(fen)) return retobj;
+            const { activeColor } = fen2obj(fen);
+            const [isMate, isStaleMate, winStr] = activeColor === 'w' ? 
+            [this.isWhiteCheckMated, this.isWhiteStaleMated, GameResults.BLACK_WIN] : 
+            [this.isBlackCheckMated, this.isBlackStaleMated, GameResults.WHITE_WIN];
+            if (isMate(fen)) {
+                this.headers.result = winStr;
+                this.headers.termination = "Checkmate";
+            } else if (isStaleMate(fen)) {
+                this.headers.result = GameResults.DRAW;
+                this.headers.termination = "Stalemate";
+            } else if (this.isWhiteLowMaterial(fen) && this.isBlackLowMaterial(fen)) {
+                this.headers.result = GameResults.DRAW;
+                this.headers.termination = "Low material";
+            } else if (this.isFiftyMovesRule(fen)) {
+                this.headers.result = GameResults.DRAW;
+                this.headers.termination = "Fifty moves rule";
+            } else if (this.isThreeFold(fen)) {
+                this.headers.result = GameResults.DRAW;
+                this.headers.termination = "Threefold repetition";
+            }
+        }
+        return retobj;
+    }
+
+    undo() {
+        super.undo();
+        this.headers.result = GameResults.ONGOING;
+        this.headers.termination = '';
+    }
+
 }
+
 
 // export const mock_validator = new ChessValidator(true);
 
@@ -1667,7 +1751,7 @@ export class ChessBoard extends HTMLElement {
         } else {
             let reason = null;
             let result = '*';
-            if (this.validator.isThreeFold) {
+            if (this.validator.isThreeFold()) {
                 reason = 'Threefold repetition';
                 result = '1/2-1/2';
             } else if (this.validator.isFiftyMovesRule()) {
