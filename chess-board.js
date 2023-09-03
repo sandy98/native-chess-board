@@ -1124,6 +1124,14 @@ export class FakeValidator extends ChessValidator {
     }
 }
 
+export class ChessGame extends ChessValidator {
+    constructor(white = 'White Player', black = 'Black Player', fen = defaultFen, debug = false) {
+        super(fen, debug);
+        this.result = GameResults.ONGOING;
+        this.headers = {white, black};
+    }
+}
+
 // export const mock_validator = new ChessValidator(true);
 
 export class ChessBoard extends HTMLElement {
