@@ -1130,6 +1130,27 @@ export class ChessGame extends ChessValidator {
         this.result = GameResults.ONGOING;
         this.headers = {white, black};
     }
+    loadPgn(pgnStr) {
+        const tokensList = pgnStr.split(/\s+/g);
+        console.log(tokensList);
+        const movesList = tokensList.filter(t => !/^\d+\.$/.test(t) && !resultRegex.test(t))
+        console.log(movesList);
+        let nummoves = 0;
+        if (!movesList.length) return nummoves;
+        this.fens = [this.fens[0]];
+        this.moves = [this.moves[0]];
+        movesList.forEach(san => {
+            const fsan = /^\d/.test(san) ? san.replace(/^\d+\./, '') : san;
+            console.log(fsan);
+            const pair = this.strMove(fsan);
+            if (pair) {
+                this.appendFen(pair.fen);
+                this.appendMove(pair.movedata);
+                nummoves += 1;
+            }
+        })
+        return nummoves;
+    }
 }
 
 // export const mock_validator = new ChessValidator(true);
@@ -1333,7 +1354,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     get validator() {
-        if (!this._validator) this._validator = new ChessValidator();
+        if (!this._validator) this._validator = new ChessGame();
         return this._validator;
     }
 
