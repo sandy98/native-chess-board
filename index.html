@@ -11,6 +11,11 @@
             background: whitesmoke;
             font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
+        .renglon {
+            margin-bottom: 0.7em;
+            padding-bottom: 5px;
+            border-bottom: solid 1px;
+        }
         .board-container {
             display: flex;
             flex-direction: column;
@@ -79,49 +84,50 @@
                 </select>
             </div>    
         </div> 
-        <div style="width: 20%; min-width:20%; margin-left: 0.5em; display: flex; flex-direction: column-reverse; justify-content: space-around; align-items: center;">
-        <p>
-            <button id="btn-figurines">Figurines</button>
-            <button id="btn-images">Image</button>
-        </p>
-        <p>
-            <label for="background-schema">Colors</label>
-            <select name="background-schema" id="background-schema">
-                <option value="blue">Blue</option>
-                <option value="acqua">Acqua</option>
-                <option value="green">Green</option>
-            </select>
-        </p>
-        <p><button onclick="window.board.replay();">Replay</button></p>
-        <p>
-            <button onclick="doReset(chess.emptyFen);">Clear</button>
-            <button onclick="doReset();">Reset</button>
-            <button onclick="doUndo();">Undo</button>
-        </p>
-        <p><button onclick="window.board.flip();">Flip</button></p>
-        <p>
-            <button onclick="window.board.prev();">Previous</button>
-            <button onclick="window.board.next();">&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;</button>
-        </p>
-        <p><!--form action="" onsubmit="ev => {ev.preventDefault();return false;}">-->
-            <label for="cbo-squares">Square</label>
-            <select name="cbo-squares" id="cbo-squares"></select>
-            &nbsp;&nbsp;&nbsp;
-            <label for="cbo-figures">Figure</label>
-            <select name="cbo-figures" id="cbo-figures"></select>
-            &nbsp;&nbsp;&nbsp;
-            <span style="text-align: center;">
-                <button style="margin-top: 10px;" id="set-figures-btn">Set</button>
-                <button style="margin-top: 10px;" id="unset-figures-btn">Unset</button>
-            </span>
-        <!--</form>--></p>
-        <p>
-            <label for="can-white-win">Can White win?</label>
-            <input type="checkbox" id="can-white-win" disabled="disabled" />
-            <br>
-            <label for="can-black-win">Can Black win?</label>
-            <input type="checkbox" id="can-black-win"  disabled="disabled" />
-        </p>
+        <div style="width: 20%; min-width:20%; margin-left: 0.5em; display: flex; flex-direction: column-reverse; justify-content: space-between; align-items: flex-end;">
+            <div class="renglon">
+                <button id="btn-figurines">Figurines</button>
+                <button id="btn-images">Image</button>
+            </div>
+            <div class="renglon">
+                <label for="background-schema">Colors</label>
+                <select name="background-schema" id="background-schema">
+                    <option value="blue">Blue</option>
+                    <option value="acqua">Acqua</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            <div class="renglon"><button onclick="window.board.replay();">Replay</button></div>
+            <div class="renglon">
+                <button onclick="doReset(chess.emptyFen);">Clear</button>
+                <button onclick="doReset();">Reset</button>
+                <button onclick="doUndo();">Undo</button>
+            </div>
+            <div class="renglon"><button onclick="window.board.flip();">Flip</button></div>
+            <div class="renglon">
+                <button onclick="window.board.prev();">Previous</button>
+                <button onclick="window.board.next();">&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;</button>
+            </div>
+            <div class="renglon" style="text-align: center;"><!--form action="" onsubmit="ev => {ev.preventDefault();return false;}">-->
+                <label for="cbo-squares">Square</label>
+                <select name="cbo-squares" id="cbo-squares"></select>
+                &nbsp;&nbsp;&nbsp;
+                <label for="cbo-figures">Figure</label>
+                <select name="cbo-figures" id="cbo-figures"></select>
+                &nbsp;&nbsp;&nbsp;
+                <span style="text-align: center;">
+                    <button style="margin-top: 10px;" id="set-figures-btn">Set</button>
+                    <button style="margin-top: 10px;" id="unset-figures-btn">Unset</button>
+                </span>
+            <!--</form>-->
+            </div>
+            <div class="renglon">
+                <label for="can-white-win">Can White win?</label>
+                <input type="checkbox" id="can-white-win" disabled="disabled" />
+                <br>
+                <label for="can-black-win">Can Black win?</label>
+                <input type="checkbox" id="can-black-win"  disabled="disabled" />
+            </div>
         </div>
     </div>
     <hr>
