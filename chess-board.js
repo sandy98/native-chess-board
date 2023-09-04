@@ -1146,16 +1146,29 @@ export const seven_tag_roster = ['event','site','date','round','white','black','
 
 export class ChessGame extends ChessValidator {
     constructor(event = 'Internet game',
-    site = 'Internet',
-    date = pgnDate(),
-    round = '1',
-    white = 'White Player', 
-    black = 'Black Player', 
-    result = GameResults.ONGOING,
-    fen = defaultFen, 
-    debug = false) {
+        site = 'Internet',
+        date = pgnDate(),
+        round = '1',
+        white = 'White Player', 
+        black = 'Black Player', 
+        result = GameResults.ONGOING,
+        fen = defaultFen, 
+        debug = false) {
         super(fen, debug);
         this.headers = {event, site, date, round, white, black, result};
+    }
+
+    reset(fen = this.fens[0], 
+        event = 'Internet game',
+        site = 'Internet',
+        date = pgnDate(),
+        round = '1',
+        white = 'White Player', 
+        black = 'Black Player', 
+        result = GameResults.ONGOING,
+        termination = '') {
+        super.reset(fen);
+        this.headers = {event, site, date, round, white, black, result, termination};
     }
 
     toHtml() {
@@ -1168,10 +1181,17 @@ export class ChessGame extends ChessValidator {
                 retStr += `<div style="margin: 0;">[<span>${capitalize(h)}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[h]}</span>]</div>`;
             }
         }
-        const fullMoveString = `${this.moveStr} ${this.headers.result}`;
-        const tokens = fullMoveString.split(/\s+/g).map((t, i) => `<span title="${i}">${t}</span>`);
-        const spans = tokens.join('&nbsp;');
-        retStr += `<p>&nbsp;</p><div style="display: flex; flex-direction: row; flex-wrap: wrap;">${spans}</div>`;
+        retStr += `<p>&nbsp;</p><div style="display: flex; flex-direction: row; flex-wrap: wrap;">`;
+        const len  = this.moves.length;
+        for (let n = 0; n < len; n += 1) {
+            if (this.moves[n] === null) {
+                retStr += `<span class="san" title="${n}">&nbsp;&nbsp;&nbsp;</span>`;
+            } else {
+                const content = `${this.sansInfo[n - 1].moveColor === 'w' ? (this.moves[n].number + '. ') : ' '}${this.moves[n].san} `;
+                retStr += `<span class="san" title="${n}">${content}&nbsp;</span>`;
+            }
+        }
+        retStr += `&nbsp;<span>${this.headers.result}</span></div>`;
         return retStr;
     }
 
@@ -1189,7 +1209,7 @@ export class ChessGame extends ChessValidator {
         return retStr;
     }
 
-    fromPgn(pgnStr) {
+   fromPgn(pgnStr) {
         const [headers, sans] = pgnStr.split(/[\n\r]{2,}/);
         const headerlines = headers.split(/[\n\r]/g);
         if (headerlines.length) {
@@ -1420,11 +1440,16 @@ export class ChessBoard extends HTMLElement {
     }
 
     goto = (where = this.validator.fens.length - 1) => {
+        const oldCurrent = this.current;
         if (where > this.validator.fens.length - 1) {
             throw new Error("Index out of range.")
         }
         if (where < 0) where = this.validator.fens.length - 1;
         this.fen = this.validator.fens[where];
+        if (this.current !== oldCurrent) {
+            const ev = new CustomEvent('changepos', {detail: this.current});
+            this.dispatchEvent(ev);
+        }
         return this.current;
     }
 
