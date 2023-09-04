@@ -33,6 +33,9 @@
             color: whitesmoke;
             transition: cubic-bezier(0.075, 0.82, 0.165, 1);
         }
+        input[type="checkbox"]:disabled {
+            background-color: cadetblue;
+        }
     </style>
 </head>
 <body>
@@ -47,11 +50,24 @@
     </div>
     <hr>
     <div style="display: flex; flex-direction: row; justify-content: stretch; align-items: baseline;">
-        <div></div> 
         <div class="board-container">
             <chess-board background-schema="blue" size="400"></chess-board>
         </div>
-        <div style="width: 30%; min-width:30%; margin-left: 2em; display: flex; flex-direction: column-reverse; justify-content: space-around; align-items: center;">
+        <div style="width: 30%; min-width:30%; margin-left: 0.5em; display: flex; flex-direction: column; justify-content: top;">
+            <div 
+              id="pgn-div" 
+              style="padding: 7px; border: solid 1px;"
+            >
+            </div>
+            <div style="margin-top: 1em; text-align: center;">
+                <label for="game-select">Select a game</label>
+                <select name="game-select" id="game-select">
+                    <option value="inmortal.pgn">Inmortal game</option>
+                    <option value="evergreen.pgn">Evergreen game</option>
+                </select>
+            </div>    
+        </div> 
+        <div style="width: 30%; min-width:30%; margin-left: 0.5em; display: flex; flex-direction: column-reverse; justify-content: space-around; align-items: center;">
         <p>
             <button id="btn-figurines">Figurines</button>
             <button id="btn-images">Image</button>
@@ -67,10 +83,14 @@
         <p><button onclick="window.board.replay();">Replay</button></p>
         <p>
             <button onclick="window.board.reset(chess.emptyFen);">Clear</button>
-            <button onclick="window.board.reset();">Reset</button>
-            <button onclick="window.board.undo();">Undo</button>
+            <button onclick="doReset();">Reset</button>
+            <button onclick="doUndo();">Undo</button>
         </p>
         <p><button onclick="window.board.flip();">Flip</button></p>
+        <p>
+            <button onclick="window.board.prev();">Previous</button>
+            <button onclick="window.board.next();">&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;</button>
+        </p>
         <p><!--form action="" onsubmit="ev => {ev.preventDefault();return false;}">-->
             <label for="cbo-squares">Square</label>
             <select name="cbo-squares" id="cbo-squares"></select>
@@ -120,12 +140,32 @@
             }, time);
         }
 
-        const onload = () => {
-            
-            const checkWins = () => {
-                document.body.querySelector("#can-white-win").checked = !board.validator.isWhiteLowMaterial();
-                document.body.querySelector("#can-black-win").checked = !board.validator.isBlackLowMaterial();
+        const checkWins = () => {
+            document.querySelector("#can-white-win").checked = !board.validator.isWhiteLowMaterial();
+            document.querySelector("#can-black-win").checked = !board.validator.isBlackLowMaterial();
+            document.querySelector('#pgn-div').innerHTML = board.validator.toHtml();
+        }
+
+        const gameSelect = async function(ev) {
+            //console.log(ev.target.value);
+            try {
+                const pgn = await fetch(ev.target.value);
+                const pgnText = await pgn.text();
+                const nummoves = board.validator.fromPgn(pgnText);
+                checkWins();
+                setTimeout(() => board.replay(), 0);
+            } catch(e) {
+                alert(e);
             }
+        }
+
+        const doReset = function(_) {window.board.reset(); checkWins();}
+        const doUndo = function(_) {window.board.undo(); checkWins();}
+
+        const onload = () => {
+            document.querySelector('#game-select').selectedIndex = -1;
+            document.querySelector('#game-select').addEventListener('change', gameSelect);
+
             const onFigurines = ev => {
                 //console.log(ev.type, " for ", ev.target);
                 //window.imgdiv.appendChild(board.figurineDiagram());
