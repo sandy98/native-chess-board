@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Chessboard Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+    <script type="module" src="chess-board.js"></script>
+    <style>
+        body {
+            background: whitesmoke;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .renglon {
+            margin-bottom: 0.7em;
+            padding-bottom: 5px;
+            border-bottom: solid 1px;
+        }
+        .board-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        label#lbl-info {
+            font-size: 120%;
+            font-weight: bolder;
+            text-align: right; 
+            border: none;
+            background-color: white; 
+            padding: 5px; 
+            border-radius: 5px;
+            color:seagreen;
+            visibility: collapse;
+        }
+        label#lbl-info:hover {
+            background-color: cadetblue;
+            color: whitesmoke;
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        input[type="checkbox"]:checked:disabled {
+            background-color: cadetblue;
+        }
+
+        span.san {
+            cursor: pointer;
+        }
+        span.san:hover {
+            background: cyan;
+        }
+        span.san.selected {
+            color: whitesmoke;
+            background-color: cadetblue;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="glyphs" style="padding: 10px; border-radius: 6px; background: pink; 
+      width: 98%; min-width: 98%; height: 1em; min-height: 1em; display: flex; 
+      flex-direction: row; flex-wrap: wrap; justify-content: space-around; align-items: center;"
+    >
+    </div>
+    <hr>
+    <div style="text-align: center;margin: 3px; height: 0.5em; min-height: 0.5em; padding: 3px;">
+        <label id="lbl-info"></label>
+    </div>
+    <!--<hr>-->
+    <div style="display: flex; flex-direction: row; justify-content: stretch; align-items: baseline;">
+        <div class="board-container">
+            <chess-board background-schema="blue" size="400"></chess-board>
+        </div>
+        <div style="width: 40%; min-width:40%; margin-left: 0.5em; display: flex; flex-direction: column; justify-content: top;">
+            <div 
+              id="pgn-div" 
+              style="padding: 7px; border: solid 1px;"
+            >
+            </div>
+            <div style="margin-top: 1em; text-align: center;">
+                <label for="game-select">Select a game</label>
+                <select name="game-select" id="game-select">
+                    <option value="inmortal.pgn">Inmortal game</option>
+                    <option value="evergreen.pgn">Evergreen game</option>
+                </select>
+            </div>    
+        </div> 
+        <div style="width: 20%; min-width:20%; margin-left: 0.5em; display: flex; flex-direction: column-reverse; justify-content: space-between; align-items: flex-end;">
+            <div class="renglon">
+                <button id="btn-figurines">Figurines</button>
+                <button id="btn-images">Image</button>
+            </div>
+            <div class="renglon">
+                <label for="background-schema">Colors</label>
+                <select name="background-schema" id="background-schema">
+                    <option value="blue">Blue</option>
+                    <option value="acqua">Acqua</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            <div class="renglon"><button onclick="window.board.replay();">Replay</button></div>
+            <div class="renglon">
+                <button onclick="doReset(chess.emptyFen);">Clear</button>
+                <button onclick="doReset();">Reset</button>
+                <button onclick="doUndo();">Undo</button>
+            </div>
+            <div class="renglon"><button onclick="window.board.flip();">Flip</button></div>
+            <div class="renglon">
+                <button onclick="window.board.prev();">Previous</button>
+                <button onclick="window.board.next();">&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;</button>
+            </div>
+            <div class="renglon" style="text-align: center;"><!--form action="" onsubmit="ev => {ev.preventDefault();return false;}">-->
+                <label for="cbo-squares">Square</label>
+                <select name="cbo-squares" id="cbo-squares"></select>
+                &nbsp;&nbsp;&nbsp;
+                <label for="cbo-figures">Figure</label>
+                <select name="cbo-figures" id="cbo-figures"></select>
+                &nbsp;&nbsp;&nbsp;
+                <span style="text-align: center;">
+                    <button style="margin-top: 10px;" id="set-figures-btn">Set</button>
+                    <button style="margin-top: 10px;" id="unset-figures-btn">Unset</button>
+                </span>
+            <!--</form>-->
+            </div>
+            <div class="renglon">
+                <label for="can-white-win">Can White win?</label>
+                <input type="checkbox" id="can-white-win" disabled="disabled" />
+                <br>
+                <label for="can-black-win">Can Black win?</label>
+                <input type="checkbox" id="can-black-win"  disabled="disabled" />
+            </div>
+        </div>
+    </div>
+    <hr>
+    <dialog 
+      id="diagrams" 
+      style="padding: 0; display: flex; flex-direction: column; justify-content: center;"
+    >
+        <!--
+        <div id="img-div" style="text-align: center; width: 100%;"></div>
+        <hr>
+        <div style="text-align: center;">
+            <button id="btn-close">OK</button>
+        </div>
+        -->
+    </dialog>
+    <script>
+
+        const beep = (freq = 200, time = 300) => {
+            const context = new AudioContext();
+            const oscillator = context.createOscillator();
+            oscillator.type = "sine";
+            oscillator.frequency.value = freq;
+            oscillator.connect(context.destination);
+            oscillator.start(); 
+            // Beep for 'time' milliseconds
+            setTimeout(function () {
+                oscillator.stop();
+            }, time);
+        }
+
+        const onSelectSan = ev => {
+            console.log(`San number ${ev.target.title} selected.`);
+            window.board.goto(+ev.target.title);
+            //document.querySelectorAll("span.san").forEach(sp => sp.classList.remove('selected'));
+            //ev.target.classList.add('selected');
+        }
+
+        const checkWins = () => {
+            document.querySelector("#can-white-win").checked = !board.validator.isWhiteLowMaterial();
+            document.querySelector("#can-black-win").checked = !board.validator.isBlackLowMaterial();
+            document.querySelectorAll("span.san").forEach(sp => sp.removeEventListener('click', onSelectSan));
+            document.querySelector('#pgn-div').innerHTML = board.validator.toHtml();
+            document.querySelectorAll("span.san").forEach(sp => sp.addEventListener('click', onSelectSan));
+        }
+
+        const gameSelect = async function(ev) {
+            //console.log(ev.target.value);
+            try {
+                const pgngame = (ev && ev.target) ? ev.target.value : ev;
+                document.body.style.cursor = "wait";
+                document.querySelector('#pgn-div').style.visibility = 'hidden';
+                const pgn = await fetch(pgngame);
+                const pgnText = await pgn.text();
+                const nummoves = board.validator.fromPgn(pgnText);
+                checkWins();
+                document.body.style.cursor = "default";
+                document.querySelector('#pgn-div').style.visibility = 'visible';
+                setTimeout(() => board.replay(), 0);
+            } catch(e) {
+                alert(e);
+            }
+        }
+
+        const doReset = function(fen = chess.defaultFen) {
+            document.querySelector('#game-select').selectedIndex = -1; 
+            window.board.reset(fen); checkWins();
+        }
+        const doUndo = function(_) {window.board.undo(); checkWins();}
+
+        const onload = () => {
+            document.querySelector('#game-select').selectedIndex = -1;
+            document.querySelector('#game-select').addEventListener('change', gameSelect);
+
+            const onkeyup = ev => {
+                //console.log(ev.keyCode);
+                if (ev.keyCode === 39) window.board.next();
+                if (ev.keyCode === 37) window.board.prev();
+            }
+
+            const onFigurines = ev => {
+                window.fdialog.appendChild(board.figurineDiagram());
+                window.fdialog.showModal();
+            } 
+
+            const onImages = ev => {
+                //console.log(ev.type, " for ", ev.target);
+                //window.imgdiv.appendChild(board.imageDiagram(80));
+                const div = document.createElement('div');
+                div.appendChild(board.imageDiagram(100));
+                window.fdialog.appendChild(div);
+                window.fdialog.showModal();
+            } 
+
+            const onClose = ev => {
+                console.log(ev.type, " for ", ev.target);
+                ev.preventDefault();
+                window.fdialog.close();
+                //window.imgdiv.removeChild(window.imgdiv.firstChild);
+                window.fdialog.removeChild(window.fdialog.querySelector('div'));
+            } 
+
+            const onBackground = ev => window.board.backgroundSchema = ev.target.value
+
+            const setFigure = ev => {
+                ev.preventDefault();
+                board.set(+cboSquares.value,  cboFigures.value);
+                checkWins();
+                return false;
+            }
+            const unsetFigure = ev => {
+                ev.preventDefault();
+                board.unset(+cboSquares.value);
+                checkWins();
+                return false;
+            }
+            const moveListUpdater = () => {
+                window.info.setAttribute("title", window.board.validator.moveStr);
+                checkWins();
+                document.querySelectorAll("span.san").forEach(el => el.classList.remove('selected'));
+                document.querySelector(`span.san[title="${window.board.current}"]`).classList.add('selected');
+            }
+            const drawListener = ev => {
+                window.info.textContent = `${ev.detail.result} ${ev.detail.reason}`;
+                moveListUpdater();
+                window.info.style.visibility = "visible";
+            }
+            const moveListener = ev => {
+                //console.log(ev.detail);
+                window.info.textContent = board.validator.sanLongNumber(board.sansInfo[board.current - 1]);
+                moveListUpdater();
+                window.info.style.visibility = "visible";
+            }
+            const staleMateListener = ev => {
+                const msg = ev.type;
+                window.info.textContent = `${board.fullMoveNumber}.${board.activeColor === 'w' ? '..' : ''} ${ev.detail.san} ${msg}.`; //console.log(ev.type, ev.detail);
+                moveListUpdater();
+                window.info.style.visibility = 'visible';
+                beep(200, 200);
+            }
+            const checkListener = ev => {
+                const [msg, times] = ev.type === 'check' ? ['check!', 1] : ['checkmate!!', 2];
+                window.info.textContent = `${board.fullMoveNumber}.${board.activeColor === 'w' ? '..' : ''} ${ev.detail.san} ${msg}`; //console.log(ev.type, ev.detail);
+                moveListUpdater();
+                window.info.style.visibility = 'visible';
+                for (let n = 0; n < times; n += 1) beep(250, 200);
+            }
+            window.fdialog = document.querySelector("#diagrams");
+            window.fdialog.addEventListener("cancel", onClose);
+            //window.imgdiv = window.fdialog.querySelector("#img-div");
+            //window.closedialog = window.fdialog.querySelector("#btn-close");
+            //window.closedialog.addEventListener('click', onClose);
+            window.btnFigurines = document.querySelector("#btn-figurines");
+            window.btnImage = document.querySelector("#btn-images");
+            window.btnFigurines.addEventListener('click', onFigurines);
+            window.btnImage.addEventListener('click', onImages);
+            window.cboSchema = document.querySelector("#background-schema");
+            window.cboSchema.addEventListener('change', onBackground);
+            window.cboSquares = document.querySelector("#cbo-squares");
+            window.cboFigures = document.querySelector("#cbo-figures");
+            window.info = document.querySelector("#lbl-info");
+            window.board = document.querySelector("chess-board");
+            window.board.addEventListener("repaint", ev => ev.detail.reason === 'content' ? (window.info.textContent = '') ||  (window.info.style.visibility = 'collapse') : '')
+            window.board.addEventListener("check", checkListener);
+            window.board.addEventListener("checkmate", checkListener);
+            window.board.addEventListener("stalemate", staleMateListener);
+            window.board.addEventListener("move", moveListener);
+            window.board.addEventListener("draw", drawListener);
+            window.board.addEventListener("changepos", moveListUpdater);
+            window.board.validator.debug = window.board.debug;
+            document.querySelector("#set-figures-btn").addEventListener("click", setFigure);
+            document.querySelector("#unset-figures-btn").addEventListener("click", unsetFigure);
+            document.body.addEventListener('keyup', onkeyup);
+            //window.board.checkLimits();
+            import("./chess-board.js").then(m => {
+                window.chess = m;
+                window.svgs = chess.svg_figures;
+                window.glyphs = document.getElementById("glyphs");
+                window.glyphs.innerHTML = `${svgs.p}${svgs.P}${svgs.n}${svgs.N}${svgs.b}${svgs.B}${svgs.r}${svgs.R}${svgs.q}${svgs.Q}${svgs.k}${svgs.K}`;
+                for (let n = 0; n < 64; n += 1) {
+                    const sq = document.createElement('option');
+                    sq.textContent = chess.square2san(n);
+                    sq.style.width = '3rem';
+                    sq.style.minWidth = '3rem';
+                    sq.value = n;
+                    document.querySelector('#cbo-squares').appendChild(sq);
+                }
+                window.cboSquares.selectedIndex = 0;
+                const figurines = 'PNBRQKpnbrqk0';
+                const len = figurines.length;
+                for (let n = 0; n < len; n += 1) {
+                    const fig = document.createElement('option');
+                    fig.textContent = `${figurines[n]}`;
+                    fig.style.width = '3rem';
+                    fig.style.minWidth = '3rem';
+                    fig.style.backgroundImage = `${chess.svg_figures[figurines[n]]}`;
+                    fig.value = figurines[n];
+                    document.querySelector('#cbo-figures').appendChild(fig);
+                }
+                    // window.gamespair = {inmortal: new chess.ChessGame(), evergreen: new chess.ChessGame};
+                    // setTimeout(() => {
+                    //     fetch('inmortal.pgn')
+                    //     .then(pgn => pgn.text())
+                    //     .then(pgntext => window.gamespair.inmortal.fromPgn(pgntext))
+                    //     .catch(e => alert(e))
+                    //     fetch('evergreen.pgn')
+                    //     .then(pgn => pgn.text())
+                    //     .then(pgntext => window.gamespair.evergreen.fromPgn(pgntext))
+                    //     .catch(e => alert(e))
+                    // }, 0);
+                checkWins();
+                
+            }).catch(e => console.error(e))
+        }
+        window.addEventListener("load", onload);
+    </script>
+</body>
+</html>

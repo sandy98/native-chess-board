@@ -32,9 +32,9 @@ export const rowArray = [0, 1, 2, 3, 4, 5, 6, 7];
 export const colArray = [0, 1, 2, 3, 4, 5, 6, 7];
 export const headerRegex = /^\[(?<header>\w+)\s+"(?<value>[a-zA-Z\.\,\s\d\?\!\-\_]*)"\]$/;
 export const algebraicRegex = /^[a-h][1-8][a-h][1-8][QRBN]?$/;
-export const regexFigure = /^(?<figure>[NBRQK])(?<disambig>[a-h]?[1-8]?)?[x]?(?<to>[a-h][1-8])$/
-export const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>[QRBN]?)?$/
-export const regexCastling = /^[O0]-[O0](?<longCastling>-[O0])?$/;
+export const regexFigure = /^(?<figure>[NBRQK])(?<disambig>[a-h]?[1-8]?)?[x]?(?<to>[a-h][1-8])[\+\#\!\?]*$/;
+export const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>[QRBN]?)?[\+\#\!\?]*$/;
+export const regexCastling = /^[O0]-[O0](?<longCastling>-[O0])?[\+\#\!\?]*$/;
 
 export const boardColors = {
     blue: {
@@ -1227,22 +1227,24 @@ export class ChessGame extends ChessValidator {
             }
         }
         const tokensList = sans.split(/\s+/g);
-        //console.log(tokensList);
-        const movesList = tokensList.filter(t => !/^\d+\.$/.test(t) && !resultRegex.test(t))
-        //console.log(movesList);
+        const movesList = tokensList.map(san => san.replace(/^\d+\./, ''))
+        .filter(san => regexFigure.test(san) || regexPawn.test(san) || regexCastling.test(san));
         let nummoves = 0;
         if (!movesList.length) return nummoves;
         this.fens = [this.fens[0]];
         this.moves = [this.moves[0]];
+        let init = 0;
         movesList.forEach(san => {
-            const fsan = /^\d/.test(san) ? san.replace(/^\d+\./, '') : san;
-            //console.log(fsan);
-            const pair = this.strMove(fsan);
-            if (pair) {
-                this.appendFen(pair.fen);
-                this.appendMove(pair.movedata);
-                nummoves += 1;
-            }
+            setTimeout(() => {
+                document && document.body && (document.body.style.cursor = 'wait');
+                const pair = this.strMove(san);
+                if (pair) {
+                    this.appendFen(pair.fen);
+                    this.appendMove(pair.movedata);
+                    nummoves += 1;
+                }
+                document && document.body && (document.body.style.cursor = 'default');
+            }, init * 10);
         })
         return nummoves;
     }
@@ -2045,7 +2047,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     get backgroundSchema() {
-        return this.getAttribute('background-schema') || 'green';
+        return this.getAttribute('background-schema') || 'blue';
     }
     set backgroundSchema(value) {
         if (!(value in boardColors)) throw new Error("Unrecognized color schema.");
