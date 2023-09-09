@@ -145,6 +145,10 @@ export const MoveSteps = {
     DIAGONAL: 9
 }
 
+export const pgnDate = (date = new Date()) => `${pad(date.getFullYear(), 4)}.${pad(date.getMonth() + 1)}.${pad(date.getDate())}`
+
+export const seven_tag_roster = ['event','site','date','round','white','black','result'];
+
 export class ChessValidator {
     constructor(fen = defaultFen, debug = false) {
         this.fens = [fen];
@@ -1140,9 +1144,6 @@ export class FakeValidator extends ChessValidator {
     }
 }
 
-export const pgnDate = (date = new Date()) => `${pad(date.getFullYear(), 4)}.${pad(date.getMonth() + 1)}.${pad(date.getDate())}`
-
-export const seven_tag_roster = ['event','site','date','round','white','black','result'];
 
 export class ChessGame extends ChessValidator {
     constructor(event = 'Internet game',
@@ -1556,6 +1557,7 @@ export class ChessBoard extends HTMLElement {
         let html = `
         <!--<h1 style="color: ${boardColors[this.backgroundSchema][Math.random() < 0.5 ? 'light' : 'dark']}; 
         text-align: center">Chess Board</h1>-->
+        <div class="board-container"><div class="board">
          <div
            id="promotion-dialog" 
            style="opacity: 1; display: none; border: solid 1px; padding: 0; top: ${this.top - this.top}px; left: ${this.left - this.leftt}px; position: absolute; z-index: 1007; flex-direction: ${flexDirection};"
@@ -1649,8 +1651,16 @@ export class ChessBoard extends HTMLElement {
             }
             html += `</div>`
         }
+        html +=`
+        </div>
+            <slot class="card-display" name="game-card">
+                <h2>Game Card</h2>
+            </slot>
+        </div>
+        `
         return html;
     }
+
     renderHtml() {
         this.removeListeners();
         this.mainDiv.innerHTML = this.html;
@@ -1667,7 +1677,6 @@ export class ChessBoard extends HTMLElement {
         return `
             :host {
                 font-family: Helvetica, Arial, sans-serif;
-                /* font-family: monospace; */
                 font-size: 110%;
                 user-select: none;
             }
@@ -1677,6 +1686,36 @@ export class ChessBoard extends HTMLElement {
             div#promotion-dialog::backdrop {
                 background-color: black;
                 opacity: 0.3;
+            }
+            .board-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: stretch;
+                width: ${this.size}px;
+                min-width: ${this.size}px;
+                height: ${this.size * 1.5}px;
+                min-height: ${this.size * 1.5}px;
+            }
+            .board {
+                display: flex;
+                flex-direction: column;
+                justify-content: stretch;
+                width: ${this.size}px;
+                min-width: ${this.size}px;
+                height: ${this.size}px;
+                min-height: ${this.size}px;
+            }
+            .card-display {
+                display: flex;
+                flex-direction: column;
+                justify-content: baseline;
+                flex-wrap: wrap;
+                width: ${this.size}px;
+                min-width: ${this.size}px;
+                height: ${this.size * 0.5}px;
+                min-height: ${this.size * 0.5}px;
+                border: solid 1px;
+                overflow: auto;
             }
             .main-div {
                 display: flex;
@@ -1691,6 +1730,7 @@ export class ChessBoard extends HTMLElement {
                 max-height: ${this.size}px;
                 border: solid 1px;
                 background: slategray;
+                z-index: 1;
             }
             .row {
                 display: flex;
