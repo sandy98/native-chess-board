@@ -1,6 +1,8 @@
 export const versionInfo = {major: 0, minor: 10, release: 7};
 export const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
+//////////////
+
 export const onePixel = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=`
 
 export const classicSet = {"size":60,"b":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAC0klEQVR42u2YTagSURSAn+YPlBWvxCRMLZ6JpCCuyorIihCjFkqvWkQSrjIQRdxEENKjhVG81UNBxU3YSohcBRUhuGgjamTRoujnESbRD0WvOp07XGEYHEfFmWbhgQ9R9N6PM/fce65zc7OYxcixC7mN3EEuyE3OhLxFgMUVOQle4sgRXiMauQieHyDYQVRyEVyHFFlyH5ADcnrEm5AVluAb5LBc5A4izwc8YsJNmt3/FnHkN49cnyfITqnFlEhOQIzNe2S/lIJ3x5Dr85UuB9HjFp+E0WgEh8MBWq2WT/ITYhVT7viwLBWLRSCxsLAwLJMPxNzrng6aVK/Xg8vlgmq1ygiGQiGw2WygVCr5JE+KIbiXLyupVAq40ev1QKfT8QneE0MwySfo9XohnU5Ds9lk5HK5HMTjcdBoNHyC75AN0xZcEqrUfD7PCFosFqGK/oLopy0YERKsVCqMoNvtFhJ8IUanQ3q+b8MmjkQiUCgUwGQyCQlmxKrkpQk2aC49ZLtYguuRFntCg8EAPp8PwuEwJBIJpqKj0SgEg0FwOp2gUqm4gmGxT5I9yGcycX/NDYtutwuBQKAvtyLVWexXKBQ/Y7EYZLNZZmP2eDxgtVrBbDaD3W5nsppMJqFcLjOf4W+qtMmQJDaSLI659q5K3aRCJpOBTqcDrVZrIO12GxqNBtNA4PfvSym4rFaroVQqQa1WG0q9Xge/308Ev4tZvewwIh9xDa7h6w86Md9j/UP7wF/0/TWpMkgysRXZgTweIrhGr6RbkG3I/LRFHMhp5AyySAkhJ5Bz9Kr5lyPEPW1eIZeRU7TNWmRxFjk2ybFHtoNlOuE4ldpG0hOcLs+QfeMI3pjwGLuIqJGXE/yWXAcso8gZhJoCHtKcpdGZYIzrowgeGmNAUsWP6F2FG/P04r46xngPRxEkFXcU8Y3A7hHG20zX1xGBsUixeGZ/s85CbvEPlohjwQUcDyQAAAAASUVORK5CYII=","B":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEUklEQVR42u2YWUicVxTH41L3WsdUU6piDSK4gRSElFpKtVKVWhfEVB9CtUQfal4iioIIZWjsQ4syiAwWpIpS9cEFaRGt1JInF9xw6VgXXOJSMEpNVVr15Pwv9xscZ4ZMg99kHjzw45s7c7/v/ufce84997tx49quzWa7zdQxPzFfOJq4YGYzMDCQYmJiyMnJibhd5UgCv3J1daWFhQWC5efnQ+Aa4+YoAu+5uLjQ8PAwHR4eUmpqKgQaGFdHEejC/Ojm5kYBAQEQt80kONIU+zJ6hvz8/CBwnfnIUcR9wPwREhJC/f39tLe3RwUFBRAJvpfefWX2kDlNT0+n7e1tumgtLS3k4+MDkY+ZMHsLc2Z+gJeqqqrImk1NTVFERAREbjHv21NgJ8Q1NjbSi2x3d5fi4+Mh8lAuB9WtFuKamprMxKyvr9Ps7CwdHR2ZfL+/v09xcXEQuce8o6a4TyCusrLSordycnJEcMzNzVkUL1PQr2rmuvHY2Fg6OzszGRwBMjo6SomJiUJgc3MzzczM0OnpqUm/1tZWJbo/U0PgHTy8ra3NzDvV1dXKwEY8PDzo4ODApN/5+TlFRUXh9z41BJZh0K2tLTOBQ0NDVFpaqkSs2Iu1Wi0dHx+b9S0pKUGfJ4z3VQt85OvrKxKxNcvLyxMCDQaD1T4VFRXo8zfz5lULvI/Bx8bGrA4uiwQaGRmx2ictLQ19FtWodFDzPSsqKrI6eF1dHeXm5tLKyorF35eXl8nT0xMCv1Mrkh+h7kPEvoxlZGRA3FPmbbUEejGzYWFhYoeAYU1iSnt6ekSEg46ODhocHKSlpSWjuJqaGiXCC9TeSaKZA5T2SUlJZunlMsHBwZSVlaW09fbai1OZE41GQ2VlZdTZ2Sm8iJIfEYwkPTAwQPX19ZSSkqKI+0UWGXax1+HFhoYGm9ZeaGgoBFbbtUjFyW18fNwmgcnJyRD4sz0F6ry8vERF09vbKwKkq6tLXNHG5+7ubtHu6+ujzMxMCPxHzei9aG8xf7EH/+PrsRzYWpCcyTrwX9n+2l4ehCduMiHM74jU6elpZa2RTqej2tpafMafuMf4M7cYzVULiWRymc+Zu5Ic5lMmH0dN5ry9vZ1OTk6Ipx2CnpWXl4u1FxkZCZHLzAMmQ5ZZdy+QxyS/zLaHdKCDB7BzuLu7G8HZF1d/f3+Kjo4mvV4vxBQXF0PMHKNFUbG2tiaSeHZ2NgUFBZG3t7fxXgVUR3Lq55n3/o/Ab7FnYqpWV1dpY2NDVMQKaOMNgmLIhXKgL5nXmD/Dw8NpcnLS2GdnZ8fkGWBzc1NkgoSEBOU4EGqLuEBME7I/Nnck3/n5eRPw3cTEBCEPwotSnPbS0jDgdUhhYaFI2rjH0rMWFxdF5Msi4htbBH6IATEFzs7OFqNTvr0iGcXD8qxy2TTy4L5z6R4zMPVyrN9sEYiI+5hJtIEIG573hlxfSS94FoLl3evXrNfmaPYcziuFechUn/0AAAAASUVORK5CYII=","k":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAFC0lEQVR42u1YWUhtVRi+zjnhPJZppWiKZYqCiIIVqShiPiqiIPgQ6oMT4ohDzhM4pC8Ol1SUQHG65MNFxCm8KggJqTlGimOamTj9rW+xtxztnsF7D3QIf/g4Z501ffuf93n27Eme5P8leQz9DJaqRkyDQYthmoEY3Bk0VYngc4bfGM4Fgr8zrDF8oCoEuxl2GC4EgvsC4Q9VheA7DPoMLwWCnzHoMaipmi+OCATt/ovLjQSTWclYMyUQ9JQyry+cYaNMYoEMPzBsCUEA//qRIfwB+UGBHAlrv5SYd2JoYvhVOOOQ4SeGZAadNyWGtPEdLnRzc6OCggLq6emhiooK8vb2Fokget+HabW0tKi/v5/W1tbI09MTc38xfMIQw3BmYWFBycnJ1NnZSY2NjRQSEiKe8YrB7bHktEV/KisrI1EuLy/vvjc1NZGOjg4uONDX16eRkREaHR2l7Oxs2tvbIy8vL8z9gTOioqLo+PiY77u5ubk7Y2JigpycnLDuiMHrMQQbNTQ0qK+vjx80MDBAPj4+ZGpqSh4eHlyTkLGxMU7S1dWVj11cXLhWtre3qaGhgX9PS0vjc1tbWxQZGUmWlpbk6OhIubm5/PejoyNyd3fH2g0GU0XIwSyUl5fHDxAveghRs11dXXzc1tZGvb29FBERQbu7u6Snp0fBwcF8zcLCAif28IygoCA+v7y8LFqjWBGC3xobG9P5+TktLi6+lpwIkIOEhoaSoaEh7e/v833x8fGkpqbGx4eHh2Rrayv1DLgEBG7Axr8I7iU7lwUGBvJNKSkpMgmamJjQyckJrays8HFrayv3MUnTxsXFyTzDzs6Obm9vqaOjA+O/Fak+L2EmiaeSifz8fL42ICCA/P39qbm5mf9+cHBAq6urpK6uLnO/kZERXV1d0dDQEMY3DB/LI/g9AgJSWFgol6CNjQ1dX1/T4OAgNyvMGRYWxvcnJibK3Y/AkvD1Q0VatW/gsNAATCdPAwCiHVowMzPjY5BFShLHspCTk8MJCnlxUpEgeQ/ZPjMzk29MSEiQe0l4eDhfizQCLV5cXPCkLW+flZUVnZ6eclfQ1NQkobIoJM1IvqgKuMzZ2VnmRciP0Fh9fT3Pk5CYmBi5BIeHh/lapCOhXTNSlCD84MDX15cfAFODhKzL5ufnaXp6+s5k8h4KJRNSV1cn/hb72HL3NTYip0GmpqZ4xEm7ECZFOUO5Q9DY29tLXZuVlcXPxFrBx3ve5iXoLplCQ9bW1uTg4EDR0dHcpOPj41zDoiBRQ1CP5+bmqLu7mzcJyAxwG1HDMzMzZGBgAHKzQhv2xlIHkmLtPDs7I0nBGBUHkdve3k4tLS285EHjOzs799aiqojWEFzmZwZbZfSE5UiiSUlJvHyhWYiNjeVNgq6urlRTIjLFvFhZWckbBjyIoLk5ZTeufbKcHrW4pKSE+6LY1cjAnwzvKrvlf4FyBn96qDVUk6WlpXvmRE6UXIP2zc/Pj1JTUzG+ZvhI2W9tG6Wlpfzy9PT0e5dra2vz1ml2dpYnXiR5c3Pze2uQHxHdmAdZIUsoTfACfoUO5aFmHgKRKm0O0V9VVSX2hlnKJBiMfJWRkUFFRUVUXV1NtbW1/wICAVp+3VxNTQ0VFxdTeXm5mMSfK5NgKoJgcnKSNjY2aH19/Y2xubkpNgavlPrfC5oAaBGfbwOcIVSP88fUXnnyKcNXDJ8rCV8I79u6T/9YPomqyz+Q/sFvovNp2gAAAABJRU5ErkJggg==","K":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEQklEQVR42u1YbSjlaRQfb2MZuvLBtMwqRDaZ8RKJEuslUst8kCL5JDVliiU14tMO+SBSM1ZeylqNKezW1GykS8oMZry3IYbbtFFmjLdd1NDZ83t6/nLNZf5/86+9TU79ui/Pc8753eec/znnudeuXcmVfF1SyfiD4WFtxOwYDoyXDGIEM+ytieCvjL8Z+5LgGmOF4WMtBJ8w1hmHkuA7SdjXWgh+w7jBMEqCoQxnho215eJzSfC7/8O5QYbs5gV7XkiCYees35A2vtWTWDyjm/FWPgTIrz7Gj2fIP5PkSO5NPLXuz3jMeCNtbDLGGPcZjpclhrLRCIdBQUFUWVlJ7e3tVFVVRZGRkQoRPL3eCK2DgwN1dHTQ1NQUhYSEYO1fxm1GLuMfDw8PKiwspLa2Nqqvr6fU1FTFxmtGkFZy15V8qq6upqOjIzorjY2N5OjoCAfvnZ2dqbe392Rtc3OTQkNDsbYNGzk5ObS+vv6JjaGhIfL398e+D4xwLQQf2dnZmTm1JIODg4JkYGDgJ2v4YSBXWlp6oY2NjQ0KDg7GXhPDXQ05hEWEVI10dnYKInV1dSffmUwmcnJyopSUFFU25ufnlWj8rIbgQzc3N9ra2iK1kpSURC4uLrSzsyM+5+bmCtIgqlays7OhsyjT6+JaFh8fT1pkdnZWEGpubqaDgwPxvqioSJON1tZW6B2o6T7GjIwM0ip4smNjY6mpqUkQXFlZ0aTf09MDvWPG958j+FtERIRmgiBmY2NDXl5eFBUVpVkfOSzr42dHtXtI2NXVVU0OFhcXCbUQp1dTU6OZYHJyMnRH1Dwkt1DtS0pKNDk4Pj4mX19fQdBoNGrSnZmZIZQ12VlUyS8oEwsLC5ocJSYmCoLLy8ua9BISEkiOawa1BJEH75FLlrrIeZKXl0f29va0vb2tWqe2tlZpeXla291dKBYUFKh2VlxcLOqhWunr61NC+/RLLkEWuwrC2N3dLdYyMzMpOjqa0JOxPywsTAwDGA5QG8fGxujw8NBMf3R0lFxdXbH/lRzDLi31cFpeXi4KckVFBQUEBChhESfg5+cnCKanp1NWVhah0KO/GgyGk30gg6FhYGCA+vv7Cd2Kv/+L4anHTFgji6hwhtbW0NBAExMTtLu7e24IcWoo2F1dXZSfn0/u7u50amac0Htw/d3Hx4f29vYskkHvRg7GxcXR+Pj4hXnKtvYYXnqP/H8iZJgDz57a0tISeXp6nj4damlpMduDajAyMkIxMTFYP2L46X1rMynOy8rKzJxjQMDsiLkQXQgPztramtme4eFhsx8gq4Ruggv4R29vbzF17O/vWwwf6h9O05LgBBH6tLQ00bPZ3gM9CabY2trS9PQ06SHh4eHKfUY3+QllAiUCl6LJyclLY25uTkza8rKk338vCAtOEa9fAtgA5PXToBfBO4xkxg86IUHet52u/rG8EmuX/wAA3De94co77gAAAABJRU5ErkJggg==","n":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAADJ0lEQVR42u2YXUiTURiA3Z+usbYYy2V/ktBsm1MINi8aGBEhkml3IrsdiHQ3RIggyBoIXnUTK1YQCF3MpGgSBGI0BkU2qDGSIsOEmSv6WTX6sbf3fJwTHx/T3PlOYxc78KDnZZzv2Xfec96X1dXVRm1wD201y11DTlarXBABJFGNcp1IgQr+RA5UU76NIt+oHONqNcgdRB4oxOTcpp+p+NAjF5DfG8hBU1MTmEymNfz/PKKplJwNSW4kxnA4HBAOh6G7u5vM7yN7KiE3I5cYGBiAVCoFra2tJSVtNhskEgkYGxsj85eI83/JHUdesAdrNBoIhULARjqdhvr6+pKSFosF8vk8jI+PM0m7SLFtyGXlQ3U6nbR1vb290NfXB/39/dDQ0LDudgcCAemL0O2+I0ruBLK4mXzbDMlkErLZLJurqjZkC6ICpL7LTzpLCZqvKV45I5IlC5rNZnC73aDX63kFI8gHNvf7/ZLg0NAQmf9CPDyCFuQLWTASiUgLulwuHrlFKsDKHzQ3N0vrxWIx9plTvG9wiSzQ1tYGPT090onlEDxN6/HfmNVqhUKhAHNzcyw2yVslnqvMvbe0cpyVxw0GA+RyOchkMiz2kDcPX9MEv4J8KlMuj3iRvchH5dW0vLwMCwsLLPYKMZUrZ0AuIR10uzPriBSRHM2xH/Stn0OsiLvU9WQ0GmF1dRXm5+dZ7B2ynbdd71zn7T1BBpF9iBnZQcuXA3HRk1ss9aXsdjsUi0WYnZ1lsc/ITt5t3k8ryJrsIZM0R+Unfhp5jLz51/a3tLRIpzgej7MYefu71FaTDtrCP0J0svhh5Fk5+en1eiXBaDTKYu+RRlFlbyv9uwW5yXO6fT6fJEjuVxpborsgtFG9y3v9sIaB9Ig09lSxK6rHRTX3Y1dXlyQYDAZZ7J5IuUNqmwcmSFsuwg2RgtNqBdvb25WC10XJNSqrAg/kol5ZWYHh4WEWuyVK8IiopnVkZASmpqbYPC3qd5yQKEGtVgsTExPgdDrJ/CuyW4TgqChB1gh7PB42HxQheEakoIIZEYKkdTpGc1EkR5FAJX91qI3aKGf8ATh4ueed9+0FAAAAAElFTkSuQmCC","N":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAADp0lEQVR42u2YX0hTYRTAdX9kTdQcbWr/ILEIU4ReQtZTDEHIsLeIEFR6EJdvIkKCQlMEFdlLrkFhGIQPZXNKkCDSmBb4b2YEmzWHkmCTba501HY653K/mKXi7m5jDzvwe7l3++7vnu9833e2tLRUpEJwSJJZ7glyM1nl7iCAjCWj3BVkOy8vjwR/IheTqd5akB/FxcWwtLQE+fn5JPk4GeQuI29pWuvq6mBzcxMoWltbgZ9qC/+ZhIcMMSCRkpISmJiYgOgIhULQ29sLBQUFJBlGHiDpiZJTITbKEGXqsNjY2IDa2lqWzSnkTCLkxhUKBVitVk5iYGAAqPbsdvuBokajkUm6kAv/S+464pTL5TA8PMw9uL29nT0YioqKIBgMHijZ3d0dLXlCTLHjyCMaXKvVwtzc3J86m5mZgcXFRVhYWIDp6WnY3d09dMorKyuZpFUsuRvIF6VSCZ2dnRAOhyGeWFlZgczMTCYZ12lDU2CigSoqKrgsCYlAIACRSGTPtebmZiZoFyqnQD7m5ORwW4Xb7RacMapRv9+/59ra2hrL4i/kkhDBbCTY398PTqcT0tPTufoSMp20R+7s7Pxzr6qqimVRLzSDHsoeLQKLxSKo9urr60Gn0+17r6uriwk+E3pKfCosLITc3Fzo6emJWW5oaIgTmJyc3Pf+6OgoE3wntA7dSAgxI35awazY19fXYWRkhFvVjY2N0NTUBGNjY2Cz2UCv10N5eTn38La2tgNfgBoKXvAzooxVTo48RMr46f6gUqm4RoCmJjs7mw2+g3xFvGyzLi0thZqaGhgfHz80w6urq0AbPn7nG6IW2q5Tf+eXyWRcHTY0NDCxOeQ2cg7JQu7R9erq6iOXgMfjgYyMDBorgJwUOs3n6QSRSCRhtVodXdSyqM8co6OL7m9tbR1Z0OVygVQqpfG2kVPxniZlfAv/HpFGXb/KFzmYzeaYFpHD4WAvTOWhEevYy4rK2gt6gEajgb6+vphXOa1uXtDD77uiNqqvaXBaxV6vV9AJQ90QL+j4a1biDiMNTP1dPGEymZjgGzHltDQonRDxBm3+vOBzMQVf0m8Mn88Xt6DBYGCCT8WSo5Xm6+joADEiqrt+JZbgNRpwfn5eFMHBwcHoTV+UX3t3qXHYr3USEsvLy1wbh+N+R06LIdhCp8XU1BSXxdnZWcHQbxoahxpiPou3xBC8T4PRW/NvLhj6Ph6fHGL+0XQWqeBrUUx0/JGZsH8dUpGKWOI32DG/8ZSL6t8AAAAASUVORK5CYII=","p":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABYElEQVR42mNgGAWjYBSMgiEBRIA4D4iXA/EyIM4CYv7B4jhzIH4AxP/R8HUg1h5ox4kD8UssjoPhu0AsMJAObMDjOBjOH0gH7iLCgasG0oF7iXDguoF0YB8RDqwbSAeqAvEbPI57CsQyA52TS/E4MGWgHecNxA/xOPA2EDsMlONANcc/ItLgTyBOoqfDWIB4KhEOQ8ed9HCcKBBvgloICr3fQPwLR0j+g8r9RpJfTuuaRRiILYFYC4rVgTgQhwNBDnMFYg2oWm2oXro3IkLxRKvLYGjNzMPjwO6Bdhw7ED/B48BrQMw4kA70IyL32o62ZnAAXyLLv38DEYpyQPyChEL6HrT1TRegCMRXyahJTgOxJK0dFwDEz8hwHAzfB2K3gWhWkYrT6FlbkIupWsucpoEDd1LLcaxA/JYGDrxHrVqGDYg/08CBoCqSiRoOZIQWtKA040Ql7AJteo2CUTDoAQD3o0UpmCZENQAAAABJRU5ErkJggg==","P":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACvUlEQVR42u2XT2iScRjHp6TpPNSWIW0RxpDCgQwRQ1DWcoYQZh0SEbzo7OBgsUN4i64RdutoeGosRoduJV29DEX8k4hYtpUzqIOEDJW9T88j7ztoIg189WfgFz4gr+/7+uH3vs/veZyammSSSSb5L6JGNpAt5DUSRs6Ni9wNpCqXy8FisYDZbAapVAp4rIgsspbTID9MJhMUCgUQkkqlQK/Xk2QFOc9S8OnMzAwcHBzAyZTLZVCpVCT5iKXgB5fLBf2yvLxMgm9YCn70eDx9BZ1OJwm+ZSn4QqvVAsdxPXKHh4eg0WhI8AlLQR3yMxgMQq1W64oS+/v74PV6Se47cpl1JT9GwO12Q7vdhmazCSsrKyRHrLGWu4N8Jbl6vX78ePf29sBut5NgGbnJSm4DN2QuEon0LZL19XWSbCGBUYqdQV5StwiFQlCpVKBUKkEul4NsNtuFPtMx2gt9Pp/wuJ+NQu4i8o5+UCKRcLOzsx2FQtGWyWQctTqlUtmFPtMx+o7OwfM5XnJr2J3lAmJB9DzXkPsksL293V05Ih6PkwyJOZDr/LmL/LUjHyIe4CpBo9E4fvdoy5menibJ1XGYZl4ZDIa/iqPT6cDCwgIJPmctdxb5Fg6HeyqYL45PiISl4F16+ROJRI/gzs6OUL02ptOMTqfrPtKToY4yNzfHdJpx0QrFYrG+G3U0GgV+ixn5Kl5B6jabDY6OjvoKtlotWFpaIsnP/PQ9klxFCvPz81CtVuFfKRaLQNsQXrOLXBq23D2kRnKZTAZOm2QyCWq1miS/ILeHOlY5HI5TrdzJUG+2Wq1CZT8UvVvQjTc3N2HQBAIBQVLULrNLQ6hYMRqNJPheLDkZ8ou6RT6fh3Q6PRD0/9nv9wuVLUqXkSO/af4jcMwaCOE+1CIRqRiCEn6jpXfmlkis8qPXJJOMff4AhKhv/Cht2GwAAAAASUVORK5CYII=","q":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAADfklEQVR42u2YX0hTURzH3dwG1WZjDSywCaIEPcjKaIRp0XL0kCIJhogkPoh76UkW4jCZoQ4jIinKIu0fJuvBUDEb9WDLiILUrSAK0wmF9WIR4XLz1znj3nF2Ovfa3L2jh/3gA17O957f957zO39mRkY60pEO2WJLAlptKo1pEH2IJcRLxAER7R6ED/ENcTvBj9pwuBBA8BmhZ+g2Iz5Q2gupMPiGSoqxMHS7GbqPqTB4hUr6CWEQqLt3lPZOKgzi6fQSSc+IaJsIHa7FbalaKOeJxHihKAV0TwjdjVSu5BfU1J1gaI5SmrcIhRTJ93F15kaYGO243n5QyV8zdE8pzW/EToYuG3EOcQ1xcD1zexG/iE7nENspTSljdWKOE5pD/6Dh6zlAfUSpmMHLjE5PUZrTAsmfE5pHAhon1VclQ3MvkU14jfFFtwSSY/Yjdom0P6T6MiPClOaSmEEj4hUhjiDOUhq/iIExxAORdlwyaqKvZm5a+Xa/QJ3GxSaEFeEhXnzMvYjP0p8iBtYjxNV0Njea5IfZELpEVvNW7kJAnrl9SZgj98M54nkZsWOjW46dkWBNApMkjmT2RFwv7yU2RBLkbj1JRZOMBpulOFlw4X6Vwdwyt2tIEldlMHhXyssBffCDwWAAq9UKDocDBgcHwefzgd/vh0AgAFNTUzA0NAQtLS1QVlYGRqORZbBSSoP48rmUlZUFdXV1MD4+DqFQCPiIRCKwuLgIs7OzMDMzA8FgEMLhcKx9dXUVvF4vNDQ0RD8M9fVdyunlY6KioiKWcGRkBOx2OxQVFYFOpwOlUhkbHfy3VqsFs9kMjY2NMDw8DCsrK9F3a2tr6XNbsriem5sL2KRer2fWlcVigeLiYmYbHv3y8nLIy8vDz/flMHgRG6yurgaNRhOXPCcnBwYGBmJT2t/fDyaTKU6TmZkJVVVVUFBQgJ9vyjKCeHRw9Pb2xiXPz8+HycnJmMHp6WkoLCyM03R0dETbbDabbCM4UVJSAm1tbaBSqZjTiKcQj7DQ1oJXPGdQ8hrEt5gvNTU14HK5oLOzE3p6euJwu93gdDqhtbUVuru7/2rv6uqC9vZ2qK+vl2UVH8M15PF4olvIwsICk/n5+ShC7fjd0dFRfgZOSmUO/xIbUygUoFaro1tIMvB9oD6fifxcTShwJ4e50+SIRPB9qdL/JEzH/x5/AACs1FXqy4cMAAAAAElFTkSuQmCC","Q":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEvUlEQVR42u1YW0isVRQ+at6TNAdPoYl3JRVTxBuaYRGBPshBTbylL1Io4uVgDwZJqKBGeMHIDMU0VErBB7UxEjWPIoqpRwMxDPKGN7TI+2W1v82/ZWb8NdSZoQc/+PCf2d+/9tp7r73WGh89esADHqAzWN5C+6I+HTNh/Jpxg3GcMfQGrT/jCOMW47e3XNSd8ZmzszM1NzdTUlISsc9rjNYyOgvGxdjYWGppaSEvLy9ov9CHg7/m5+cTsLS0hEnBYBnd6xibmpri2pKSEuh+14eDXzo6OlJtbS3FxcVh0j8YX74m7n6Ljo7mWnd3d2hb9OEgjvMnaefAj2/QfqiiQyza6uuifO7j40MREREkXRTDa3Q/BwcHU0BAAHTf6PMmj6Wnp9Pk5KTYnScymncwNjg4SHl5edDMMxpoY/JAxBljOaOjzDji7e+Kigoe/GFhYZh8UkY34OvryzUNDQ3QnDC+JqN7zFjCWM8Y/l/OBTAehIaGkre3N4wuMb6ioXkTO9Pf388n7+3tFbsYo6KJxHdtbW1cMzY2JqcR8Tzn4eFB4eHhZGhoeCLZvxZ1QUFB3Ojh4SEpFAoY/UBDk2NpaUkrKyskEBgYCN0zFc2Pnp6edHp6ysd3d3fJ1tYWmk80bMXC1tbWFtdFRUVB892NSdjNzY2Wl5dpfHycrKysLmRW1IwLooquri6xQ0GMnnhuampS04SEhGC8W8PWG6ampmcDAwO0vr5OCAn2Xc1NDioYJ8zMzMjIyAjic8ZPNTTPU1JS1CY/Pz8nPz8/6HsYf8AiT05O1DRZWVkiZIxVbD1FbLKjJQsLC4w/vyZO1WDO+Dbj9yo5rF96EbX0n6qqKtJER0eH0FJ9ff2V8cbGRowdSzH9WNpN8Q4W9i6j1W1u80toCBwcHAhBLNVcNAk0NDR0xYGzszNycnLisXZwcHBlfHp6mgwMDEQ+XHJxceF69rzH+OpdU85HLA6pp6eHMjMz+WqNjY0vEPRyqKmpodLSUtkxXDobGxtuIzk5mWcB6XPhfXIi4mUhJiaGT4KjQ229Dri1mrGnivj4eKqsrOTPiYmJcO5Pqeu5F3g9nZiY4IaPj4/p4uKC7oKjoyP+d35+Xhz3U21UFgTuZkZGBmkL2dnZIvYU2qq9XyFp7+3t3du5/f19sre3h4Ot2mwOeOFHWVMFkiuCHf1ebm4upaWlcebk5FB1dTX19fXR6uqq2jvDw8MitcRq00E0nxuFhYW0sLBAxcXF5O/vTyp5jN9IpA5XV1dR1i6JClFUVERzc3Ois/5Lm8croGRl6XJSFPeysjK+I9vb22q3F887Ozs0MjJC5eXlFBkZefmeZOOZLnrABuwSOpSNjQ3Z+EJNVSqVsmNoCDo7O8nOzg4OtuvCwSokbfR2Il0ILC4uUkJCwuUu4RmhoArsamtrK1lbW0PTqJMdFA6kpqaqTT47Oyvaek60WqOjo3LNgqBOdlBpYmJCBQUFtLa2JnuMdXV1vFKgu9HE5uYmvyjm5uY6iUF0Meu4FPcFFqGLW/we+sP29nZ+nOhM7sKZmRnq7u5GwwEn39eWc/gl1oPaCcNoLu9DYYPZ/OWGn6u3Aoy8JVWTKC1R2Hrh4Z+ED/i/418jpjudlF+5UQAAAABJRU5ErkJggg==","r":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABzklEQVR42u2XPUvDUBSGDTRpiyCioDi46CAIgihCN1FJF6uOUhD1B4hLnV1EFxERB7VDB3Up1C/E2K5CBxdtQ6GIiBXcbC2Ig4h6PIEbKOGCtfce6JAXnukdzgPJPblpaHDjxo2busg2coYcMc6RGdZpyA5y6ujHWd+C7CMnjn5MpuADAg42WaciRU4fYX0b8sPp52UKXnEGbCA+pBUpcPol1ncjZU4/IVPwkjPAGnqPPCKfnL7I+ifki9OPyBRMcAaIMiRT8JBAsFem4KpkuXekQ6agH1mxT6OiKOD1ekHTtKrweDyVcreyH29lgtbLHw6HoVQqVU06nQZVVYHtQz/10r4JhUKQSqXAMIw/SSaTEIvFwOfzWYJT1HIqWxu1vnsL1ILWUn4REFymFuxiJ7BWwS1qwX7kW0DwgFpwWHD/GdSCk4KC19SCc4KCd4hCKRgRFHxGGikF1wQFy7K/wc7sCQp+ID2UgolAIACmaUI2m4VMJlMVuVwOotGoLdlHJTeLvOq6Dvl8/t/E43Fb8AJplynWhOxKvg9a/zB6Pd+mbQZkCJqEgtMybtIFQsFFUcFO5I1QcF1UcJBQzuJYVLCZnbZRAoLs+ubGTV3nF+nlg7kw+H6AAAAAAElFTkSuQmCC","R":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAADJUlEQVR42u2YXUhaYRjHs9I0aSwNpQ8pXLBYDcbWCCKyOVYXQ6Wr3Ywp1OXYjV5IH7sxB2FjLKltlzWhm/bFUK/bRbAIFyOIMWQGg4JqxZIUU589z+E1Rjd16n2hCx/4ccC/55yf57zveZ9jSUmxilWsYl2ICiKfkHeMz8hDlqmQV8jHY/l9luuQWeTDsfwuT8G4yWQCm80GfX19oNVqAT97wTIlst3c3Ax2ux2sViuoVCrK3Sw3IPnW1lZwOBzQ3d0NpaWllLt4Cn4ZGBiAQrW0tNAJniNqRI8kxsbGpCydToPBYKDcw/IryO7MzIyUJxIJKC8vp9zGUzBKv54qn89DfX09nWAX+Yn8QjJDQ0NSvrOzA2q1mvJtlq8j2enpaSlfXl6mjLjDU3Cebh1VLpeDqakpGBkZOWJ4eBgWFhak/ODgACYmJo6y0dFRaRuLxaScvscEb/MUDLW3twOPikajBcFrPAX9SqVSuhJ0i89aS0tL0NbWRnJJpJanoAbx0Wy0WCywuroKqVQK9vf3TySZTMLe3h5MTk4WxuY33rf3/+plgx+qqqpAo9GcCD2SaMtu6yz7sUIr1tnZCT6f79R4PB6oqKggQYdoOXoor4+Pj8sef0ajkQQfixakh/JWMBiUJXd4eAiNjY0k+FS0oJlmYCgUkn0FaanDfV+KFryB5MLhsGzBrq4uEnwrWtBCs3FxcVG2IDUSuG9EtKC9rKwM1tbWZAu6XC4S/Cpa0FlZWQmbm5uyBd1uNwn+QBQiBd01NTXSCiG3/H4/Cf5GtCIFn5nNZshms7IFqd1iLVqtSME3HR0dZ2oUIpEICaaRqyIF5/V6vTTgnU7nqRkcHISenp7CenxdlNwj5I9Op4OmpiZoaGiQBe3DBMOIkafYJeQ1Hby/vx82NjbO3A/Ozc1BdXU1SSaQe9y6aerjAoEAl46anqE0jtnVvMlD8DuNI54Vj8eBOnQ89gMenfTRKyWvymQyQJMNj/3kvIIm5K/X65Xa/JWVFS7Qq2ddXR0JBs4reIvGCv0TQGswbXmhUChI8P15BS+z2WYVQC9r34pVrAtd/wCkmK79XfCowgAAAABJRU5ErkJggg=="};
@@ -30,11 +32,28 @@ export const whiteFigures = ["R","N","B","Q","K", "P"];
 export const figures = blackFigures.concat(whiteFigures).concat(['0']);
 export const rowArray = [0, 1, 2, 3, 4, 5, 6, 7];
 export const colArray = [0, 1, 2, 3, 4, 5, 6, 7];
+
+export const resultRegex = /(?<ONGOING>^\*$)|(?<WHITE_WIN>^1-0$)|(?<BLACK_WIN>^0-1$)|(?<DRAW>^1\/2-1\/2$)/;
 export const headerRegex = /^\[(?<header>\w+)\s+"(?<value>[a-zA-Z\.\,\s\d\?\!\-\_]*)"\]$/;
 export const algebraicRegex = /^[a-h][1-8][a-h][1-8][QRBN]?$/;
 export const regexFigure = /^(?<figure>[NBRQK])(?<disambig>[a-h]?[1-8]?)?[x]?(?<to>[a-h][1-8])[\+\#\!\?]*$/;
 export const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>[QRBN]?)?[\+\#\!\?]*$/;
 export const regexCastling = /^[O0]-[O0](?<longCastling>-[O0])?[\+\#\!\?]*$/;
+
+export const defaultFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+export const emptyFen = "8/8/8/8/8/8/8/8 w KQkq - 0 1";
+export const frenchFen = 'rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
+export const sicilianFen = 'rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
+export const caroKanFen = 'rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
+export const smotheredFen = '4k3/4P3/3K4/8/8/8/8/8 w - - 1 50';
+export const helpedMateFen = 'r1bqkbnr/pppnpppp/7P/3p4/8/8/PPPPPPP1/RNBQKBNR b KQkq - 0 3';
+export const KnightandBishopFen = '4k3/8/8/8/8/8/8/N3K2B w - - 0 1';
+export const mateIn3Fen = '3krn2/p1p1p3/3n4/2N2b1q/Q7/6p1/4P1P1/1R4K1 w - - 0 1';
+
+export const evergreen_json = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2","r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3","r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3","r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4","r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R b KQkq b3 0 4","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/5N2/P1PP1PPP/RNBQK2R w KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/2P2N2/P2P1PPP/RNBQK2R b KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/b3p3/2B1P3/2P2N2/P2P1PPP/RNBQK2R w KQkq - 1 6","r1bqk1nr/pppp1ppp/2n5/b3p3/2BPP3/2P2N2/P4PPP/RNBQK2R b KQkq d3 0 6","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQK2R w KQkq - 0 7","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQ1RK1 b kq - 1 7","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/2Pp1N2/P4PPP/RNBQ1RK1 w kq - 0 8","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 b kq - 1 8","r1b1k1nr/pppp1ppp/2n2q2/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 w kq - 2 9","r1b1k1nr/pppp1ppp/2n2q2/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 b kq - 0 9","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 w kq - 1 10","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 b kq - 2 10","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 w kq - 3 11","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/BQPp1N2/P4PPP/RN2R1K1 b kq - 4 11","r1b1k2r/p1ppnppp/2n3q1/bp2P3/2B5/BQPp1N2/P4PPP/RN2R1K1 w kq b6 0 12","r1b1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 b kq - 0 12","1rb1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 1 13","1rb1k2r/p1ppnppp/2n3q1/b3P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 b k - 2 13","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 3 14","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 b k - 4 14","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 w k - 5 15","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 b k - 6 15","1r2k2r/pbppnppp/1bn5/4Pq2/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 w k - 7 16","1r2k2r/pbppnppp/1bn5/4Pq2/Q3N3/B1PB1N2/P4PPP/R3R1K1 b k - 0 16","1r2k2r/pbppnppp/1bn5/4P2q/Q3N3/B1PB1N2/P4PPP/R3R1K1 w k - 1 17","1r2k2r/pbppnppp/1bn2N2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 2 17","1r2k2r/pbppnp1p/1bn2p2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 w k - 0 18","1r2k2r/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 0 18","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 w - - 1 19","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/3RR1K1 b - - 2 19","1r2k1r1/pbppnp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3RR1K1 w - - 0 20","1r2k1r1/pbppRp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3R2K1 b - - 0 20","1r2k1r1/pbppnp1p/1b3P2/8/Q7/B1PB1q2/P4PPP/3R2K1 w - - 0 21","1r2k1r1/pbpQnp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 b - - 0 21","1r4r1/pbpknp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 w - - 0 22","1r4r1/pbpknp1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 b - - 1 22","1r2k1r1/pbp1np1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 w - - 2 23","1r2k1r1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 b - - 3 23","1r3kr1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 w - - 4 24","1r3kr1/pbpBBp1p/1b3P2/8/8/2P2q2/P4PPP/3R2K1 b - - 0 24"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"2"},{"san":"Nc6","from":57,"to":42,"figure":"n","promotion":null,"number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"3"},{"san":"b4","from":9,"to":25,"figure":"P","promotion":null,"number":"4"},{"san":"Bxb4","from":34,"to":25,"figure":"b","promotion":null,"number":"4"},{"san":"c3","from":10,"to":18,"figure":"P","promotion":null,"number":"5"},{"san":"Ba5","from":25,"to":32,"figure":"b","promotion":null,"number":"5"},{"san":"d4","from":11,"to":27,"figure":"P","promotion":null,"number":"6"},{"san":"exd4","from":36,"to":27,"figure":"p","promotion":null,"number":"6"},{"san":"O-O","from":4,"to":6,"figure":"K","promotion":null,"number":"7"},{"san":"d3","from":27,"to":19,"figure":"p","promotion":null,"number":"7"},{"san":"Qb3","from":3,"to":17,"figure":"Q","promotion":null,"number":"8"},{"san":"Qf6","from":59,"to":45,"figure":"q","promotion":null,"number":"8"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"9"},{"san":"Qg6","from":45,"to":46,"figure":"q","promotion":null,"number":"9"},{"san":"Re1","from":5,"to":4,"figure":"R","promotion":null,"number":"10"},{"san":"Nge7","from":62,"to":52,"figure":"n","promotion":null,"number":"10"},{"san":"Ba3","from":2,"to":16,"figure":"B","promotion":null,"number":"11"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"11"},{"san":"Qxb5","from":17,"to":33,"figure":"Q","promotion":null,"number":"12"},{"san":"Rb8","from":56,"to":57,"figure":"r","promotion":null,"number":"12"},{"san":"Qa4","from":33,"to":24,"figure":"Q","promotion":null,"number":"13"},{"san":"Bb6","from":32,"to":41,"figure":"b","promotion":null,"number":"13"},{"san":"Nbd2","from":1,"to":11,"figure":"N","promotion":null,"number":"14"},{"san":"Bb7","from":58,"to":49,"figure":"b","promotion":null,"number":"14"},{"san":"Ne4","from":11,"to":28,"figure":"N","promotion":null,"number":"15"},{"san":"Qf5","from":46,"to":37,"figure":"q","promotion":null,"number":"15"},{"san":"Bxd3","from":26,"to":19,"figure":"B","promotion":null,"number":"16"},{"san":"Qh5","from":37,"to":39,"figure":"q","promotion":null,"number":"16"},{"san":"Nf6+","from":28,"to":45,"figure":"N","promotion":null,"number":"17"},{"san":"gxf6","from":54,"to":45,"figure":"p","promotion":null,"number":"17"},{"san":"exf6","from":36,"to":45,"figure":"P","promotion":null,"number":"18"},{"san":"Rg8","from":63,"to":62,"figure":"r","promotion":null,"number":"18"},{"san":"Rad1","from":0,"to":3,"figure":"R","promotion":null,"number":"19"},{"san":"Qxf3","from":39,"to":21,"figure":"q","promotion":null,"number":"19"},{"san":"Rxe7+","from":4,"to":52,"figure":"R","promotion":null,"number":"20"},{"san":"Nxe7","from":42,"to":52,"figure":"n","promotion":null,"number":"20"},{"san":"Qxd7+","from":24,"to":51,"figure":"Q","promotion":null,"number":"21"},{"san":"Kxd7","from":60,"to":51,"figure":"k","promotion":null,"number":"21"},{"san":"Bf5+","from":19,"to":37,"figure":"B","promotion":null,"number":"22"},{"san":"Ke8","from":51,"to":60,"figure":"k","promotion":null,"number":"22"},{"san":"Bd7+","from":37,"to":51,"figure":"B","promotion":null,"number":"23"},{"san":"Kf8","from":60,"to":61,"figure":"k","promotion":null,"number":"23"},{"san":"Bxe7#","from":16,"to":52,"figure":"B","promotion":null,"number":"24"}]}';
+export const evergreen_pgn = `[Event "Informal game"]\n[Site "Berlin"]\n[Date "1852.??.??"]\n[Round "?"]\n[White "Anderssen, Adolf"]\n[Black "Dufresne, Jean"]\n[Result "1-0"]\n[Termination "Checkmate"]\n\n1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Ba5 6. d4 exd4 7. O-O d3 8. Qb3 Qf6 9. e5 Qg6 10. Re1 Nge7 11. Ba3 b5 12. Qxb5 Rb8 13. Qa4 Bb6 14. Nbd2 Bb7 15. Ne4 Qf5 16. Bxd3 Qh5 17. Nf6+ gxf6 18. exf6 Rg8 19. Rad1 Qxf3 20. Rxe7+ Nxe7 21. Qxd7+ Kxd7 22. Bf5+ Ke8 23. Bd7+ Kf8 24. Bxe7# 1-0\n\n`
+export const inmortal_json = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2","rnbqkbnr/pppp1ppp/8/8/4Pp2/8/PPPP2PP/RNBQKBNR w KQkq - 0 3","rnbqkbnr/pppp1ppp/8/8/2B1Pp2/8/PPPP2PP/RNBQK1NR b KQkq - 1 3","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQK1NR w KQkq - 2 4","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 3 4","rnb1kbnr/p1pp1ppp/8/1p6/2B1Pp1q/8/PPPP2PP/RNBQ1KNR w kq b6 0 5","rnb1kbnr/p1pp1ppp/8/1B6/4Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 0 5","rnb1kb1r/p1pp1ppp/5n2/1B6/4Pp1q/8/PPPP2PP/RNBQ1KNR w kq - 1 6","rnb1kb1r/p1pp1ppp/5n2/1B6/4Pp1q/5N2/PPPP2PP/RNBQ1K1R b kq - 2 6","rnb1kb1r/p1pp1ppp/5n1q/1B6/4Pp2/5N2/PPPP2PP/RNBQ1K1R w kq - 3 7","rnb1kb1r/p1pp1ppp/5n1q/1B6/4Pp2/3P1N2/PPP3PP/RNBQ1K1R b kq - 0 7","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp2/3P1N2/PPP3PP/RNBQ1K1R w kq - 1 8","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R b kq - 2 8","rnb1kb1r/p2p1ppp/2p4q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R w kq - 0 9","rnb1kb1r/p2p1ppp/2p4q/1B3N1n/4Pp2/3P4/PPP3PP/RNBQ1K1R b kq - 1 9","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4Pp2/3P4/PPP3PP/RNBQ1K1R w kq - 2 10","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4PpP1/3P4/PPP4P/RNBQ1K1R b kq g3 0 10","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1K1R w kq - 1 11","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1KR1 b kq - 2 11","rnb1kb1r/p2p1ppp/5n2/1p3Nq1/4PpP1/3P4/PPP4P/RNBQ1KR1 w kq - 0 12","rnb1kb1r/p2p1ppp/5n2/1p3Nq1/4PpPP/3P4/PPP5/RNBQ1KR1 b kq h3 0 12","rnb1kb1r/p2p1ppp/5nq1/1p3N2/4PpPP/3P4/PPP5/RNBQ1KR1 w kq - 1 13","rnb1kb1r/p2p1ppp/5nq1/1p3N1P/4PpP1/3P4/PPP5/RNBQ1KR1 b kq - 0 13","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P4/PPP5/RNBQ1KR1 w kq - 1 14","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 b kq - 2 14","rnb1kbnr/p2p1ppp/8/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 w kq - 3 15","rnb1kbnr/p2p1ppp/8/1p3NqP/4PBP1/3P1Q2/PPP5/RN3KR1 b kq - 0 15","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/3P1Q2/PPP5/RN3KR1 w kq - 1 16","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/2NP1Q2/PPP5/R4KR1 b kq - 2 16","rnb1k1nr/p2p1ppp/5q2/1pb2N1P/4PBP1/2NP1Q2/PPP5/R4KR1 w kq - 3 17","rnb1k1nr/p2p1ppp/5q2/1pbN1N1P/4PBP1/3P1Q2/PPP5/R4KR1 b kq - 4 17","rnb1k1nr/p2p1ppp/8/1pbN1N1P/4PBP1/3P1Q2/PqP5/R4KR1 w kq - 0 18","rnb1k1nr/p2p1ppp/3B4/1pbN1N1P/4P1P1/3P1Q2/PqP5/R4KR1 b kq - 1 18","rnb1k1nr/p2p1ppp/3B4/1p1N1N1P/4P1P1/3P1Q2/PqP5/R4Kb1 w kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/PqP5/R4Kb1 b kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P5/q4Kb1 w kq - 0 20","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 1 20","r1b1k1nr/p2p1ppp/n2B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 w kq - 2 21","r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 0 21","r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 w - - 1 22","r1bk2nr/p2p1pNp/n2B1Q2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 2 22","r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 0 23","r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 1 23"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"f4","from":13,"to":29,"figure":"P","promotion":null,"number":"2"},{"san":"exf4","from":36,"to":29,"figure":"p","promotion":"","number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Qh4+","from":59,"to":31,"figure":"q","promotion":null,"number":"3"},{"san":"Kf1","from":4,"to":5,"figure":"K","promotion":null,"number":"4"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"4"},{"san":"Bxb5","from":26,"to":33,"figure":"B","promotion":null,"number":"5"},{"san":"Nf6","from":62,"to":45,"figure":"n","promotion":null,"number":"5"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"6"},{"san":"Qh6","from":31,"to":47,"figure":"q","promotion":null,"number":"6"},{"san":"d3","from":11,"to":19,"figure":"P","promotion":null,"number":"7"},{"san":"Nh5","from":45,"to":39,"figure":"n","promotion":null,"number":"7"},{"san":"Nh4","from":21,"to":31,"figure":"N","promotion":null,"number":"8"},{"san":"c6","from":50,"to":42,"figure":"p","promotion":null,"number":"8"},{"san":"Nf5","from":31,"to":37,"figure":"N","promotion":null,"number":"9"},{"san":"Qg5","from":47,"to":38,"figure":"q","promotion":null,"number":"9"},{"san":"g4","from":14,"to":30,"figure":"P","promotion":null,"number":"10"},{"san":"Nf6","from":39,"to":45,"figure":"n","promotion":null,"number":"10"},{"san":"Rg1","from":7,"to":6,"figure":"R","promotion":null,"number":"11"},{"san":"cxb5","from":42,"to":33,"figure":"p","promotion":"","number":"11"},{"san":"h4","from":15,"to":31,"figure":"P","promotion":null,"number":"12"},{"san":"Qg6","from":38,"to":46,"figure":"q","promotion":null,"number":"12"},{"san":"h5","from":31,"to":39,"figure":"P","promotion":null,"number":"13"},{"san":"Qg5","from":46,"to":38,"figure":"q","promotion":null,"number":"13"},{"san":"Qf3","from":3,"to":21,"figure":"Q","promotion":null,"number":"14"},{"san":"Ng8","from":45,"to":62,"figure":"n","promotion":null,"number":"14"},{"san":"Bxf4","from":2,"to":29,"figure":"B","promotion":null,"number":"15"},{"san":"Qf6","from":38,"to":45,"figure":"q","promotion":null,"number":"15"},{"san":"Nc3","from":1,"to":18,"figure":"N","promotion":null,"number":"16"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"16"},{"san":"Nd5","from":18,"to":35,"figure":"N","promotion":null,"number":"17"},{"san":"Qxb2","from":45,"to":9,"figure":"q","promotion":null,"number":"17"},{"san":"Bd6","from":29,"to":43,"figure":"B","promotion":null,"number":"18"},{"san":"Bxg1","from":34,"to":6,"figure":"b","promotion":null,"number":"18"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"19"},{"san":"Qxa1+","from":9,"to":0,"figure":"q","promotion":null,"number":"19"},{"san":"Ke2","from":5,"to":12,"figure":"K","promotion":null,"number":"20"},{"san":"Na6","from":57,"to":40,"figure":"n","promotion":null,"number":"20"},{"san":"Nxg7+","from":37,"to":54,"figure":"N","promotion":null,"number":"21"},{"san":"Kd8","from":60,"to":59,"figure":"k","promotion":null,"number":"21"},{"san":"Qf6+","from":21,"to":45,"figure":"Q","promotion":null,"number":"22"},{"san":"Nxf6","from":62,"to":45,"figure":"n","promotion":null,"number":"22"},{"san":"Be7#","from":43,"to":52,"figure":"B","promotion":null,"number":"23"}]}';
+export const inmortal_pgn = `[Event "Informal game"]\n[Site "London"]\n[Date "1851.??.??"]\n[Round "?"]\n[White "Anderssen, Adolf"]\n[Black "Kieseritzky, Lionel Adalbert Bagration Felix"]\n[Result "1-0"]\n[Termination "Checkmate"]\n\n1. e4 e5 2. f4 exf4 3. Bc4 Qh4+ 4. Kf1 b5 5. Bxb5 Nf6 6. Nf3 Qh6 7. d3 Nh5 8. Nh4 c6 9. Nf5 Qg5 10. g4 Nf6 11. Rg1 cxb5 12. h4 Qg6 13. h5 Qg5 14. Qf3 Ng8 15. Bxf4 Qf6 16. Nc3 Bc5 17. Nd5 Qxb2 18. Bd6 Bxg1 19. e5 Qxa1+ 20. Ke2 Na6 21. Nxg7+ Kd8 22. Qf6+ Nxf6 23. Be7# 1-0`
 
 export const boardColors = {
     blue: {
@@ -50,6 +69,32 @@ export const boardColors = {
         dark: "#769656"
     }
 };
+
+
+export const MoveEvaluation = {
+    INCOMPLETE_INFO: -1,
+    INVALID_MOVE: 0,
+    VALID_MOVE: 1
+}
+
+export const GameResults = {
+        ONGOING: '*',
+        WHITE_WIN: '1-0',
+        BLACK_WIN: '0-1',
+        DRAW: '1/2-1/2'
+}
+
+export const MoveSteps = {
+    COLUMN: 1,
+    ROW: 8,
+    ANTI_DIAGONAL: 7,
+    DIAGONAL: 9
+}
+
+export const seven_tag_roster = ['event','site','date','round','white','black','result'];
+
+
+//////////////
 
 export const pad = (str, len = 2, padchar = '0', padLeft = true) => {
     const dif = len - str.toString().length;
@@ -87,22 +132,6 @@ export const isDarkSquare = index => {
 
 export const isLightSquare = index => !isDarkSquare(index) 
 
-export const defaultFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-export const emptyFen = "8/8/8/8/8/8/8/8 w KQkq - 0 1";
-export const frenchFen = 'rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
-export const sicilianFen = 'rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
-export const caroKanFen = 'rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2';
-export const smotheredFen = '4k3/4P3/3K4/8/8/8/8/8 w - - 1 50';
-export const helpedMateFen = 'r1bqkbnr/pppnpppp/7P/3p4/8/8/PPPPPPP1/RNBQKBNR b KQkq - 0 3';
-export const KnightandBishopFen = '4k3/8/8/8/8/8/8/N3K2B w - - 0 1';
-
-export const mateIn3Fen = '3krn2/p1p1p3/3n4/2N2b1q/Q7/6p1/4P1P1/1R4K1 w - - 0 1';
-
-export const evergreen_json = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2","r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3","r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3","r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4","r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R b KQkq b3 0 4","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/5N2/P1PP1PPP/RNBQK2R w KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/2P2N2/P2P1PPP/RNBQK2R b KQkq - 0 5","r1bqk1nr/pppp1ppp/2n5/b3p3/2B1P3/2P2N2/P2P1PPP/RNBQK2R w KQkq - 1 6","r1bqk1nr/pppp1ppp/2n5/b3p3/2BPP3/2P2N2/P4PPP/RNBQK2R b KQkq d3 0 6","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQK2R w KQkq - 0 7","r1bqk1nr/pppp1ppp/2n5/b7/2BpP3/2P2N2/P4PPP/RNBQ1RK1 b kq - 1 7","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/2Pp1N2/P4PPP/RNBQ1RK1 w kq - 0 8","r1bqk1nr/pppp1ppp/2n5/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 b kq - 1 8","r1b1k1nr/pppp1ppp/2n2q2/b7/2B1P3/1QPp1N2/P4PPP/RNB2RK1 w kq - 2 9","r1b1k1nr/pppp1ppp/2n2q2/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 b kq - 0 9","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB2RK1 w kq - 1 10","r1b1k1nr/pppp1ppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 b kq - 2 10","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/1QPp1N2/P4PPP/RNB1R1K1 w kq - 3 11","r1b1k2r/ppppnppp/2n3q1/b3P3/2B5/BQPp1N2/P4PPP/RN2R1K1 b kq - 4 11","r1b1k2r/p1ppnppp/2n3q1/bp2P3/2B5/BQPp1N2/P4PPP/RN2R1K1 w kq b6 0 12","r1b1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 b kq - 0 12","1rb1k2r/p1ppnppp/2n3q1/bQ2P3/2B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 1 13","1rb1k2r/p1ppnppp/2n3q1/b3P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 b k - 2 13","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P4PPP/RN2R1K1 w k - 3 14","1rb1k2r/p1ppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 b k - 4 14","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B5/B1Pp1N2/P2N1PPP/R3R1K1 w k - 5 15","1r2k2r/pbppnppp/1bn3q1/4P3/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 b k - 6 15","1r2k2r/pbppnppp/1bn5/4Pq2/Q1B1N3/B1Pp1N2/P4PPP/R3R1K1 w k - 7 16","1r2k2r/pbppnppp/1bn5/4Pq2/Q3N3/B1PB1N2/P4PPP/R3R1K1 b k - 0 16","1r2k2r/pbppnppp/1bn5/4P2q/Q3N3/B1PB1N2/P4PPP/R3R1K1 w k - 1 17","1r2k2r/pbppnppp/1bn2N2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 2 17","1r2k2r/pbppnp1p/1bn2p2/4P2q/Q7/B1PB1N2/P4PPP/R3R1K1 w k - 0 18","1r2k2r/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 b k - 0 18","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/R3R1K1 w - - 1 19","1r2k1r1/pbppnp1p/1bn2P2/7q/Q7/B1PB1N2/P4PPP/3RR1K1 b - - 2 19","1r2k1r1/pbppnp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3RR1K1 w - - 0 20","1r2k1r1/pbppRp1p/1bn2P2/8/Q7/B1PB1q2/P4PPP/3R2K1 b - - 0 20","1r2k1r1/pbppnp1p/1b3P2/8/Q7/B1PB1q2/P4PPP/3R2K1 w - - 0 21","1r2k1r1/pbpQnp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 b - - 0 21","1r4r1/pbpknp1p/1b3P2/8/8/B1PB1q2/P4PPP/3R2K1 w - - 0 22","1r4r1/pbpknp1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 b - - 1 22","1r2k1r1/pbp1np1p/1b3P2/5B2/8/B1P2q2/P4PPP/3R2K1 w - - 2 23","1r2k1r1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 b - - 3 23","1r3kr1/pbpBnp1p/1b3P2/8/8/B1P2q2/P4PPP/3R2K1 w - - 4 24","1r3kr1/pbpBBp1p/1b3P2/8/8/2P2q2/P4PPP/3R2K1 b - - 0 24"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"2"},{"san":"Nc6","from":57,"to":42,"figure":"n","promotion":null,"number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"3"},{"san":"b4","from":9,"to":25,"figure":"P","promotion":null,"number":"4"},{"san":"Bxb4","from":34,"to":25,"figure":"b","promotion":null,"number":"4"},{"san":"c3","from":10,"to":18,"figure":"P","promotion":null,"number":"5"},{"san":"Ba5","from":25,"to":32,"figure":"b","promotion":null,"number":"5"},{"san":"d4","from":11,"to":27,"figure":"P","promotion":null,"number":"6"},{"san":"exd4","from":36,"to":27,"figure":"p","promotion":null,"number":"6"},{"san":"O-O","from":4,"to":6,"figure":"K","promotion":null,"number":"7"},{"san":"d3","from":27,"to":19,"figure":"p","promotion":null,"number":"7"},{"san":"Qb3","from":3,"to":17,"figure":"Q","promotion":null,"number":"8"},{"san":"Qf6","from":59,"to":45,"figure":"q","promotion":null,"number":"8"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"9"},{"san":"Qg6","from":45,"to":46,"figure":"q","promotion":null,"number":"9"},{"san":"Re1","from":5,"to":4,"figure":"R","promotion":null,"number":"10"},{"san":"Nge7","from":62,"to":52,"figure":"n","promotion":null,"number":"10"},{"san":"Ba3","from":2,"to":16,"figure":"B","promotion":null,"number":"11"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"11"},{"san":"Qxb5","from":17,"to":33,"figure":"Q","promotion":null,"number":"12"},{"san":"Rb8","from":56,"to":57,"figure":"r","promotion":null,"number":"12"},{"san":"Qa4","from":33,"to":24,"figure":"Q","promotion":null,"number":"13"},{"san":"Bb6","from":32,"to":41,"figure":"b","promotion":null,"number":"13"},{"san":"Nbd2","from":1,"to":11,"figure":"N","promotion":null,"number":"14"},{"san":"Bb7","from":58,"to":49,"figure":"b","promotion":null,"number":"14"},{"san":"Ne4","from":11,"to":28,"figure":"N","promotion":null,"number":"15"},{"san":"Qf5","from":46,"to":37,"figure":"q","promotion":null,"number":"15"},{"san":"Bxd3","from":26,"to":19,"figure":"B","promotion":null,"number":"16"},{"san":"Qh5","from":37,"to":39,"figure":"q","promotion":null,"number":"16"},{"san":"Nf6+","from":28,"to":45,"figure":"N","promotion":null,"number":"17"},{"san":"gxf6","from":54,"to":45,"figure":"p","promotion":null,"number":"17"},{"san":"exf6","from":36,"to":45,"figure":"P","promotion":null,"number":"18"},{"san":"Rg8","from":63,"to":62,"figure":"r","promotion":null,"number":"18"},{"san":"Rad1","from":0,"to":3,"figure":"R","promotion":null,"number":"19"},{"san":"Qxf3","from":39,"to":21,"figure":"q","promotion":null,"number":"19"},{"san":"Rxe7+","from":4,"to":52,"figure":"R","promotion":null,"number":"20"},{"san":"Nxe7","from":42,"to":52,"figure":"n","promotion":null,"number":"20"},{"san":"Qxd7+","from":24,"to":51,"figure":"Q","promotion":null,"number":"21"},{"san":"Kxd7","from":60,"to":51,"figure":"k","promotion":null,"number":"21"},{"san":"Bf5+","from":19,"to":37,"figure":"B","promotion":null,"number":"22"},{"san":"Ke8","from":51,"to":60,"figure":"k","promotion":null,"number":"22"},{"san":"Bd7+","from":37,"to":51,"figure":"B","promotion":null,"number":"23"},{"san":"Kf8","from":60,"to":61,"figure":"k","promotion":null,"number":"23"},{"san":"Bxe7#","from":16,"to":52,"figure":"B","promotion":null,"number":"24"}]}';
-export const evergreen_pgn = `[Event "Informal game"]\n[Site "Berlin"]\n[Date "1852.??.??"]\n[Round "?"]\n[White "Anderssen, Adolf"]\n[Black "Dufresne, Jean"]\n[Result "1-0"]\n[Termination "Checkmate"]\n\n1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Ba5 6. d4 exd4 7. O-O d3 8. Qb3 Qf6 9. e5 Qg6 10. Re1 Nge7 11. Ba3 b5 12. Qxb5 Rb8 13. Qa4 Bb6 14. Nbd2 Bb7 15. Ne4 Qf5 16. Bxd3 Qh5 17. Nf6+ gxf6 18. exf6 Rg8 19. Rad1 Qxf3 20. Rxe7+ Nxe7 21. Qxd7+ Kxd7 22. Bf5+ Ke8 23. Bd7+ Kf8 24. Bxe7# 1-0\n\n`
-export const inmortal_json = '{"fens":["rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1","rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1","rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2","rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2","rnbqkbnr/pppp1ppp/8/8/4Pp2/8/PPPP2PP/RNBQKBNR w KQkq - 0 3","rnbqkbnr/pppp1ppp/8/8/2B1Pp2/8/PPPP2PP/RNBQK1NR b KQkq - 1 3","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQK1NR w KQkq - 2 4","rnb1kbnr/pppp1ppp/8/8/2B1Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 3 4","rnb1kbnr/p1pp1ppp/8/1p6/2B1Pp1q/8/PPPP2PP/RNBQ1KNR w kq b6 0 5","rnb1kbnr/p1pp1ppp/8/1B6/4Pp1q/8/PPPP2PP/RNBQ1KNR b kq - 0 5","rnb1kb1r/p1pp1ppp/5n2/1B6/4Pp1q/8/PPPP2PP/RNBQ1KNR w kq - 1 6","rnb1kb1r/p1pp1ppp/5n2/1B6/4Pp1q/5N2/PPPP2PP/RNBQ1K1R b kq - 2 6","rnb1kb1r/p1pp1ppp/5n1q/1B6/4Pp2/5N2/PPPP2PP/RNBQ1K1R w kq - 3 7","rnb1kb1r/p1pp1ppp/5n1q/1B6/4Pp2/3P1N2/PPP3PP/RNBQ1K1R b kq - 0 7","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp2/3P1N2/PPP3PP/RNBQ1K1R w kq - 1 8","rnb1kb1r/p1pp1ppp/7q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R b kq - 2 8","rnb1kb1r/p2p1ppp/2p4q/1B5n/4Pp1N/3P4/PPP3PP/RNBQ1K1R w kq - 0 9","rnb1kb1r/p2p1ppp/2p4q/1B3N1n/4Pp2/3P4/PPP3PP/RNBQ1K1R b kq - 1 9","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4Pp2/3P4/PPP3PP/RNBQ1K1R w kq - 2 10","rnb1kb1r/p2p1ppp/2p5/1B3Nqn/4PpP1/3P4/PPP4P/RNBQ1K1R b kq g3 0 10","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1K1R w kq - 1 11","rnb1kb1r/p2p1ppp/2p2n2/1B3Nq1/4PpP1/3P4/PPP4P/RNBQ1KR1 b kq - 2 11","rnb1kb1r/p2p1ppp/5n2/1p3Nq1/4PpP1/3P4/PPP4P/RNBQ1KR1 w kq - 0 12","rnb1kb1r/p2p1ppp/5n2/1p3Nq1/4PpPP/3P4/PPP5/RNBQ1KR1 b kq h3 0 12","rnb1kb1r/p2p1ppp/5nq1/1p3N2/4PpPP/3P4/PPP5/RNBQ1KR1 w kq - 1 13","rnb1kb1r/p2p1ppp/5nq1/1p3N1P/4PpP1/3P4/PPP5/RNBQ1KR1 b kq - 0 13","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P4/PPP5/RNBQ1KR1 w kq - 1 14","rnb1kb1r/p2p1ppp/5n2/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 b kq - 2 14","rnb1kbnr/p2p1ppp/8/1p3NqP/4PpP1/3P1Q2/PPP5/RNB2KR1 w kq - 3 15","rnb1kbnr/p2p1ppp/8/1p3NqP/4PBP1/3P1Q2/PPP5/RN3KR1 b kq - 0 15","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/3P1Q2/PPP5/RN3KR1 w kq - 1 16","rnb1kbnr/p2p1ppp/5q2/1p3N1P/4PBP1/2NP1Q2/PPP5/R4KR1 b kq - 2 16","rnb1k1nr/p2p1ppp/5q2/1pb2N1P/4PBP1/2NP1Q2/PPP5/R4KR1 w kq - 3 17","rnb1k1nr/p2p1ppp/5q2/1pbN1N1P/4PBP1/3P1Q2/PPP5/R4KR1 b kq - 4 17","rnb1k1nr/p2p1ppp/8/1pbN1N1P/4PBP1/3P1Q2/PqP5/R4KR1 w kq - 0 18","rnb1k1nr/p2p1ppp/3B4/1pbN1N1P/4P1P1/3P1Q2/PqP5/R4KR1 b kq - 1 18","rnb1k1nr/p2p1ppp/3B4/1p1N1N1P/4P1P1/3P1Q2/PqP5/R4Kb1 w kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/PqP5/R4Kb1 b kq - 0 19","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P5/q4Kb1 w kq - 0 20","rnb1k1nr/p2p1ppp/3B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 1 20","r1b1k1nr/p2p1ppp/n2B4/1p1NPN1P/6P1/3P1Q2/P1P1K3/q5b1 w kq - 2 21","r1b1k1nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 b kq - 0 21","r1bk2nr/p2p1pNp/n2B4/1p1NP2P/6P1/3P1Q2/P1P1K3/q5b1 w - - 1 22","r1bk2nr/p2p1pNp/n2B1Q2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 2 22","r1bk3r/p2p1pNp/n2B1n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 w - - 0 23","r1bk3r/p2pBpNp/n4n2/1p1NP2P/6P1/3P4/P1P1K3/q5b1 b - - 1 23"],"moves":[null,{"san":"e4","from":12,"to":28,"figure":"P","promotion":null,"number":"1"},{"san":"e5","from":52,"to":36,"figure":"p","promotion":null,"number":"1"},{"san":"f4","from":13,"to":29,"figure":"P","promotion":null,"number":"2"},{"san":"exf4","from":36,"to":29,"figure":"p","promotion":"","number":"2"},{"san":"Bc4","from":5,"to":26,"figure":"B","promotion":null,"number":"3"},{"san":"Qh4+","from":59,"to":31,"figure":"q","promotion":null,"number":"3"},{"san":"Kf1","from":4,"to":5,"figure":"K","promotion":null,"number":"4"},{"san":"b5","from":49,"to":33,"figure":"p","promotion":null,"number":"4"},{"san":"Bxb5","from":26,"to":33,"figure":"B","promotion":null,"number":"5"},{"san":"Nf6","from":62,"to":45,"figure":"n","promotion":null,"number":"5"},{"san":"Nf3","from":6,"to":21,"figure":"N","promotion":null,"number":"6"},{"san":"Qh6","from":31,"to":47,"figure":"q","promotion":null,"number":"6"},{"san":"d3","from":11,"to":19,"figure":"P","promotion":null,"number":"7"},{"san":"Nh5","from":45,"to":39,"figure":"n","promotion":null,"number":"7"},{"san":"Nh4","from":21,"to":31,"figure":"N","promotion":null,"number":"8"},{"san":"c6","from":50,"to":42,"figure":"p","promotion":null,"number":"8"},{"san":"Nf5","from":31,"to":37,"figure":"N","promotion":null,"number":"9"},{"san":"Qg5","from":47,"to":38,"figure":"q","promotion":null,"number":"9"},{"san":"g4","from":14,"to":30,"figure":"P","promotion":null,"number":"10"},{"san":"Nf6","from":39,"to":45,"figure":"n","promotion":null,"number":"10"},{"san":"Rg1","from":7,"to":6,"figure":"R","promotion":null,"number":"11"},{"san":"cxb5","from":42,"to":33,"figure":"p","promotion":"","number":"11"},{"san":"h4","from":15,"to":31,"figure":"P","promotion":null,"number":"12"},{"san":"Qg6","from":38,"to":46,"figure":"q","promotion":null,"number":"12"},{"san":"h5","from":31,"to":39,"figure":"P","promotion":null,"number":"13"},{"san":"Qg5","from":46,"to":38,"figure":"q","promotion":null,"number":"13"},{"san":"Qf3","from":3,"to":21,"figure":"Q","promotion":null,"number":"14"},{"san":"Ng8","from":45,"to":62,"figure":"n","promotion":null,"number":"14"},{"san":"Bxf4","from":2,"to":29,"figure":"B","promotion":null,"number":"15"},{"san":"Qf6","from":38,"to":45,"figure":"q","promotion":null,"number":"15"},{"san":"Nc3","from":1,"to":18,"figure":"N","promotion":null,"number":"16"},{"san":"Bc5","from":61,"to":34,"figure":"b","promotion":null,"number":"16"},{"san":"Nd5","from":18,"to":35,"figure":"N","promotion":null,"number":"17"},{"san":"Qxb2","from":45,"to":9,"figure":"q","promotion":null,"number":"17"},{"san":"Bd6","from":29,"to":43,"figure":"B","promotion":null,"number":"18"},{"san":"Bxg1","from":34,"to":6,"figure":"b","promotion":null,"number":"18"},{"san":"e5","from":28,"to":36,"figure":"P","promotion":null,"number":"19"},{"san":"Qxa1+","from":9,"to":0,"figure":"q","promotion":null,"number":"19"},{"san":"Ke2","from":5,"to":12,"figure":"K","promotion":null,"number":"20"},{"san":"Na6","from":57,"to":40,"figure":"n","promotion":null,"number":"20"},{"san":"Nxg7+","from":37,"to":54,"figure":"N","promotion":null,"number":"21"},{"san":"Kd8","from":60,"to":59,"figure":"k","promotion":null,"number":"21"},{"san":"Qf6+","from":21,"to":45,"figure":"Q","promotion":null,"number":"22"},{"san":"Nxf6","from":62,"to":45,"figure":"n","promotion":null,"number":"22"},{"san":"Be7#","from":43,"to":52,"figure":"B","promotion":null,"number":"23"}]}';
-export const inmortal_pgn = `[Event "Informal game"]\n[Site "London"]\n[Date "1851.??.??"]\n[Round "?"]\n[White "Anderssen, Adolf"]\n[Black "Kieseritzky, Lionel Adalbert Bagration Felix"]\n[Result "1-0"]\n[Termination "Checkmate"]\n\n1. e4 e5 2. f4 exf4 3. Bc4 Qh4+ 4. Kf1 b5 5. Bxb5 Nf6 6. Nf3 Qh6 7. d3 Nh5 8. Nh4 c6 9. Nf5 Qg5 10. g4 Nf6 11. Rg1 cxb5 12. h4 Qg6 13. h5 Qg5 14. Qf3 Ng8 15. Bxf4 Qf6 16. Nc3 Bc5 17. Nd5 Qxb2 18. Bd6 Bxg1 19. e5 Qxa1+ 20. Ke2 Na6 21. Nxg7+ Kd8 22. Qf6+ Nxf6 23. Be7# 1-0`
-
 export const fen2obj = fen => {
 const [fenPos, activeColor, castling, enPassant, halfMoveClock, fullMoveNumber] = fen.split(/\s+/g);
 return {fenPos, activeColor, castling, enPassant, halfMoveClock, fullMoveNumber};
@@ -123,31 +152,11 @@ return fenpos.replace(/\//g, "").replace(/(\d)/g, d => "0".repeat(parseInt(d)));
 export const rPosFromFen = fen => "0".repeat(64).split('').map((v, i) => v = fenPos2long(fen2obj(fen).fenPos)[i ^ 56]).join('')
 export const activeColorFromFen = fen => fen2obj(fen).activeColor
 
-export const MoveEvaluation = {
-    INCOMPLETE_INFO: -1,
-    INVALID_MOVE: 0,
-    VALID_MOVE: 1
-}
-
-export const GameResults = {
-        ONGOING: '*',
-        WHITE_WIN: '1-0',
-        BLACK_WIN: '0-1',
-        DRAW: '1/2-1/2'
-}
-
-export const resultRegex = /(?<ONGOING>^\*$)|(?<WHITE_WIN>^1-0$)|(?<BLACK_WIN>^0-1$)|(?<DRAW>^1\/2-1\/2$)/;
-
-export const MoveSteps = {
-    COLUMN: 1,
-    ROW: 8,
-    ANTI_DIAGONAL: 7,
-    DIAGONAL: 9
-}
-
 export const pgnDate = (date = new Date()) => `${pad(date.getFullYear(), 4)}.${pad(date.getMonth() + 1)}.${pad(date.getDate())}`
 
-export const seven_tag_roster = ['event','site','date','round','white','black','result'];
+
+//////////////
+
 
 export class ChessValidator {
     constructor(fen = defaultFen, debug = false) {
@@ -383,6 +392,9 @@ export class ChessValidator {
         const figure = figureFrom;
 
         const retObj = {fen: newFen, movedata: { san, from, to, figure, promotion, number: oldNumber }};
+
+        this.appendFen(retObj.fen);
+        this.appendMove(retObj.movedata);
 
         return retObj;
 
@@ -1287,24 +1299,389 @@ export class ChessGame extends ChessValidator {
         this.headers.termination = '';
     }
 
+    emitRepaint(reason = "content") {
+        const ev = new CustomEvent('repaint', {detail: {reason, current: this.current}});
+        this.dispatchEvent(ev);
+    }
+
 }
 
-
-// export const mock_validator = new ChessValidator(true);
+//////////////
 
 export class ChessBoard extends HTMLElement {
     constructor() {
-        super(); 
+        super();
+        this._chessCard = null;
+        this.selectedSquare = 64;
+        this._validator = new ChessGame();
+        this.defaultPos = `rnbqkbnrpppppppp${'0'.repeat(32)}PPPPPPPPRNBQKBNR`;
+        this.automaticPromotion = null;
+        this.current = 0;
         this.rows = 8;
         this.cols = 8;
-        //this.validator.fens.push(this.fen);
         this.root = this.attachShadow({mode: 'closed'});
+        this.appliedStyle = document.createElement('style');
+        this.root.appendChild(this.appliedStyle);
         this.mainDiv = document.createElement('div');
         this.mainDiv.setAttribute("id", "main-div");
-        this.mainDiv.setAttribute("class", "main-div");
-        this.mainStyle = document.createElement('style');
-        this.root.appendChild(this.mainStyle);
+        this.mainDiv.className = 'main-container';
         this.root.appendChild(this.mainDiv);
+    }
+
+    get squares() {
+        return this.root.querySelectorAll('.row .square');
+    } 
+
+    get figures() {
+        return this.root.querySelectorAll('.row .square img');
+    }
+    
+    get activeColor() {
+        const { activeColor } = fen2obj(this.validator.fens[this.current]);
+        return activeColor;
+    }
+
+    get enPassant() {
+        const { enPassant } = fen2obj(this.validator.fens[this.current]);
+        return enPassant;
+    }
+
+    get castling() {
+        const { castling } = fen2obj(this.validator.fens[this.current]);
+        return castling;
+    }
+
+    get position() {
+        const { fenPos } = fen2obj(this.validator.fens[this.current]);
+        return fenPos2long(fenPos);
+    }
+
+    get validator() {
+        if (!this._validator) this._validator = new ChessGame();
+        return this._validator;
+    }
+
+    set validator(value) {
+        const valid = !!value && value.move && typeof(value.move) && 'function' && value.fens;
+        if (!valid) throw new Error('Validator must be an object with a "move" function and an array of "fen" strings.');
+        this._validator = value;
+        this.reset(this.validator.fen); 
+    }
+
+    get style() {
+        return `
+        :host {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 110%;
+            user-select: none;
+        }
+        .square img {
+            cursor: grab;
+        }
+        .square.promotion img {
+            cursor: pointer;
+        }
+        .main-container {
+            width: ${this.boardSize * 2 + 2}px;
+            min-width: ${this.boardSize * 2 + 2}px;
+            height: ${this.boardSize + 2}px;
+            min-height: ${this.boardSize + 2}px;
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+            align-items: stretch;
+            background: inherit;
+            user-select: none;
+        }
+        .panel {
+            width: ${this.boardSize + 1}px;
+            min-width: ${this.boardSize + 1}px;
+            height: ${this.boardSize + 1}px;
+            min-height: ${this.boardSize + 1}px;
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+            align-items: stretch;
+            background: transparent;
+            z-index: 1;
+        }
+        .board {
+            width: ${this.boardSize}px;
+            min-width: ${this.boardSize}px;
+            max-width: ${this.boardSize}px;
+            height: ${this.boardSize}px;
+            min-height: ${this.boardSize}px;
+            max-height: ${this.boardSize}px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            background: whitesmoke;
+            z-index: 2;
+            border: solid 1px black;
+            margin-right: 2px;
+        }
+        .row {
+            width: ${this.boardSize / 8}px;
+            min-width: ${this.boardSize / 8}px;
+            max-width: ${this.boardSize / 8}px;
+            height: ${this.boardSize / 8}px;
+            min-height: ${this.boardSize / 8}px;
+            max-height: ${this.boardSize / 8}px;
+            display: flex;
+            flex-direction: row;
+        }
+        .square {
+            width: ${this.boardSize / 8}px;
+            min-width: ${this.boardSize / 8}px;
+            max-width: ${this.boardSize / 8}px;
+            height: ${this.boardSize / 8}px;
+            min-height: ${this.boardSize / 8}px;
+            max-height: ${this.boardSize / 8}px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+        .square[number="${this.selectedSquare}"] {
+            background: ${this.selectedBackground};
+        }
+
+
+        .dark {
+            background:  ${boardColors[this.backgroundSchema].dark};
+        }
+
+        .light {
+            background: ${boardColors[this.backgroundSchema].light};
+        }
+
+        `
+    }
+
+
+    get selectedBackground() {
+        switch (this.backgroundSchema) {
+            case 'acqua':
+            case 'blue':
+                return "#00ff00";
+            case 'green':
+                return "#0000ff";
+            default:
+                return "#ff0000";
+        }
+    }
+
+    get selectedSquare() {
+         return this.getAttribute("selected-square") === null ? 64 : +this.getAttribute("selected-square");
+    }
+    set selectedSquare(value) {
+        if (value < 0 || value > 64) throw new Error('Incorrect index for square.\nMust be between 0 and 63 to select or 64 to unselect.');
+        this.setAttribute("selected-square", value);
+    }
+
+    get backgroundSchema() {
+        return this.getAttribute('background-schema') || 'blue';
+    }
+    set backgroundSchema(newSchema) {
+        if (!(newSchema in boardColors)) throw new Error("Unknown color schema.");
+        this.setAttribute('background-schema', newSchema);
+    }
+
+    get boardSize() {
+        return this.getAttribute('board-size') || 400;
+    }
+    set boardSize(newSize) {
+        this.setAttribute('board-size', newSize);
+    }
+
+    get flipped() {
+        return this.getAttribute('flipped') !== null;
+    }
+    set flipped(value) {
+        if (!!value) {
+            this.setAttribute('flipped', '');
+        } else {
+            this.removeAttribute('flipped');
+        }
+    }
+    flip() { this.flipped = !this.flipped;}
+
+    get debug() {
+        return this.getAttribute('debug') !== null;
+    }
+    set debug(value) {
+        if (!!value) {
+            this.setAttribute('debug', '');
+        } else {
+            this.removeAttribute('debug');
+        }
+    }
+
+    get automaticPromotion() {
+        return this.getAttribute("automatic-promotion");
+    }
+    set automaticPromotion(value) {
+        if ('QRBN'.indexOf(value) === -1 && value !== null) throw new Error("Promotion figure must be one of 'Q', 'R', 'B', 'N', or null.");
+        if (!value) {
+            this.removeAttribute('automatic-promotion');
+        } else {
+            this.setAttribute('automatic-promotion', value);
+        }
+    }
+
+    render() {
+        this.renderStyle();
+        this.renderHtml();
+    }
+
+    renderStyle() {
+        this.appliedStyle.textContent = this.style;
+        this.emitRepaint('style');
+    }
+
+    renderHtml() {
+        this.removeListeners();
+        this.mainDiv.innerHTML = this.html;
+        this.addProperties();
+        this.addListeners();
+        this.emitRepaint('content');
+    }
+
+    get html() {
+        const flexDirection = this.activeColor === 'w' ? (this.flipped ? 'column-reverse' : 'column') : (this.flipped ? 'column' : 'column-reverse');
+        const position = this.position;
+        const xor = this.flipped ? 63 : 0;
+        const xor_row = this.flipped ? 0 : 7;
+        const xor_col = this.flipped ? 7 : 0;
+        let rows = ``;
+        for (let r = 0; r < 8; r += 1 ) {
+            const row = r ^ xor_row;
+            rows +=  `<div class="row" index="${row}">`
+            for (let c = 0; c < 8; c += 1) {
+                const col = c ^ xor_col;
+                const number = row * 8 + col;
+                const sqName = square2san(number);
+                const sqIndex = (r * 8 + c) ^ xor;
+                const figure = position[sqIndex];
+                const backColor = (isEven(r) && isEven(c)) || (isOdd(r) && isOdd(c)) ? 'light' : 'dark'
+                const sqSize = this.boardSize / 8;
+                const sqContent =  figure === '0' ? '' : `<img  width="${sqSize}px" height="${sqSize}px" src="${classicSet[figure]}" />`
+                rows += `<div 
+                          class="square ${backColor}" 
+                          index="${sqIndex}" 
+                          number="${number}" 
+                          row="${row}" 
+                          col="${col}"
+                          figure="${figure}"
+                          ${this.debug ? 'title' : 'aria-label'}="${sqName}"
+                         >
+                           ${sqContent}
+                         </div>`
+            }
+            rows += `</div>`;
+        }
+        let promotionDialog = `
+        <div
+           id="promotion-dialog" 
+           style="opacity: 1; display: none; border: solid 1px; padding: 0; top: ${this.top - this.top}px; left: ${this.left - this.leftt}px; position: absolute; z-index: 1007; flex-direction: ${flexDirection};"
+         >
+         `
+         const figures = this.activeColor === 'w' ? 'QRBN' : 'qrbn';
+         for (let n = 0; n < 4; n += 1) {
+            promotionDialog += `
+          <div 
+            class="square promotion" 
+            figure="${figures[n]}"
+            style="border: none;"
+            >
+            <img
+              draggable="false" 
+              src="${classicSet[figures[n]]}"
+              width="${this.squareSize}px" 
+              height="${this.squareSize}px"
+            />
+          </div>
+            `
+         }
+        
+        promotionDialog += '</div>';
+        
+        const markup = `
+        ${promotionDialog}
+        <div id="board-div" class="panel">
+            <div id="the-board" class="board">
+              ${rows}
+            </div>
+        </div>
+        <div id="accesories-panel" class="panel" style="display: flex;">
+          <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
+            <chess-card></chess-card>
+          </div>
+          <div id="setup-panel" class="panel" style="display: none;">Setup</div>
+        </div>
+        `;
+        return markup;
+    }
+
+    emitRepaint(reason = "content") {
+        const ev = new CustomEvent('repaint', {detail: {reason, current: this.current}});
+        this.dispatchEvent(ev);
+    }
+
+    static get observedAttributes() {
+        return ['selected-square', 'board-size', 'flipped', 'background-schema'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue === newValue) return;
+        console.log(`'${name}' has changed from '${oldValue}'  to '${newValue}' `);
+
+        if (name === 'background-schema' || name === 'selected-square') {
+            return this.renderStyle();
+        }
+
+        if (name === 'flipped') {
+            return this.renderHtml();
+        }
+
+        if (name === 'board-size') {
+            return this.render();
+        }
+    }
+
+    get chessCard() {
+        return this.root.querySelector("chess-card");
+    }
+
+    connectedCallback() {
+        if (this.chessCard) {
+            this.debug && console.log("Chess card detected, setting it up.");
+            this.chessCard.parent = this;
+            //this.debug && console.log("Rendering chesscard from chessboard connectedCallback");
+            //this.chessCard.render();
+        }
+        this.mainDiv.addEventListener('contextmenu', this.oncontextMenu);
+        this.mainDiv.addEventListener('dblclick', this.dblclick);
+        this.debug && console.log("Connected to DOM. Now rendering...");
+        this.render();
+    }
+
+    disconnectedCallback() {
+        this.mainDiv.removeEventListener('contextmenu', this.oncontextMenu);
+        this.mainDiv.removeEventListener('dblclick', this.dblclick);
+        this.debug && console.log("Diconnected from DOM. Bye for now...");
+        this.removeListeners();
+    }
+
+    adoptedCallback() {
+        
+    }
+
+    dblclick = ev => {
+        ev && ev.stopPropagation();
+        ev && ev.preventDefault();
+        this.flip();
     }
 
     asciiDiagram(fen = this.fen) {
@@ -1325,7 +1702,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     imageDiagram(percent = 60 , fen = this.fen) {
-        const size = percent * this.size / 100;
+        const size = percent * this.boardSize / 100;
         const sqSize = size / 8;
         const canvas = document.createElement('canvas');
         canvas.style.margin = '10px';
@@ -1398,6 +1775,27 @@ export class ChessBoard extends HTMLElement {
         return mainDiv;
     }
 
+    showDiagram(type = "i", fen = this.fen, percent = 80) {
+        if (!/^[if]$/.test(type.toLowerCase())) throw new Error(`Error in parameter 'type'. Unknown type of diagram "${type}". Must be one of 'i' or 'f'` );
+        const dialog = document.createElement('dialog');
+        dialog.style.padding = '0';
+        const diagram = type === 'i' ? this.imageDiagram(percent, fen) : this.figurineDiagram(fen);
+        dialog.appendChild(diagram);
+        const cancelDialog = ev => {
+            this.debug && console.log("Dismissing diagram dialog.");
+            dialog.removeEventListener('cancel', cancelDialog);
+            document.body.removeChild(dialog);
+            return true;
+        }
+        dialog.addEventListener('cancel', cancelDialog);
+        document.body.appendChild(dialog);
+        dialog.showModal();
+    }
+
+    get fen() {
+        return this.fens[this.current];
+    }
+
     get(sq, fen = this.fen) {
         if (this.validator.isWrongFen(fen)) return null;
         if (typeof(sq) === 'string') sq = san2square(sq);
@@ -1415,7 +1813,8 @@ export class ChessBoard extends HTMLElement {
         rpos[sq] = figure;
         const fenpos = rpos.map((v, i) => v = rpos[i ^ 56]).join('');
         fenobj.fenPos = fenPos2short(fenpos);
-        this.fen = this.validator.fens[this.current] = obj2fen(fenobj);
+        this.validator.fens[this.current] = obj2fen(fenobj);
+        this.renderHtml();
         return true;
     }   
     
@@ -1423,23 +1822,15 @@ export class ChessBoard extends HTMLElement {
         this.set(sq, '0', fen);
     }
 
-    get current() {
-        // return +this.fullMoveNumber * 2 - 2 + (this.activeColor === 'b') * 1;
-        let len = this.validator.fens.length;
-        for (let n = 0; n < len; n += 1) {
-            if (this.fen === this.validator.fens[n]) return n;
-        }
-        return 0;
-    }
-
     reset = (fen = defaultFen) => {
         this.validator.reset(fen);
-        this.fen = this.validator.fen;
+        this.current = 0;
+        this.renderHtml();
     }
 
     undo = () => {
         this.validator.undo();
-        this.fen = this.validator.fen;
+        this.goto();
     }
 
     goto = (where = this.validator.fens.length - 1) => {
@@ -1448,10 +1839,12 @@ export class ChessBoard extends HTMLElement {
             throw new Error("Index out of range.")
         }
         if (where < 0) where = this.validator.fens.length - 1;
-        this.fen = this.validator.fens[where];
+        //this.fen = this.validator.fens[where];
+        this.current = where;
         if (this.current !== oldCurrent) {
             const ev = new CustomEvent('changepos', {detail: this.current});
             this.dispatchEvent(ev);
+            this.renderHtml();
         }
         return this.current;
     }
@@ -1468,8 +1861,8 @@ export class ChessBoard extends HTMLElement {
     }
 
     checkLimits = _ => {
-        if (this.size > window.innerWidth) {
-            this.size = window.innerWidth;
+        if (this.boardSize > window.innerWidth) {
+            this.boardSize = window.innerWidth;
         }
     }
 
@@ -1484,34 +1877,14 @@ export class ChessBoard extends HTMLElement {
     get sansInfo() {return this.validator.sansInfo;}
     get sans() {return this.validator.sans;}
     get moves() {return this.validator.moves;}
-    get squareSize() {return this.size / this.rows; } 
+    get squareSize() {return +this.boardSize / this.rows; } 
     get left() { return ChessBoard.offset(this.mainDiv).left; }
     get top() { return ChessBoard.offset(this.mainDiv).top; }
-
-    get size() {
-        return this.getAttribute("size" || 480);
-    }
-    set size(value) {
-        this.setAttribute("size", value);
-    }
-
-    get validator() {
-        if (!this._validator) this._validator = new ChessGame();
-        return this._validator;
-    }
-
-    set validator(value) {
-        const valid = !!value && value.move && typeof(value.move) && 'function' && value.fens;
-        if (!valid) throw new Error('Validator must be an object with a "move" function and an array of "fen" strings.');
-        this._validator = value;
-        this.reset(this.validator.fen); 
-    }
 
     get promotionContainer() { return this.mainDiv.querySelector("#promotion-container"); }
     get promotionDialog() { return this.mainDiv.querySelector("#promotion-dialog"); }
 
     get promotionDialogTargets() { return this.mainDiv.querySelectorAll("#promotion-dialog div.square"); }
-
 
     showPromotionDialog = (from, to) => {
         const dark = boardColors[this.backgroundSchema].dark;
@@ -1526,8 +1899,6 @@ export class ChessBoard extends HTMLElement {
         squares.forEach(sq => sq.style.background = isDarkSquare(to) ? dark : light) 
         this.promotionDialog.from = from;
         this.promotionDialog.to = to;
-
-        //this.promotionContainer.style.display = 'flex';
         this.squares.forEach(sq => sq.style.opacity = 0.4)
         this._waitingForPromotion = true;
         this.promotionDialog.style.display = 'flex';
@@ -1552,248 +1923,14 @@ export class ChessBoard extends HTMLElement {
         this.tryMove(this.promotionDialog.from, this.promotionDialog.to, figure);
     } 
 
-    get html() {
-        const flexDirection = this.activeColor === 'w' ? (this.flipped ? 'column-reverse' : 'column') : (this.flipped ? 'column' : 'column-reverse');
-        let html = `
-        <!--<h1 style="color: ${boardColors[this.backgroundSchema][Math.random() < 0.5 ? 'light' : 'dark']}; 
-        text-align: center">Chess Board</h1>-->
-        <div class="board-container"><div class="board">
-         <div
-           id="promotion-dialog" 
-           style="opacity: 1; display: none; border: solid 1px; padding: 0; top: ${this.top - this.top}px; left: ${this.left - this.leftt}px; position: absolute; z-index: 1007; flex-direction: ${flexDirection};"
-         >
-          <div 
-            class="square" 
-            figure="${this.activeColor === 'w' ? 'Q' : 'q'}"
-            style="border: none;"
-            >
-            <img
-              draggable="false" 
-              src="${classicSet[this.activeColor === 'w' ? 'Q' : 'q']}"
-              width="${this.squareSize}px" 
-              height="${this.squareSize}px"
-            />
-          </div>
-          <div 
-            class="square" 
-            figure="${this.activeColor === 'w' ? 'R' : 'r'}"
-            style="border: none;"
-            >
-            <img
-              draggable="false" 
-              src="${classicSet[this.activeColor === 'w' ? 'R' : 'r']}"
-              width="${this.squareSize}px" 
-              height="${this.squareSize}px"
-            />
-          </div>
-          <div 
-            class="square" 
-            figure="${this.activeColor === 'w' ? 'B' : 'b'}"
-            style="border: none;"
-            >
-            <img
-              draggable="false" 
-              src="${classicSet[this.activeColor === 'w' ? 'B' : 'b']}"
-              width="${this.squareSize}px" 
-              height="${this.squareSize}px"
-            />
-          </div>
-          <div 
-            class="square" 
-            figure="${this.activeColor === 'w' ? 'N' : 'n'}"
-            style="border: none;"
-            >
-            <img
-              draggable="false" 
-              src="${classicSet[this.activeColor === 'w' ? 'N' : 'n']}"
-              width="${this.squareSize}px" 
-              height="${this.squareSize}px"
-            />
-          </div>
-         </div>
-       <div
-         id="promotion-container"
-         style="position: absolute; z-index: 1; background: black; opacity: 1; display: none; top: ${this.top}px; left: ${this.left}px; width:${this.size} min-width: ${this.size} max-width: ${this.size} height:${this.size} min-height: ${this.size} max-height: ${this.size}"
-       >
-       </div>
-        `;
-        
-        const fenpos = this.fenPos;
-
-        for (let r = 0; r < this.rows; r++) {
-            const row = this.flipped ? r : r ^ 7;
-            
-            html += `
-            <div class="row" row="${row}">
-            `
-            for (let c = 0; c < this.cols; c++) {
-                const col = this.flipped ? c ^ 7 : c;
-                let number = r * 8 + c;
-                if (this.flipped) number ^= 63;
-                const index = number ^ 56;
-                const name = rowcol2name(row, col);
-                const figure = fenpos[number]; 
-                const image = (figure === "0") ? '' : `<img style="background: none;" class="figure" width="${this.size / 8}px"  height="${this.size / 8}px" src="${classicSet[figure]}"/>` 
-                html += `
-                <div 
-                  class="square ${isDarkSquare(index) ? "dark" : "light"}" 
-                  number="${number}" 
-                  index="${index}" 
-                  row="${row}" 
-                  col="${col}"
-                  figure="${figure}"
-                  name="${name}"
-                  ${this.debug ? 'title="' + name + '"' : ''}
-                >
-                  ${image}
-                </div>
-                ` 
-            }
-            html += `</div>`
-        }
-        html +=`
-        </div>
-            <slot class="card-display" name="game-card">
-                <h2>Game Card</h2>
-            </slot>
-        </div>
-        `
-        return html;
+    oncontextMenu = ev => {
+        if (this.debug) return true;
+        ev.stopPropagation();
+        ev.preventDefault();
+        return false;
     }
 
-    renderHtml() {
-        this.removeListeners();
-        this.mainDiv.innerHTML = this.html;
-        this.addProperties();
-        this.addListeners();
-    }
-
-    emitRepaint(reason = "content") {
-        const ev = new CustomEvent('repaint', {detail: {reason, current: this.current}});
-        this.dispatchEvent(ev);
-    }
-
-    get style() {
-        return `
-            :host {
-                font-family: Helvetica, Arial, sans-serif;
-                font-size: 110%;
-                user-select: none;
-            }
-            .square img {
-                cursor: grab;
-            }
-            div#promotion-dialog::backdrop {
-                background-color: black;
-                opacity: 0.3;
-            }
-            .board-container {
-                display: flex;
-                flex-direction: row;
-                justify-content: stretch;
-                width: ${this.size}px;
-                min-width: ${this.size}px;
-                height: ${this.size * 1.5}px;
-                min-height: ${this.size * 1.5}px;
-            }
-            .board {
-                display: flex;
-                flex-direction: column;
-                justify-content: stretch;
-                width: ${this.size}px;
-                min-width: ${this.size}px;
-                height: ${this.size}px;
-                min-height: ${this.size}px;
-            }
-            .card-display {
-                display: flex;
-                flex-direction: column;
-                justify-content: baseline;
-                flex-wrap: wrap;
-                width: ${this.size}px;
-                min-width: ${this.size}px;
-                height: ${this.size * 0.5}px;
-                min-height: ${this.size * 0.5}px;
-                border: solid 1px;
-                overflow: auto;
-            }
-            .main-div {
-                display: flex;
-                flex-direction: column;
-                justify-content: stretch;
-                align-items: stretch;
-                width: ${this.size}px;
-                height: ${this.size}px;
-                min-width: ${this.size}px;
-                min-height: ${this.size}px;
-                max-width: ${this.size}px;
-                max-height: ${this.size}px;
-                border: solid 1px;
-                background: slategray;
-                z-index: 1;
-            }
-            .row {
-                display: flex;
-                flex-direction: row;
-                justify-content: stretch;
-                align-items: stretch;
-                width: ${this.size}px;
-                height: ${this.size / 8}px;
-                min-width: ${this.size}px;
-                min-height: ${this.size / 8}px;
-                max-width: ${this.size}px;
-                max-height: ${this.size / 8}px;
-                background: inherit;
-            }
-            .square {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: ${this.size / 8}px;
-                height: ${this.size / 8}px;
-                min-width: ${this.size / 8}px;
-                min-height: ${this.size / 8}px;
-                max-width: ${this.size / 8}px;
-                max-height: ${this.size / 8}px;
-            }
-            .square[index="${this.selectedSquare}"] {
-                background: ${this.selectedBackground};
-            }
-
-
-            .dark {
-                background: ${boardColors[this.backgroundSchema].dark};
-            }
-
-            .light {
-                background: ${boardColors[this.backgroundSchema].light};
-            }
-
-        `
-    }
-    renderStyle() {
-        this.mainStyle.textContent = this.style;
-        this.emitRepaint("style");
-    }
-
-    render() {
-        this.renderStyle();
-        this.renderHtml();
-    }
-
-    get automaticPromotion() {
-        return this.getAttribute("automatic-promotion");
-    }
-    set automaticPromotion(value) {
-        if ('QRBN'.indexOf(value) === -1 && value !== null) throw new Error("Promotion figure must be one of 'Q', 'R', 'B', 'N', or null.");
-        if (value === null) {
-            this.removeAttribute('automatic-promotion');
-        } else {
-            this.setAttribute('automatic-promotion', value);
-        }
-    }
-
-    tryMove = (from, to, promotion = null) => {
+    tryMove = (from, to, promotion = this.automaticPromotion) => {
         
         if(typeof(from) !== 'string' && from && to) {
             if (from < 0 || to < 0 || from > 63 || to > 63) throw new Error("Squares out of range. Both 'from' and 'to' must be between 0 and 63.");
@@ -1813,19 +1950,17 @@ export class ChessBoard extends HTMLElement {
             return false;
         }
 
-        this.validator.appendFen(response.fen);
-        this.validator.appendMove(response.movedata);
-        this.fen = response.fen;
+        this.goto()
 
         setTimeout(() => {
             const ev = new CustomEvent('move', {detail: response.movedata});
             this.dispatchEvent(ev);
         }, 0);
 
-        const rFenPos = this.validator.rFenPos;
-        const [showChecks, isChecked, isCheckMated, isStaleMated] = this.activeColor === "w" ? 
-        [this.validator.blackChecks, this.validator.isWhiteChecked, this.validator.isWhiteCheckMated, this.validator.isWhiteStaleMated] : 
-        [this.validator.whiteChecks, this.validator.isBlackChecked, this.validator.isBlackCheckMated, this.validator.isBlackStaleMated];
+        // const rFenPos = this.validator.rFenPos;
+        const [/* showChecks, */ isChecked, isCheckMated, isStaleMated] = this.activeColor === "w" ? 
+        [/* this.validator.blackChecks, */ this.validator.isWhiteChecked, this.validator.isWhiteCheckMated, this.validator.isWhiteStaleMated] : 
+        [/* this.validator.whiteChecks, */ this.validator.isBlackChecked, this.validator.isBlackCheckMated, this.validator.isBlackStaleMated];
         if (isChecked()) {
             setTimeout(() => {
                 const mate = isCheckMated();
@@ -1851,123 +1986,17 @@ export class ChessBoard extends HTMLElement {
                 setTimeout(() => {
                     const ev = new CustomEvent('draw', {detail: {result, reason}});
                     this.dispatchEvent(ev);
-                    console.log("Dispatching draw event");
+                    this.debug && console.log("Dispatching draw event");
                 }, 10)
             }
         }
         return true;
     }
 
-    isWhiteShortCastling = (sqFrom, sqTo) => sqFrom.figure === 'K' 
-    && sqFrom.isWhiteKingOrigin 
-    && sqTo.index == 6;
-
-    isWhiteLongCastling = (sqFrom, sqTo) => sqFrom.figure === 'K' 
-    && sqFrom.isWhiteKingOrigin 
-    && sqTo.index == 2;
-
-    isBlackShortCastling = (sqFrom, sqTo) => sqFrom.figure === 'k' 
-    && sqFrom.isBlackKingOrigin 
-    && sqTo.index == 62;
-
-    isBlackLongCastling = (sqFrom, sqTo) => sqFrom.figure === 'k' 
-    && sqFrom.isBlackKingOrigin 
-    && sqTo.index == 58;
-
-    isBlackPromoting = (sqFrom, sqTo) => sqFrom.figure === 'p' && sqTo.row === 0;
- 
-    isWhitePromoting = (sqFrom, sqTo) => sqFrom.figure === 'P' && sqTo.row === 7;
-
-    isBlackEnPassant = (sqFrom, sqTo) => sqFrom.figure === 'p' && sqTo.name === this.enPassant;
- 
-    isWhiteEnPassant = (sqFrom, sqTo) => sqFrom.figure === 'P' && sqTo.name === this.enPassant;
-
-    isWhitePawn2Rows = (sqFrom, sqTo) => (+sqTo.row - +sqFrom.row ) === 2 && sqFrom.figure === 'P';
-
-    isBlackPawn2Rows = (sqFrom, sqTo) => (+sqTo.row - +sqFrom.row ) === -2 && sqFrom.figure === 'p';
-
-    addProperties() {
-        this.squares.forEach( sq => {
-            sq.number = +sq.getAttribute('number');
-            sq.index = +sq.getAttribute('index');
-            sq.row = +sq.getAttribute('row');
-            sq.col = +sq.getAttribute('col');
-            sq.figure = sq.getAttribute('figure');
-            sq.image = sq.querySelector("img");
-            sq.name = rowcol2name(sq.row, sq.col);
-            sq.isBlack = blackFigures.indexOf(sq.figure) !== -1;
-            sq.isWhite = whiteFigures.indexOf(sq.figure) !== -1;
-            sq.isEmpty = sq.figure == "0";
-            sq.isBlackPromotion = sq.row === 0;
-            sq.isWhitePromotion = sq.row === 7;
-            sq.isWhiteKingOrigin = sq.index === 4;
-            sq.isBlackKingOrigin = sq.index === 60;
-            sq.isEnPassant = sq.name === this.enPassant;
-        })
-    }
-
-    addListeners() {
-        this.promotionDialog && this.promotionDialog.addEventListener("cancel", this.oncanceldialog);
-        this.promotionDialog && this.promotionDialogTargets.forEach(t => t.addEventListener("click", this.onclickdialog));
-        this.squares.forEach( sq => {
-            sq.addEventListener('click', this.onclick);
-            sq.addEventListener('dragenter', this.ondragenter);
-            sq.addEventListener('dragover', this.ondragover);
-            sq.addEventListener('dragleave', this.ondragleave);
-            sq.addEventListener('drop', this.ondrop);
-        })
-        this.figures.forEach(f => {
-            f.addEventListener('dragstart', this.ondragstart);
-            f.addEventListener('drag', this.ondrag);
-            f.addEventListener('dragend', this.ondragend);
-        })
-    }
-
-    removeListeners() {
-        this.promotionDialog && this.promotionDialog.removeEventListener("cancel", this.oncanceldialog);
-        this.promotionDialog && this.promotionDialogTargets.forEach(t => t.removeEventListener("click", this.onclickdialog));
-        this.squares.forEach( sq => {
-            sq.removeEventListener('click', this.onclick);
-            sq.removeEventListener('dragenter', this.ondragenter);
-            sq.removeEventListener('dragover', this.ondragover);
-            sq.removeEventListener('dragleave', this.ondragleave);
-            sq.removeEventListener('drop', this.ondrop);
-        })
-        this.figures.forEach(f => {
-            f.removeEventListener('dragstart', this.ondragstart);
-            f.removeEventListener('drag', this.ondrag);
-            f.removeEventListener('dragend', this.ondragend);
-        })
-    }
-
-    ondropghost = ev => {
-        // this.debug && console.log("Dropped on ghost!");
-    }
-
-    createGhost(ev) {
-        this.ghostImage = ev.target.cloneNode(true);
-        this.ghostImage.style.zIndex = 1000;
-        this.ghostImage.style.position = 'absolute';
-        this.ghostImage.style.top = `${this.top + ev.y}px`;
-        this.ghostImage.style.left = `${this.left + ev.x}px`;
-        this.ghostImage.style.opacity = 1;
-        this.ghostImage.style.background = 'transparent';
-        this.ghostImage.addEventListener("drop", this.ondropghost);
-        //document.body.appendChild(this.ghostImage);
-        this.mainDiv.appendChild(this.ghostImage); 
-    }
-
-    destroyGhost() {
-        //this.ghostImage && this.mainDiv.removeChild(this.ghostImage);
-        this.ghostImage.removeEventListener("drop", this.ondropghost);
-        this.mainDiv.removeChild(this.ghostImage);
-        this.ghostImage = null;
-    }
-
     onclickordrag = ev => {
         // ev && this.debug && console.log(`Type: ${ev.type} - Target: ${ev.target.constructor.name}.`)
         const square = ev.target.constructor.name === "HTMLDivElement" ? ev.target : ev.target.parentNode;
-        const index = +square.getAttribute("index");
+        const index = +square.getAttribute("number");
         if (this.selectedSquare === 64) {
             if (square.isEmpty) return;
             return this.selectedSquare = index;
@@ -1985,7 +2014,7 @@ export class ChessBoard extends HTMLElement {
         ev && ev.preventDefault();
         if (this._waitingForPromotion) return false;
         const evtarget = ev.target.constructor.name === "HTMLImageElement" ? ev.target.parentNode : ev.target;
-        // ev && this.debug && console.clear() && console.log(`Click on X: ${ev.x} - Y: ${ev.y} - Index: ${evtarget.getAttribute("index")}`);
+        ev && this.debug && console.log(`Click on X: ${ev.x} - Y: ${ev.y} - Number: ${evtarget.getAttribute("number")}`);
         return this.onclickordrag(ev);
     }
 
@@ -2051,148 +2080,142 @@ export class ChessBoard extends HTMLElement {
         return this.onclickordrag(ev);
     }
 
-    get selectedBackground() {
-        switch (this.backgroundSchema) {
-            case 'acqua':
-            case 'blue':
-                return "#00ff00";
-            case 'green':
-                return "#0000ff";
-            default:
-                return "#ff0000";
-        }
+
+    addProperties() {
+        this.squares.forEach( sq => {
+            sq.number = +sq.getAttribute('number');
+            sq.index = +sq.getAttribute('index');
+            sq.row = +sq.getAttribute('row');
+            sq.col = +sq.getAttribute('col');
+            sq.figure = sq.getAttribute('figure');
+            sq.image = sq.querySelector("img");
+            sq.name = rowcol2name(sq.row, sq.col);
+            sq.isBlack = blackFigures.indexOf(sq.figure) !== -1;
+            sq.isWhite = whiteFigures.indexOf(sq.figure) !== -1;
+            sq.isEmpty = sq.figure == "0";
+            sq.isBlackPromotion = sq.row === 0;
+            sq.isWhitePromotion = sq.row === 7;
+            sq.isWhiteKingOrigin = sq.index === 4;
+            sq.isBlackKingOrigin = sq.index === 60;
+            sq.isEnPassant = sq.name === this.enPassant;
+        })
     }
 
-    get selectedSquare() {
-        return this.getAttribute("selected-square") === null ? 64 : +this.getAttribute("selected-square");
-    }
-    set selectedSquare(value) {
-        if (value < 0 || value > 64) throw new Error('Incorrect index for square.\nMust be between 0 and 63 to select or 64 to unselect.');
-        this.setAttribute("selected-square", value);
-    }
-
-    get squares() {
-        return this.root.querySelectorAll('.row .square');
-    }
-
-    get figures() {
-        return this.root.querySelectorAll('.row .square img');
-    }
-
-    get size() {
-        return +this.getAttribute("size") || 480;
-    }
-    set size(value) {
-        this.setAttribute('size', value);
+    addListeners() {
+        this.promotionDialog && this.promotionDialog.addEventListener("cancel", this.oncanceldialog);
+        this.promotionDialog && this.promotionDialogTargets.forEach(t => t.addEventListener("click", this.onclickdialog));
+        this.squares && this.squares.length && this.squares.forEach( sq => {
+            sq.addEventListener('click', this.onclick);
+            sq.addEventListener('dragenter', this.ondragenter);
+            sq.addEventListener('dragover', this.ondragover);
+            sq.addEventListener('dragleave', this.ondragleave);
+            sq.addEventListener('drop', this.ondrop);
+        })
+        this.figures && this.figures.length && this.figures.forEach(f => {
+            f.addEventListener('dragstart', this.ondragstart);
+            f.addEventListener('drag', this.ondrag);
+            f.addEventListener('dragend', this.ondragend);
+        })
     }
 
-    get backgroundSchema() {
-        return this.getAttribute('background-schema') || 'blue';
-    }
-    set backgroundSchema(value) {
-        if (!(value in boardColors)) throw new Error("Unrecognized color schema.");
-        this.setAttribute('background-schema', value);
-    }
-
-    get debug() {
-        return this.getAttribute('debug') !== null;
-    }
-    set debug(value) {
-        if ((!value)) {
-            this.removeAttribute('debug');
-        } else {
-            this.setAttribute('debug', "");
-        }
+    removeListeners() {
+        this.promotionDialog && this.promotionDialog.removeEventListener("cancel", this.oncanceldialog);
+        this.promotionDialog && this.promotionDialogTargets.forEach(t => t.removeEventListener("click", this.onclickdialog));
+        this.squares && this.squares.length && this.squares.forEach( sq => {
+            sq.removeEventListener('click', this.onclick);
+            sq.removeEventListener('dragenter', this.ondragenter);
+            sq.removeEventListener('dragover', this.ondragover);
+            sq.removeEventListener('dragleave', this.ondragleave);
+            sq.removeEventListener('drop', this.ondrop);
+        })
+        this.figures && this.figures.length && this.figures.forEach(f => {
+            f.removeEventListener('dragstart', this.ondragstart);
+            f.removeEventListener('drag', this.ondrag);
+            f.removeEventListener('dragend', this.ondragend);
+        })
     }
 
-    get flipped() {
-        return this.getAttribute('flipped') !== null;
-    }
-    set flipped(value) {
-        if ((!value)) {
-            this.removeAttribute('flipped');
-        } else {
-            this.setAttribute('flipped', "");
-        }
-    }
-    flip = ev => {
-    if (this._waitingForPromotion) {
-        ev.preventDefault();
-        return false;
-    }
-//      ev && this.debug && console.log(`Double click on X: ${ev.x} - Y: ${ev.y}`);
-      ev && ev.preventDefault();
-      this.flipped = !this.flipped;
-    }
-
-    get fen() {
-        return this.getAttribute("fen") || defaultFen;
-    }
-    set fen(value) {
-        this.setAttribute('fen', value);
-    }
-    get fenPos() {
-        return fenPos2long(fen2obj(this.fen).fenPos);
-    }
-    get activeColor() {
-        return fen2obj(this.fen).activeColor;
-    }
-    get castling() {
-        return fen2obj(this.fen).castling;
-    }
-    get enPassant() {
-        return fen2obj(this.fen).enPassant;
-    }
-    get halfMoveClock() {
-        return +fen2obj(this.fen).halfMoveClock;
-    }
-    get fullMoveNumber() {
-        return +fen2obj(this.fen).fullMoveNumber;
-    }
-
-    static get observedAttributes() {
-        return ['fen', 'selected-square', 'background-schema', 'flipped', 'size', 'debug'];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (this.debug && oldValue !== newValue) console.log(`"${name}" has changed from "${oldValue}" to "${newValue}"`);
-        if (oldValue === newValue) return;
-        if (name === 'size') {
-            if (newValue > window.innerWidth) {
-                return this.setAttribute("size", window.innerWidth);
-            }
-            return this.render();
-        }
-        if (name === 'background-schema') return this.renderStyle();
-        if (name === 'selected-square') return this.renderStyle();
-        if (name === 'flipped' || name === 'fen') {
-            if (name === 'fen') this.emitRepaint("content");
-            return this.renderHtml();
-        }
-    }
-
-    connectedCallback() {
-        if (this.debug) {
-            console.log(`${this.constructor.name} has been added to DOM`);
-        }
-        window.addEventListener("resize", this.checkLimits);
-        this.addEventListener("dblclick", this.flip);
-        this.checkLimits();
-        this.render();
-    }
-
-    disconnectedCallback() {
-        if (this.debug) {
-            console.log(`${this.name} has been removed from DOM`);
-        }
-        window.removeEventListener("resize", this.checkLimits);
-        this.removeEventListener("dblclick", this.flip);
-        this.removeListeners();
-    }
 
 }
 
 window.customElements.define("chess-board", ChessBoard);
 
+export class ChessCard extends HTMLElement {
+    constructor() {
+        super();
+        this._parent = null;
+        this.root = this.attachShadow({mode: 'closed'});
+    }
 
+    connectedCallback() {
+        console.log("Rendering from connectedCallback!")
+        this.render();
+    }
 
+    onclick = ev => this.parent.goto(+ev.target.title)
+
+    addHandlers() {
+        this && this.sans && this.sans.forEach(s => s.addEventListener('click', this.onclick))
+    }
+
+    removeHandlers() {
+        this && this.sans && this.sans.forEach(s => s.removeEventListener('click', this.onclick))
+    }
+
+    render() {
+        this.removeHandlers();
+        const size = this.parent.boardSize;
+        const current = this.parent.current;
+        const foreColor = boardColors[this.parent.backgroundSchema].dark;
+        const backColor = boardColors[this.parent.backgroundSchema].light;
+        let html = `
+        <style>
+            span.san {
+                cursor: pointer;
+            }
+            .san:hover {
+                background: light-yellow;
+            }
+            span.san[title="${current}"] {
+                color: ${foreColor};
+                background: ${backColor};
+            }
+        </style>
+        <div class = "panel"
+         style="border: solid 1px; 
+                width: ${size}px; 
+                min-width: ${size}px;
+                padding: 10px;
+                "
+        >
+       `
+       html += this.validator ? this.validator.toHtml() : '';
+       html += `</div>`
+       this.root.innerHTML = html;
+       this.addHandlers();
+    }
+
+    get sans() {
+        return this.root.querySelectorAll("span.san");
+    }
+
+    get parent() {
+        if (!this._parent) {
+            this._parent = document.querySelector("chess-board");
+        }
+        if (!this._parent) throw new Error("No ChessBoard to attach to.");
+        return this._parent;
+    }
+
+    set parent(newChessBoard) {
+        if (newChessBoard.constructor.name !== 'ChessBoard') throw new Error("Chess card parent must be a Chess Board.");
+        this._parent = newChessBoard;
+    }
+
+    get validator() {
+        return this.parent ? this.parent.validator : null;
+    }
+
+}
+
+window.customElements.define("chess-card", ChessCard);

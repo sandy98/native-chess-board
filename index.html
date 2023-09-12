@@ -4,118 +4,51 @@
     <meta charset="utf-8">
     <title>Chessboard Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
-    <script type="module" src="chess-board.js"></script>
     <style>
         body {
-            background: whitesmoke;
-            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
-
-        .`main {
-            width: 100%;
-            min-width: 100%;
+        .steelblue {
+            color: steelblue;
         }
-
-        .glyphs {
-            padding: 10px; 
-            border-radius: 6px; 
-            background: cadetblue; 
-            width: 98%; 
-            min-width: 98%; 
-            height: 1em; 
-            min-height: 1em; 
-            display: flex; 
-            flex-direction: row; 
-            flex-wrap: wrap; 
-            justify-content: space-around; 
-            align-items: center;
-            margin-bottom: 5px;
+        .centered {
+            text-align: center;
         }
-        .diagrams {
-            padding: 0; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center;
-        }
-        .columns {
-            display: flex;
-            flex-direction: row;
-            justify-content: stretch;
-        }
-        .columns>div {
-            height: 25em;
-            min-height: 28em;
-        }
-        .board-container {
-            width: 60%;
-            min-width: 60%;
-            background: whitesmoke;
-            z-index: 1;
-        }
-        .vertical-20 {
-            width: 20%;
-            min-width: 20%;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            background: whitesmoke;
-        }
-        .vertical-20:last-of-type {
-            background: whitesmoke;
+        .board-holder {
+            width: 400px;
+            min-width: 400px;
+            height: 400px;
+            min-height: 400px;
+            background: inherit;
+            border: none;
         }
     </style>
+    <script type="module" src="chess-board.js">
+    </script>
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
 </head>
 <body>
-    <div class="glyphs"></div>
-    <div class="main">
-        <div class="columns">
-            <div class="board-container">
-                <chess-board size="420" background-schema="blue">
-                    <div style="padding: 10px;" slot="game-card">
-                        <h3 style="color: steelblue;">Notation</h3>
-                    </div>
-            </chess-board>
-            </div>
-            <div class="vertical-20"></div>
-            <div class="vertical-20"></div>
+    <div id="main">
+        <!--<h1 class="steelblue centered">Chessboard Test</h1>-->
+        <div class="board-holder">
+            <chess-board debug></chess-board>
         </div>
-        <!--
-        <dialog class="diagrams"></dialog>
-        -->
+        <hr>
+        <div>
+            Board Controls
+        </div>
     </div>
     <script>
-        const beep = (freq = 200, time = 300) => {
-            const context = new AudioContext();
-            const oscillator = context.createOscillator();
-            oscillator.type = "sine";
-            oscillator.frequency.value = freq;
-            oscillator.connect(context.destination);
-            oscillator.start(); 
-            // Beep for 'time' milliseconds
-            setTimeout(function () {
-                oscillator.stop();
-            }, time);
-        }
-        
         let chess, board;
-        import("./chess-board.js").then(m => chess = m).catch(e => alert(`ERROR: ${e}`));
-
-        const onload = ev => {
+        const onload = _ => {
+            import("./chess-board.js")
+            .then(m => chess = m)
+            .catch(e => console.log(`ERROR: ${e}`))
             board = document.querySelector("chess-board");
 
-            if (chess) {
-                const gldiv = document.querySelector('.glyphs');
-                for (key in chess.svg_figures) {
-                    const div = document.createElement('div');
-                    div.innerHTML = chess.svg_figures[key];
-                    gldiv.appendChild(div);
-                }
-            }
-
+            console.log("Window loaded.");
         }
-
-        window.addEventListener("load", onload);
+        window.addEventListener('load', onload)
     </script>
 </body>
 </html>
