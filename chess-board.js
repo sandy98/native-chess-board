@@ -1246,24 +1246,20 @@ export class ChessGame extends ChessValidator {
         if (!movesList.length) return nummoves;
         this.fens = [this.fens[0]];
         this.moves = [this.moves[0]];
-        let init = 0;
         movesList.forEach(san => {
-            setTimeout(() => {
                 document && document.body && (document.body.style.cursor = 'wait');
                 const pair = this.strMove(san);
                 if (pair) {
-                    this.appendFen(pair.fen);
-                    this.appendMove(pair.movedata);
+                    //this.appendFen(pair.fen);
+                    //this.appendMove(pair.movedata);
                     nummoves += 1;
                 }
                 document && document.body && (document.body.style.cursor = 'default');
-            }, init * 10);
         })
         return nummoves;
     }
 
     move(from, to, promotion = null, fen = this.fen, onlyEval = false) {
-        //const parent = new ChessValidator(fen, this.debug);
         const retobj = super.move(from, to, promotion, fen, onlyEval);
         if (retobj === MoveEvaluation.INVALID_MOVE || retobj === MoveEvaluation.INCOMPLETE_INFO) return retobj;
         if (!onlyEval) {
@@ -1311,7 +1307,6 @@ export class ChessGame extends ChessValidator {
 export class ChessBoard extends HTMLElement {
     constructor() {
         super();
-        this._chessCard = null;
         this.selectedSquare = 64;
         this._validator = new ChessGame();
         this.defaultPos = `rnbqkbnrpppppppp${'0'.repeat(32)}PPPPPPPPRNBQKBNR`;
@@ -1326,6 +1321,23 @@ export class ChessBoard extends HTMLElement {
         this.mainDiv.setAttribute("id", "main-div");
         this.mainDiv.className = 'main-container';
         this.root.appendChild(this.mainDiv);
+        this.mainDiv.innerHTML = `
+        <div
+           id="promotion-dialog" 
+           style="opacity: 1; display: none; border: solid 1px; padding: 0; top: 0px; left: 0px; position: absolute; z-index: 1007; flex-direction: column;"
+         >
+         </div>
+            <div id="board-div" class="panel">
+                <div id="the-board" class="board">
+                </div>
+            </div>
+        <div id="accesories-panel" class="panel" style="display: flex;">
+            <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
+                <chess-card></chess-card>
+            </div>
+            <div id="setup-panel" class="panel" style="display: none;">Setup</div>
+        </div>
+     `;
     }
 
     get squares() {
@@ -1542,7 +1554,11 @@ export class ChessBoard extends HTMLElement {
 
     renderHtml() {
         this.removeListeners();
-        this.mainDiv.innerHTML = this.html;
+        // this.mainDiv.innerHTML = this.html;
+        const { promotionDialogContent, boardRows } = this.html;
+        this.the_board.innerHTML = boardRows;
+        this.promotionDialog.innerHTML = promotionDialogContent;
+        this.chessCard && this.chessCard.render && this.chessCard.render();
         this.addProperties();
         this.addListeners();
         this.emitRepaint('content');
@@ -1554,10 +1570,10 @@ export class ChessBoard extends HTMLElement {
         const xor = this.flipped ? 63 : 0;
         const xor_row = this.flipped ? 0 : 7;
         const xor_col = this.flipped ? 7 : 0;
-        let rows = ``;
+        let boardRows = ``;
         for (let r = 0; r < 8; r += 1 ) {
             const row = r ^ xor_row;
-            rows +=  `<div class="row" index="${row}">`
+            boardRows +=  `<div class="row" index="${row}">`
             for (let c = 0; c < 8; c += 1) {
                 const col = c ^ xor_col;
                 const number = row * 8 + col;
@@ -1567,7 +1583,7 @@ export class ChessBoard extends HTMLElement {
                 const backColor = (isEven(r) && isEven(c)) || (isOdd(r) && isOdd(c)) ? 'light' : 'dark'
                 const sqSize = this.boardSize / 8;
                 const sqContent =  figure === '0' ? '' : `<img  width="${sqSize}px" height="${sqSize}px" src="${classicSet[figure]}" />`
-                rows += `<div 
+                boardRows += `<div 
                           class="square ${backColor}" 
                           index="${sqIndex}" 
                           number="${number}" 
@@ -1579,17 +1595,20 @@ export class ChessBoard extends HTMLElement {
                            ${sqContent}
                          </div>`
             }
-            rows += `</div>`;
+            boardRows += `</div>`;
         }
-        let promotionDialog = `
-        <div
-           id="promotion-dialog" 
-           style="opacity: 1; display: none; border: solid 1px; padding: 0; top: ${this.top - this.top}px; left: ${this.left - this.leftt}px; position: absolute; z-index: 1007; flex-direction: ${flexDirection};"
-         >
-         `
-         const figures = this.activeColor === 'w' ? 'QRBN' : 'qrbn';
-         for (let n = 0; n < 4; n += 1) {
-            promotionDialog += `
+
+        // let promotionDialog = `
+        // <div
+        //    id="promotion-dialog" 
+        //    style="opacity: 1; display: none; border: solid 1px; padding: 0; top: ${this.top - this.top}px; left: ${this.left - this.leftt}px; position: absolute; z-index: 1007; flex-direction: ${flexDirection};"
+        //  >
+        //  `
+        this.promotionDialog.style.flexDirection = flexDirection;
+        let promotionDialogContent = ``;
+        const figures = this.activeColor === 'w' ? 'QRBN' : 'qrbn';
+        for (let n = 0; n < 4; n += 1) {
+            promotionDialogContent += `
           <div 
             class="square promotion" 
             figure="${figures[n]}"
@@ -1603,25 +1622,28 @@ export class ChessBoard extends HTMLElement {
             />
           </div>
             `
-         }
+        }
         
-        promotionDialog += '</div>';
+        return { promotionDialogContent, boardRows};
         
-        const markup = `
-        ${promotionDialog}
-        <div id="board-div" class="panel">
-            <div id="the-board" class="board">
-              ${rows}
-            </div>
-        </div>
-        <div id="accesories-panel" class="panel" style="display: flex;">
-          <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
-            <chess-card></chess-card>
-          </div>
-          <div id="setup-panel" class="panel" style="display: none;">Setup</div>
-        </div>
-        `;
-        return markup;
+        // promotionDialog += '</div>';
+        
+        // const markup = `
+        // ${promotionDialog}
+        // <div id="board-div" class="panel">
+        //     <div id="the-board" class="board">
+        //       ${rows}
+        //     </div>
+        // </div>
+        // <div id="accesories-panel" class="panel" style="display: flex;">
+        //   <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
+        //     <chess-card></chess-card>
+        //   </div>
+        //   <div id="setup-panel" class="panel" style="display: none;">Setup</div>
+        // </div>
+        // `;
+        // return markup;
+
     }
 
     emitRepaint(reason = "content") {
@@ -1655,11 +1677,10 @@ export class ChessBoard extends HTMLElement {
     }
 
     connectedCallback() {
+        this.the_board = this.root.querySelector('#the-board');
         if (this.chessCard) {
             this.debug && console.log("Chess card detected, setting it up.");
             this.chessCard.parent = this;
-            //this.debug && console.log("Rendering chesscard from chessboard connectedCallback");
-            //this.chessCard.render();
         }
         this.mainDiv.addEventListener('contextmenu', this.oncontextMenu);
         this.mainDiv.addEventListener('dblclick', this.dblclick);
@@ -1881,7 +1902,6 @@ export class ChessBoard extends HTMLElement {
     get left() { return ChessBoard.offset(this.mainDiv).left; }
     get top() { return ChessBoard.offset(this.mainDiv).top; }
 
-    get promotionContainer() { return this.mainDiv.querySelector("#promotion-container"); }
     get promotionDialog() { return this.mainDiv.querySelector("#promotion-dialog"); }
 
     get promotionDialogTargets() { return this.mainDiv.querySelectorAll("#promotion-dialog div.square"); }
@@ -1914,11 +1934,8 @@ export class ChessBoard extends HTMLElement {
     onclickdialog = ev => {
         const target = ev.target === 'HTMLDivElement' ? ev.target : ev.target.parentNode;
         const figure = target.getAttribute("figure");
-        // this.debug && console.log("Click on " + figure + "!!!");
-        //this.promotionContainer.style.display = 'none'; 
         this.promotionDialog.style.display = 'none'; 
         this.squares.forEach(sq => sq.style.opacity = 1)
-        //this.promotionDialog.close(`${figure}`);
         this._waitingForPromotion = false;
         this.tryMove(this.promotionDialog.from, this.promotionDialog.to, figure);
     } 
@@ -2148,11 +2165,24 @@ export class ChessCard extends HTMLElement {
     }
 
     connectedCallback() {
-        console.log("Rendering from connectedCallback!")
+        //console.log("Rendering from connectedCallback!");
+        this.root.querySelector('.panel').addEventListener('keyup', this.onkeyup);
         this.render();
     }
 
+    disconnectedCallback() {
+        this.root.querySelector('.panel').removeEventListener('keyup', this.onkeyup);
+    }
+
     onclick = ev => this.parent.goto(+ev.target.title)
+
+    onkeyup = ev => {
+        console.log(ev.keyCode);
+        if (ev.keyCode === 37) return this.parent.prev();
+        if (ev.keyCode === 39) return this.parent.next();
+        ev.preventDefault();
+        return false;
+    }
 
     addHandlers() {
         this && this.sans && this.sans.forEach(s => s.addEventListener('click', this.onclick))
@@ -2173,8 +2203,8 @@ export class ChessCard extends HTMLElement {
             span.san {
                 cursor: pointer;
             }
-            .san:hover {
-                background: light-yellow;
+            span.san:hover {
+                background: lightskyblue;
             }
             span.san[title="${current}"] {
                 color: ${foreColor};
@@ -2183,9 +2213,15 @@ export class ChessCard extends HTMLElement {
         </style>
         <div class = "panel"
          style="border: solid 1px; 
-                width: ${size}px; 
+                width: ${size}px;
+                top: ${this.parent ? this.parent.top : 0}px; 
+                position: fixed;
                 min-width: ${size}px;
-                padding: 10px;
+                height: ${size - 10}px;
+                min-height: ${size - 10}px;
+                padding: 5px;
+                flex-wrap: wrap;
+                overflow: auto;
                 "
         >
        `
@@ -2193,6 +2229,7 @@ export class ChessCard extends HTMLElement {
        html += `</div>`
        this.root.innerHTML = html;
        this.addHandlers();
+       this.root.querySelector('.panel').scrollTop = this.root.querySelector('.panel').scrollHeight;
     }
 
     get sans() {
