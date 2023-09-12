@@ -2166,18 +2166,18 @@ export class ChessCard extends HTMLElement {
 
     connectedCallback() {
         //console.log("Rendering from connectedCallback!");
-        this.root.querySelector('.panel').addEventListener('keyup', this.onkeyup);
+        document.body.addEventListener('keyup', this.onkeyup);
         this.render();
     }
 
     disconnectedCallback() {
-        this.root.querySelector('.panel').removeEventListener('keyup', this.onkeyup);
+        document.body.removeEventListener('keyup', this.onkeyup);
     }
 
     onclick = ev => this.parent.goto(+ev.target.title)
 
     onkeyup = ev => {
-        console.log(ev.keyCode);
+        // console.log(ev.keyCode);
         if (ev.keyCode === 37) return this.parent.prev();
         if (ev.keyCode === 39) return this.parent.next();
         ev.preventDefault();
