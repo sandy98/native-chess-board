@@ -1171,6 +1171,10 @@ export class ChessGame extends ChessValidator {
         this.headers = {event, site, date, round, white, black, result};
     }
 
+    get title() {
+        return `${this.headers.white} - ${this.headers.black}   ${this.headers.result || '*'}`
+    }
+
     reset(fen = this.fens[0], 
         event = 'Internet game',
         site = 'Internet',
@@ -1187,7 +1191,7 @@ export class ChessGame extends ChessValidator {
     toHtml() {
         let retStr = '';
         for (let n = 0; n < seven_tag_roster.length; n += 1) {
-            retStr += `<div style="margin: 0;">[<span>${capitalize(seven_tag_roster[n])}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[seven_tag_roster[n]]}</span>]</div>`;
+            retStr += `<div style="margin: 0;">[<span>${capitalize(seven_tag_roster[n])}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[seven_tag_roster[n]] || '*'}</span>]</div>`;
         }
         for(let h in this.headers) {
             if (!seven_tag_roster.includes(h)) {
@@ -1204,21 +1208,21 @@ export class ChessGame extends ChessValidator {
                 retStr += `<span class="san" title="${n}">${content}&nbsp;</span>`;
             }
         }
-        retStr += `&nbsp;<span>${this.headers.result}</span></div>`;
+        retStr += `&nbsp;<span>${this.headers.result || '*'}</span></div>`;
         return retStr;
     }
 
     toPgn() {
         let retStr = '';
         for (let n = 0; n < seven_tag_roster.length; n += 1) {
-            retStr += `[${capitalize(seven_tag_roster[n])} "${this.headers[seven_tag_roster[n]]}"]\n`;
+            retStr += `[${capitalize(seven_tag_roster[n])} "${this.headers[seven_tag_roster[n]] || '*'}"]\n`;
         }
         for(let h in this.headers) {
             if (!seven_tag_roster.includes(h)) {
-                retStr += `[${capitalize(h)} "${this.headers[h]}"]\n`;
+                retStr += `[${capitalize(h)} "${this.headers[h] || '*'}"]\n`;
             }
         }
-        retStr += `\n${this.moveStr} ${this.headers.result}\n\n`
+        retStr += `\n${this.moveStr} ${this.headers.result ? this.headers.result : '*'}\n\n`
         return retStr;
     }
 
@@ -1302,6 +1306,71 @@ export class ChessGame extends ChessValidator {
 
 }
 
+export class ChessGameCollection {
+    constructor() {
+        this.games = [];
+    }
+
+    load(pgntext) {
+        this.games = [];
+        const halves = pgntext.split(/[\r\n]{2,}/g);
+        const hlen = halves.length;
+        // console.log(`Loading ${hlen} pgn halves.`);
+        const fulls = [];
+        for (let n = 0; n < hlen; n += 2) {
+            fulls.push(`${halves[n]}\n\n${halves[n + 1]}`)
+        }
+        const plen = fulls.length;
+        // console.log(`Loading ${plen} pgn games.`);
+        for (let n = 0; n < plen; n += 1) {
+            this.games[n] = new ChessGame();
+            //console.log(`Loading \n\n${fulls[n]}\n\n--------------------\n\n`);
+            this.games[n].fromPgn(fulls[n]);
+        }
+        console.log(`Ended processing ${plen} games.`);
+        return this.games.length;
+    }
+
+    async loadFile(filename) {
+        try {
+            const result = await fetch(filename);
+            const pgn = await result.text();
+            // console.log(pgn);
+            return this.load(pgn.replace(/\r\n/g, '\n'));
+        } catch(e) {
+            console.log(`ERROR: ${e}`)
+        }
+    }
+}
+
+export async function pgnReader(filename) {
+    const pgnGen = function*(pgntext) {
+        const halves = pgntext.split(/[\r\n]{2,}/g);
+        const hlen = halves.length;
+        const fulls = [];
+        for (let n = 0; n < hlen; n += 2) {
+            fulls.push(`${halves[n]}\n\n${halves[n + 1]}`)
+        }
+        const plen = fulls.length;
+        for (let n = 0; n < plen; n += 1) {
+            const game = new ChessGame();
+            game.fromPgn(fulls[n]);
+            yield game;
+        }
+        console.log(`Ended processing ${plen} games.`);
+        return plen;
+    };
+
+    try {
+        const result = await fetch(filename);
+        const pgn = await result.text();
+        // console.log(pgn);
+        return pgnGen(pgn.replace(/\r\n/g, '\n'));
+    } catch(e) {
+        console.log(`ERROR: ${e}`)
+    }
+}
+
 //////////////
 
 export class ChessBoard extends HTMLElement {
@@ -1374,10 +1443,12 @@ export class ChessBoard extends HTMLElement {
     }
 
     set validator(value) {
-        const valid = !!value && value.move && typeof(value.move) && 'function' && value.fens;
+        const valid = !!value && value.move && typeof(value.move) === 'function' && value.fens;
         if (!valid) throw new Error('Validator must be an object with a "move" function and an array of "fen" strings.');
         this._validator = value;
-        this.reset(this.validator.fen); 
+        this.reset(this.validator.fens[0]);
+        this.current = 0; 
+        this.renderHtml();
     }
 
     get style() {
@@ -1657,7 +1728,7 @@ export class ChessBoard extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) return;
-        console.log(`'${name}' has changed from '${oldValue}'  to '${newValue}' `);
+        this.debug && console.log(`'${name}' has changed from '${oldValue}'  to '${newValue}' `);
 
         if (name === 'background-schema' || name === 'selected-square') {
             return this.renderStyle();
@@ -1844,7 +1915,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     reset = (fen = defaultFen) => {
-        this.validator.reset(fen);
+        //this.validator.reset(fen);
         this.current = 0;
         this.renderHtml();
     }
@@ -2256,3 +2327,4 @@ export class ChessCard extends HTMLElement {
 }
 
 window.customElements.define("chess-card", ChessCard);
+
