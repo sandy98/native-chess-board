@@ -1,7 +1,5 @@
 # native-chess-board
 
-![1693718524986](image/README/1693718524986.png)
-
 Chessboard native web component with all chess validation rules stuffed in.
 
 So, at the very basic, all that is needed is including this in your html file:
