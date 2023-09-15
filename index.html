@@ -37,18 +37,62 @@
             <chess-board debug></chess-board>
         </div>
         <hr>
-        <div>
-            Board Controls
-        </div>
+        <p>
+            <label for="cboZurich">Zurich 1950 Candidates Tournament</label>
+            <!--<button id="btn-add-game">Add game</button>-->
+            <select name="cboZurich" id="cboZurich"></select>
+        </p>
+        <p>
+            <label for="cboLeningrado">Leningrad 1973 Interzonal Tournament</label>
+            <!--<button id="btn-add-game">Add game</button>-->
+            <select name="cboLeningrado" id="cboLeningrado"></select>
+        </p>
     </div>
     <script>
-        let chess, board;
-        const onload = _ => {
-            import("./chess-board.js")
-            .then(m => chess = m)
-            .catch(e => console.log(`ERROR: ${e}`))
-            board = document.querySelector("chess-board");
+        let chess, board, cboLeningrad, cboZurich /* btnAdd, leningen */;
+        let gameCount = 0;
+        const leningrad_games = [];
+        const zurich_games = [];
+        const chooseLGame = ev => board.validator = leningrad_games[ev.target.selectedIndex]
+        const chooseZGame = ev => board.validator = zurich_games[ev.target.selectedIndex]
+    
+        const addGame = (ev, arr, control) => {
+            document.body.style.cursor = 'wait';
+            // const game = leningen.next().value;
+            const jgame = ev.data;
+            if (!jgame) return false;
+            try {
+                const game = new chess.ChessGame();
+                game.fromJson(jgame);
+                arr.push(game);
+                control.innerHTML += `<option value="${gameCount++}">${game.title}</option>`;
+                control.selectedIndex = arr.length - 1;
+            } catch(e) {
+                console.log(e);
+            }
+            document.body.style.cursor = 'default';
+        }
 
+
+        const onload = _ => {
+            board = document.querySelector("chess-board");
+            cboLeningrad = document.querySelector("#cboLeningrado");
+            cboLeningrad.addEventListener('click', chooseLGame);
+            cboZurich = document.querySelector("#cboZurich");
+            cboZurich.addEventListener('click', chooseZGame);
+            //btnAdd = document.querySelector('#btn-add-game');
+            //btnAdd.addEventListener('click', addLenin);
+            import("./chess-board.js")
+            .then(m => {
+                chess = m;
+                const lworker = new Worker('./static/chess-rules.js');
+                lworker.onmessage = ev => addGame(ev, leningrad_games, cboLeningrad);
+                lworker.postMessage('./1973-Interzonal-a.pgn');
+                const zworker = new Worker('./static/chess-rules.js');
+                zworker.onmessage = ev => addGame(ev, zurich_games, cboZurich);
+                zworker.postMessage('./1950-Candidates.pgn');
+            })
+            .catch(e => console.log(`ERROR: ${e}`))
             console.log("Window loaded.");
         }
         window.addEventListener('load', onload)

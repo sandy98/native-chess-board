@@ -34,7 +34,7 @@ export const rowArray = [0, 1, 2, 3, 4, 5, 6, 7];
 export const colArray = [0, 1, 2, 3, 4, 5, 6, 7];
 
 export const resultRegex = /(?<ONGOING>^\*$)|(?<WHITE_WIN>^1-0$)|(?<BLACK_WIN>^0-1$)|(?<DRAW>^1\/2-1\/2$)/;
-export const headerRegex = /^\[(?<header>\w+)\s+"(?<value>[a-zA-Z\.\,\s\d\?\!\-\_]*)"\]$/;
+export const headerRegex = /^\[(?<header>\w+)\s+"(?<value>[a-zA-Z\.\,\/\s\d\?\!\-\_]*)"\]$/;
 export const algebraicRegex = /^[a-h][1-8][a-h][1-8][QRBN]?$/;
 export const regexFigure = /^(?<figure>[NBRQK])(?<disambig>[a-h]?[1-8]?)?[x]?(?<to>[a-h][1-8])[\+\#\!\?]*$/;
 export const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>[QRBN]?)?[\+\#\!\?]*$/;
@@ -163,6 +163,7 @@ export class ChessValidator {
         this.fens = [fen];
         this.moves = [null];
         this.debug = debug;
+        this.mode = 'strict';
     }
 
     reset(fen = this.fens[0]) {
@@ -377,10 +378,11 @@ export class ChessValidator {
         }
 
         const newFen = obj2fen({ fenPos, activeColor, castling, enPassant, halfMoveClock, fullMoveNumber});
-
-        if (!this.isValidFen(newFen)) {
-            this.debug && console.log("El FEN generado no es válido.")
-            return MoveEvaluation.INVALID_MOVE;
+        if (this.mode === 'strict') {
+            if (!this.isValidFen(newFen)) {
+                this.debug && console.log("El FEN generado no es válido.")
+                return MoveEvaluation.INVALID_MOVE;
+            }
         }
 
         if (onlyEval) {
@@ -1250,16 +1252,19 @@ export class ChessGame extends ChessValidator {
         if (!movesList.length) return nummoves;
         this.fens = [this.fens[0]];
         this.moves = [this.moves[0]];
+        const oldMode = this.mode;
+        this.mode = 'nonstrict';
         movesList.forEach(san => {
-                document && document.body && (document.body.style.cursor = 'wait');
+                // document && document.body && (document.body.style.cursor = 'wait');
                 const pair = this.strMove(san);
                 if (pair) {
                     //this.appendFen(pair.fen);
                     //this.appendMove(pair.movedata);
                     nummoves += 1;
                 }
-                document && document.body && (document.body.style.cursor = 'default');
+                // document && document.body && (document.body.style.cursor = 'default');
         })
+        this.mode = oldMode;
         return nummoves;
     }
 
