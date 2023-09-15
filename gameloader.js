@@ -1,9 +1,21 @@
+// class HTMLElement {}
+
+// const window = {
+//     customElements: {
+//         define(id, _) {return id;}
+//     }
+// };
+
 let pgnReader;
-import('../chess-board.js')
-.then(m => pgnReader = m.pgnReader);
+import('../chess-rules.js')
+.then(m => {
+    pgnReader = m.pgnReader
+    console.log(`pgnReader constructor is ${pgnReader.constructor.name}`);
+});
+
 
 onmessage = m => {
-    console.log(`chess-rules.js as worker: Message received from main script: '${m.data}'`);
+    console.log(`gameloader.js as worker: Message received from main script: '${m.data}'`);
     const filename  = m.data;
     fetch(filename)
     .then(data => data.text())

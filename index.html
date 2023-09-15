@@ -82,15 +82,17 @@
             cboZurich.addEventListener('click', chooseZGame);
             //btnAdd = document.querySelector('#btn-add-game');
             //btnAdd.addEventListener('click', addLenin);
-            import("./chess-board.js")
+            import("./chess-rules.js")
             .then(m => {
                 chess = m;
-                const lworker = new Worker('./static/chess-rules.js');
+//                const lworker = new Worker('./static/chess-rules.js');
+                const lworker = new Worker('./gameloader.js');
                 lworker.onmessage = ev => addGame(ev, leningrad_games, cboLeningrad);
-                lworker.postMessage('./1973-Interzonal-a.pgn');
-                const zworker = new Worker('./static/chess-rules.js');
+                lworker.postMessage('./static/1973-Interzonal-a.pgn');
+//                const zworker = new Worker('./static/chess-rules.js');
+                const zworker = new Worker('./gameloader.js');
                 zworker.onmessage = ev => addGame(ev, zurich_games, cboZurich);
-                zworker.postMessage('./1950-Candidates.pgn');
+                zworker.postMessage('./static/1950-Candidates.pgn');
             })
             .catch(e => console.log(`ERROR: ${e}`))
             console.log("Window loaded.");
