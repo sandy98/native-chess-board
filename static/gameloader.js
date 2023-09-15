@@ -3,7 +3,7 @@ import('../chess-board.js')
 .then(m => pgnReader = m.pgnReader);
 
 onmessage = m => {
-    console.log(`gameloader.js as worker: Message received from main script: '${m.data}'`);
+    console.log(`chess-rules.js as worker: Message received from main script: '${m.data}'`);
     const filename  = m.data;
     fetch(filename)
     .then(data => data.text())
