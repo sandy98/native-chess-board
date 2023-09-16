@@ -48,17 +48,18 @@ export class ChessBoard extends HTMLElement {
         <div
            id="promotion-dialog" 
            style="opacity: 1; display: none; border: solid 1px; padding: 0; top: 0px; left: 0px; position: absolute; z-index: 1007; flex-direction: column;"
-         >
-         </div>
+        >
+        </div>
             <div id="board-div" class="panel">
                 <div id="the-board" class="board">
                 </div>
             </div>
-        <div id="accesories-panel" class="panel" style="display: flex;">
-            <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
+            <div id="accesories-panel" class="panel" style="display: flex;">
+              <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
                 <chess-card></chess-card>
+              </div>
+              <div id="setup-panel" class="panel" style="display: none;">Setup</div>
             </div>
-            <div id="setup-panel" class="panel" style="display: none;">Setup</div>
         </div>
      `;
     }
@@ -106,6 +107,10 @@ export class ChessBoard extends HTMLElement {
     }
 
     get style() {
+        const widthFactor = window.innerWidth > window.innerHeight ? 2 : 1;
+        const heightFactor = window.innerWidth > window.innerHeight ? 1 : 2;
+        const flexDirection = widthFactor > 1 ? 'row' : 'column';
+
         return `
         :host {
             font-family: Helvetica, Arial, sans-serif;
@@ -119,12 +124,12 @@ export class ChessBoard extends HTMLElement {
             cursor: pointer;
         }
         .main-container {
-            width: ${this.boardSize * 2 + 2}px;
-            min-width: ${this.boardSize * 2 + 2}px;
-            height: ${this.boardSize + 2}px;
-            min-height: ${this.boardSize + 2}px;
+            width: ${this.boardSize * widthFactor + 2}px;
+            min-width: ${this.boardSize * widthFactor + 2}px;
+            height: ${this.boardSize * heightFactor + 2}px;
+            min-height: ${this.boardSize * heightFactor + 2}px;
             display: flex;
-            flex-direction: row;
+            flex-direction: ${flexDirection};
             justify-content: stretch;
             align-items: stretch;
             background: inherit;
@@ -136,7 +141,7 @@ export class ChessBoard extends HTMLElement {
             height: ${this.boardSize + 1}px;
             min-height: ${this.boardSize + 1}px;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: stretch;
             align-items: stretch;
             background: transparent;
@@ -613,6 +618,7 @@ export class ChessBoard extends HTMLElement {
         if (this.boardSize > window.innerWidth) {
             this.boardSize = window.innerWidth;
         }
+        this.renderStyle();
     }
 
     static offset = el => {
