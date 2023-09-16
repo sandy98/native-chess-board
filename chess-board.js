@@ -1,3 +1,5 @@
+
+/*
 import {
     versionInfo, version, onePixel, classicSet, asciiHorzLine, asciiVertline, asciiRow, asciiBoard,
     svg_figures, blackFigures, whiteFigures, figures, rowArray, colArray, resultRegex, headerRegex,
@@ -13,10 +15,21 @@ import {
     rPosFromFen, activeColorFromFen, pgnDate, 
     ChessValidator, FakeValidator, ChessGame, ChessGameCollection, pgnReader
 } from './chess-rules.js';
+*/
+
+import {
+    versionInfo, version, onePixel, classicSet, asciiBoard,
+    svg_figures, blackFigures, whiteFigures, defaultFen, boardColors, MoveEvaluation, 
+    isOdd, isEven,rowcol2name, square2san, san2square,  
+    index2rowcol, isDarkSquare, fen2obj, obj2fen, fenPos2short, fenPos2long, 
+    rPosFromFen, ChessValidator, FakeValidator, ChessGame
+ } from './chess-rules.js';
 
 export class ChessBoard extends HTMLElement {
     constructor() {
         super();
+        this.version = version;
+        this.versionInfo = versionInfo;
         this.selectedSquare = 64;
         this._validator = new ChessGame();
         this.defaultPos = `rnbqkbnrpppppppp${'0'.repeat(32)}PPPPPPPPRNBQKBNR`;
@@ -213,7 +226,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     get boardSize() {
-        return this.getAttribute('board-size') || 400;
+        return +this.getAttribute('board-size') || 600;
     }
     set boardSize(newSize) {
         this.setAttribute('board-size', newSize);
@@ -268,8 +281,8 @@ export class ChessBoard extends HTMLElement {
         this.removeListeners();
         // this.mainDiv.innerHTML = this.html;
         const { promotionDialogContent, boardRows } = this.html;
-        this.the_board.innerHTML = boardRows;
-        this.promotionDialog.innerHTML = promotionDialogContent;
+        this.the_board && (this.the_board.innerHTML = boardRows);
+        this.promotionDialog && (this.promotionDialog.innerHTML = promotionDialogContent);
         this.chessCard && this.chessCard.render && this.chessCard.render();
         this.addProperties();
         this.addListeners();
@@ -394,13 +407,16 @@ export class ChessBoard extends HTMLElement {
             this.debug && console.log("Chess card detected, setting it up.");
             this.chessCard.parent = this;
         }
+        window.addEventListener('resize', this.checkLimits);
         this.mainDiv.addEventListener('contextmenu', this.oncontextMenu);
         this.mainDiv.addEventListener('dblclick', this.dblclick);
         this.debug && console.log("Connected to DOM. Now rendering...");
         this.render();
+        this.checkLimits();
     }
 
     disconnectedCallback() {
+        window.removeEventListenerEventListener('resize', this.checkLimits);
         this.mainDiv.removeEventListener('contextmenu', this.oncontextMenu);
         this.mainDiv.removeEventListener('dblclick', this.dblclick);
         this.debug && console.log("Diconnected from DOM. Bye for now...");

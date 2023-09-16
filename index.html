@@ -7,7 +7,15 @@
     <style>
         body {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 150%;
         }
+        
+        option {
+            height: 2em;
+            font-size: 1.8em;
+            min-height: 1.8em;
+        }
+        
         .test {
             background: lightskyblue;
         }
@@ -18,10 +26,10 @@
             text-align: center;
         }
         .board-holder {
-            width: 400px;
-            min-width: 400px;
-            height: 400px;
-            min-height: 400px;
+            width: 525px;
+            min-width: 525px;
+            height: 525px;
+            min-height: 525px;
             background: inherit;
             border: none;
         }
@@ -34,29 +42,45 @@
     <div id="main">
         <!--<h1 class="steelblue centered">Chessboard Test</h1>-->
         <div class="board-holder">
-            <chess-board debug></chess-board>
+            <chess-board board-size="520" debug></chess-board>
         </div>
         <hr>
         <p>
+            <label for="cboJewels">Chess Jewels</label>
+            <!--<button id="btn-add-game">Add game</button>-->
+            &nbsp;&nbsp;&nbsp;
+            <select name="cboJewels" id="cboJewels"></select>
+            &nbsp;&nbsp;&nbsp;
+            <label id="lblJewels" for="">0 games.</label>
+        </p>
+        <p>
             <label for="cboZurich">Zurich 1950 Candidates Tournament</label>
             <!--<button id="btn-add-game">Add game</button>-->
+            &nbsp;&nbsp;&nbsp;
             <select name="cboZurich" id="cboZurich"></select>
+            &nbsp;&nbsp;&nbsp;
+            <label id="lblZurich" for="">0 games.</label>
         </p>
         <p>
             <label for="cboLeningrado">Leningrad 1973 Interzonal Tournament</label>
             <!--<button id="btn-add-game">Add game</button>-->
+            &nbsp;&nbsp;&nbsp;
             <select name="cboLeningrado" id="cboLeningrado"></select>
+            &nbsp;&nbsp;&nbsp;
+            <label id="lblLeningrado" for="">0 games.</label>
         </p>
     </div>
     <script>
-        let chess, board, cboLeningrad, cboZurich /* btnAdd, leningen */;
+        let chess, board, cboLeningrad, cboZurich, cboJewels, lblLeningrado, lblZurich, lblJewels /* btnAdd, leningen */;
         let gameCount = 0;
         const leningrad_games = [];
         const zurich_games = [];
+        const jewel_games = [];
         const chooseLGame = ev => board.validator = leningrad_games[ev.target.selectedIndex]
         const chooseZGame = ev => board.validator = zurich_games[ev.target.selectedIndex]
+        const chooseJGame = ev => board.validator = jewel_games[ev.target.selectedIndex]
     
-        const addGame = (ev, arr, control) => {
+        const addGame = (ev, arr, control, label) => {
             document.body.style.cursor = 'wait';
             // const game = leningen.next().value;
             const jgame = ev.data;
@@ -67,6 +91,7 @@
                 arr.push(game);
                 control.innerHTML += `<option value="${gameCount++}">${game.title}</option>`;
                 control.selectedIndex = arr.length - 1;
+                label.textContent = `${arr.length} game${arr.length === 1 ? '' : 's'}.`
             } catch(e) {
                 console.log(e);
             }
@@ -78,23 +103,29 @@
             board = document.querySelector("chess-board");
             cboLeningrad = document.querySelector("#cboLeningrado");
             cboLeningrad.addEventListener('click', chooseLGame);
+            lblLeningrado = document.querySelector('#lblLeningrado');
             cboZurich = document.querySelector("#cboZurich");
             cboZurich.addEventListener('click', chooseZGame);
+            lblZurich = document.querySelector('#lblZurich');
+            cboJewels = document.querySelector("#cboJewels");
+            cboJewels.addEventListener('click', chooseJGame);
+            lblJewels = document.querySelector('#lblJewels')
             //btnAdd = document.querySelector('#btn-add-game');
             //btnAdd.addEventListener('click', addLenin);
             import("./chess-rules.js")
             .then(m => {
                 chess = m;
-//                const lworker = new Worker('./static/chess-rules.js');
                 const lworker = new Worker('./gameloader.js');
-                lworker.onmessage = ev => addGame(ev, leningrad_games, cboLeningrad);
+                lworker.onmessage = ev => addGame(ev, leningrad_games, cboLeningrad, lblLeningrado);
                 lworker.postMessage('./static/1973-Interzonal-a.pgn');
-//                const zworker = new Worker('./static/chess-rules.js');
                 const zworker = new Worker('./gameloader.js');
-                zworker.onmessage = ev => addGame(ev, zurich_games, cboZurich);
+                zworker.onmessage = ev => addGame(ev, zurich_games, cboZurich, lblZurich);
                 zworker.postMessage('./static/1950-Candidates.pgn');
+                const jworker = new Worker('./gameloader.js');
+                jworker.onmessage = ev => addGame(ev, jewel_games, cboJewels, lblJewels);
+                jworker.postMessage('./static/joyas.pgn');
             })
-            .catch(e => console.log(`ERROR: ${e}`))
+            .catch(e => console.log(`ERROR importing 'chess-rules.js': ${e}`))
             console.log("Window loaded.");
         }
         window.addEventListener('load', onload)

@@ -24,3 +24,17 @@
 9. e5 Qg6 10. Re1 Nge7 11. Ba3 b5 12. Qxb5 Rb8 13. Qa4 Bb6 14. Nbd2 Bb7 15. Ne4 Qf5 
 16. Bxd3 Qh5 17. Nf6+ gxf6 18. exf6 Rg8 19. Rad1 Qxf3 20. Rxe7+ Nxe7 21. Qxd7+ Kxd7 
 22. Bf5+ Ke8 23. Bd7+ Kf8 24. Bxe7# 1-0
+
+[Event "Torneo Seleccion"]
+[Site "C.A.O.V.A."]
+[Date "1988.08.??"]
+[Round "4"]
+[White "Mangiaterra, Ricardo"]
+[Black "Savoretti, Ernesto"]
+[Result "0-1"]
+[Termination "Checkmate"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 g6 6. Be3 Bg7 7. f3 O-O 8. Qd2 Nc6 
+9. Bc4 Bd7 10. O-O-O Rc8 11. Bb3 Ne5 12. h4 h5 13. g4 hxg4 14. h5 Nxh5 15. Kb1 Nc4 
+16. Bxc4 Rxc4 17. Qe2 Rxc3 18. bxc3 Qa5 19. fxg4 Nf6 20. Nb3 Nxe4 21. Nxa5 Nxc3+ 22. Kc1 Nxa2+ 
+23. Kd2 Bc3+ 24. Kd3 Bb5+ 25. Nc4 d5 26. Rh8+ Bxh8 27. Qh2 Bxc4+ 28. Kd2 Bc3# 0-1
