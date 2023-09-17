@@ -126,9 +126,10 @@
                 jworker.postMessage('./static/joyas.pgn');
             })
             .catch(e => console.log(`ERROR importing 'chess-rules.js': ${e}`))
+            console.clear()
             console.log("Window loaded.");
         }
-        window.addEventListener('load', onload)
+        self.addEventListener('load', onload)
     </script>
 </body>
 </html>

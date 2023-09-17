@@ -107,9 +107,11 @@ export class ChessBoard extends HTMLElement {
     }
 
     get style() {
-        const widthFactor = window.innerWidth > window.innerHeight ? 2 : 1;
-        const heightFactor = window.innerWidth > window.innerHeight ? 1 : 2;
+        const [widthFactor, heightFactor] = window.innerWidth > window.innerHeight ? [2, 1] : [1, 2];
         const flexDirection = widthFactor > 1 ? 'row' : 'column';
+        console.log(`widthFactor: ${widthFactor} 
+                     heightFactor: ${heightFactor} 
+                     flexDirection: ${flexDirection}`);
 
         return `
         :host {
@@ -912,9 +914,12 @@ export class ChessCard extends HTMLElement {
 
     onkeyup = ev => {
         // console.log(ev.keyCode);
-        if (ev.keyCode === 37) return this.parent.prev();
-        if (ev.keyCode === 39) return this.parent.next();
-        ev.preventDefault();
+        if ([37, 39].includes(ev.keyCode)) {
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
+        if (ev.keyCode === 37) return this.parent.prev() && false;
+        if (ev.keyCode === 39) return this.parent.next() && false;
         return false;
     }
 
@@ -948,8 +953,8 @@ export class ChessCard extends HTMLElement {
         <div class = "panel"
          style="border: solid 1px; 
                 width: ${size}px;
-                top: ${this.parent ? this.parent.top : 0}px; 
-                position: fixed;
+                /* top: ${this.parent ? this.parent.top : 0}px; */ 
+                /* position: fixed; */
                 min-width: ${size}px;
                 height: ${size - 10}px;
                 min-height: ${size - 10}px;

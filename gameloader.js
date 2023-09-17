@@ -12,8 +12,9 @@ onmessage = m => {
                 //console.log(g);
                 done = g.done;
                 //console.log(done);
+                if (done) break;
                 const game = g.value;
-                if (game) {
+                if (game && game.constructor.name === 'ChessGame') {
                     // console.log(game.title);
                     postMessage(game.toJson());
                 }
