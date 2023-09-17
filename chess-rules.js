@@ -67,7 +67,7 @@ const resultRegex = /(?<ONGOING>^\*$)|(?<WHITE_WIN>^1-0$)|(?<BLACK_WIN>^0-1$)|(?
 const headerRegex = /^\[(?<header>\w+)\s+"(?<value>[a-zA-Z\.\,\/\s\d\?\!\-\_]*)"\]$/;
 const algebraicRegex = /^[a-h][1-8][a-h][1-8][QRBN]?$/;
 const regexFigure = /^(?<figure>[NBRQK])(?<disambig>[a-h]?[1-8]?)?[x]?(?<to>[a-h][1-8])[\+\#\!\?]*$/;
-const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>[QRBN]?)?[\+\#\!\?]*$/;
+const regexPawn = /^(?<column>[a-h]?)?[x]?[x]?(?<to>[a-h][1-8])(?<promotion>\=?[QRBN]?)?[\+\#\!\?]*$/;
 const regexCastling = /^[O0]-[O0](?<longCastling>-[O0])?[\+\#\!\?]*$/;
 
 const defaultFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
