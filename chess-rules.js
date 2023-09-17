@@ -1388,7 +1388,7 @@ class ChessGameCollection {
 async function pgnReader(filename) {
     const pgnNull = function*() {
         yield null;
-        return 0;
+        return;
     }
     const pgnGen = function*(pgntext) {
         const halves = pgntext.split(/[\r\n]{2,}/g);
@@ -1409,7 +1409,7 @@ async function pgnReader(filename) {
 
     try {
         const result = await fetch(filename);
-        console.log(`${filename} fetch was ${result.ok}.`)
+        // console.log(`${filename} fetch was ${result.ok}.`)
         if (!result.ok) {
             console.error(`ERROR in 'pgnReader': resource ${filename} not.found.`);
             return pgnNull();
