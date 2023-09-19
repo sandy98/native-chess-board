@@ -2,6 +2,7 @@ ReposToken.tok
 *.bak
 Stockfish*
 stockfish*
-
+enginegame.js
+*.bin
 
 

@@ -470,9 +470,9 @@ class ChessValidator {
                 } 
             } else {
                 const origRow = activeColor === 'w' ? to.charCodeAt(1) - 1 : to.charCodeAt(1) + 1;
-                return this.algebraicMove(`${column}${String.fromCharCode(origRow)}${to}${promotion ? promotion : ''}`); 
+                return this.algebraicMove(`${column}${String.fromCharCode(origRow)}${to}${promotion ? promotion : ''}`, fen, onlyEval); 
             }
-            return this.move(sqFrom, sqTo, promotion);
+            return this.move(sqFrom, sqTo, promotion, fen, onlyEval);
         } else if (regexFigure.test(movestr.replace(/[=+#]/g, ''))) {
             const { groups: {figure, disambig, to}} = movestr.replace(/[x=#+]/g, '').match(regexFigure);
             //console.log(`Figure: ${figure} - Disambiguation: ${disambig} - To: ${to}`);
@@ -483,10 +483,14 @@ class ChessValidator {
             const len = attackers.length;
             if (!len) return MoveEvaluation.INVALID_MOVE;
             if (len === 1) {
-                return this.move(attackers[0][0], sqTo, null, fen);
+                return this.move(attackers[0][0], sqTo, null, fen, onlyEval);
             } else {
                 if (!disambig) {
-                    return MoveEvaluation.INVALID_MOVE;
+                    const realAttackers = activeColor === 'b' ? 
+                    attackers.filter(pair => this.blackLegalMoves(fen).map(p => p[0]).includes(pair[0])) : 
+                    attackers.filter(pair => this.whiteLegalMoves(fen).map(p => p[0]).includes(pair[0]));
+                    if (realAttackers.length !== 1) return MoveEvaluation.INVALID_MOVE;
+                    return this.move(realAttackers[0][0], sqTo, null, fen, onlyEval);
                 }
                 if (disambig.length > 1) {
                     const sqFrom = san2square(`${disambig[0]}${disambig[1]}`);
@@ -494,20 +498,20 @@ class ChessValidator {
                     if (!attackers.length) {
                         return MoveEvaluation.INVALID_MOVE;
                     }
-                    return this.move(attackers[0][0], sqTo, null, fen);
+                    return this.move(attackers[0][0], sqTo, null, fen, onlyEval);
                 } else {
                     if (/[a-h]/.test(disambig)) { // Chose disambig by column.
                         attackers = attackers.filter(pair => index2rowcol(pair[0]).col === disambig.charCodeAt(0) - 97);
                         if (!attackers.length) {
                             return MoveEvaluation.INVALID_MOVE;
                         }
-                        return this.move(attackers[0][0], sqTo, null, fen);
+                        return this.move(attackers[0][0], sqTo, null, fen, onlyEval);
                     } else if (/[1-8]/.test(disambig)) { // Chose disambig by row.
                         attackers = attackers.filter(pair => index2rowcol(pair[0]).row === disambig.charCodeAt(0) - 49);
                         if (!attackers.length) {
                             return MoveEvaluation.INVALID_MOVE;
                         }
-                        return this.move(attackers[0][0], sqTo, null, fen);
+                        return this.move(attackers[0][0], sqTo, null, fen, onlyEval);
                     } else {
                         return MoveEvaluation.INVALID_MOVE;
                     }

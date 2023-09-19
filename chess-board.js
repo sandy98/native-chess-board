@@ -732,12 +732,12 @@ export class ChessBoard extends HTMLElement {
                 reason = 'Threefold repetition';
                 result = '1/2-1/2';
             } else if (this.validator.isFiftyMovesRule()) {
-                reason = 'FiftyMoves rule';
+                reason = 'Fifty moves rule';
                 result = '1/2-1/2';
             }
             if (reason) {
                 setTimeout(() => {
-                    const ev = new CustomEvent('draw', {detail: {result, reason}});
+                    const ev = new CustomEvent('draw', {detail: {movedata: response.movedata, result, reason}});
                     this.dispatchEvent(ev);
                     this.debug && console.log("Dispatching draw event");
                 }, 10)

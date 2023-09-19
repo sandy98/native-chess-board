@@ -76,9 +76,24 @@
         const leningrad_games = [];
         const zurich_games = [];
         const jewel_games = [];
-        const chooseLGame = ev => board.validator = leningrad_games[ev.target.selectedIndex]
-        const chooseZGame = ev => board.validator = zurich_games[ev.target.selectedIndex]
-        const chooseJGame = ev => board.validator = jewel_games[ev.target.selectedIndex]
+        const chooseLGame = ev => {
+            board.validator = new chess.ChessGame();
+            board.validator.fromJson(leningrad_games[ev.target.selectedIndex].toJson());
+            board.goto();
+            board.goto(0);
+        }
+        const chooseZGame = ev => {
+            board.validator = new chess.ChessGame();
+            board.validator.fromJson(zurich_games[ev.target.selectedIndex].toJson());
+            board.goto();
+            board.goto(0);
+        }
+        const chooseJGame = ev => {
+            board.validator = new chess.ChessGame();
+            board.validator.fromJson(jewel_games[ev.target.selectedIndex].toJson());
+            board.goto();
+            board.goto(0);
+        }
     
         const addGame = (ev, arr, control, label) => {
             document.body.style.cursor = 'wait';
