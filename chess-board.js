@@ -599,7 +599,7 @@ export class ChessBoard extends HTMLElement {
         if (where < 0) where = this.validator.fens.length - 1;
         //this.fen = this.validator.fens[where];
         this.current = where;
-        if (this.current !== oldCurrent) {
+        if (this.current !== oldCurrent || this.validator.constructor.name === 'FakeValidator') {
             const ev = new CustomEvent('changepos', {detail: this.current});
             this.dispatchEvent(ev);
             this.renderHtml();

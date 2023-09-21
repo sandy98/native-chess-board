@@ -189,11 +189,11 @@ const pgnDate = (date = new Date()) => `${pad(date.getFullYear(), 4)}.${pad(date
 
 
 class ChessValidator {
-    constructor(fen = defaultFen, debug = false) {
+    constructor(fen = defaultFen, debug = false, mode = 'strict') {
         this.fens = [fen];
         this.moves = [null];
         this.debug = debug;
-        this.mode = 'strict';
+        this.mode = mode;
     }
 
     reset(fen = this.fens[0]) {
@@ -202,6 +202,48 @@ class ChessValidator {
         this.headers && (this.headers.result = GameResults.ONGOING);
         this.headers && (this.headers.termination = '');
 
+    }
+
+    toHtml() {
+        let retStr = '';
+        if (this.headers) {
+            for (let n = 0; n < seven_tag_roster.length; n += 1) {
+                retStr += `<div style="margin: 0;">[<span>${capitalize(seven_tag_roster[n])}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[seven_tag_roster[n]] || '*'}</span>]</div>`;
+            }
+            for(let h in this.headers) {
+                if (!seven_tag_roster.includes(h)) {
+                    retStr += `<div style="margin: 0;">[<span>${capitalize(h)}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[h]}</span>]</div>`;
+                }
+            }
+        }
+        retStr += `<p>&nbsp;</p><div style="display: flex; flex-direction: row; flex-wrap: wrap;">`;
+        const len  = this.moves.length;
+        for (let n = 0; n < len; n += 1) {
+            if (this.moves[n] === null) {
+                retStr += `<span class="san" title="${n}">&nbsp;&nbsp;&nbsp;</span>`;
+            } else {
+                const content = `${this.sansInfo[n - 1].moveColor === 'w' ? (this.moves[n].number + '. ') : ' '}${this.moves[n].san} `;
+                retStr += `<span class="san" title="${n}">${content}&nbsp;</span>`;
+            }
+        }
+        retStr += `&nbsp;<span>${this.headers && this.headers.result ? this.headers.result : '*'}</span></div>`;
+        return retStr;
+    }
+
+    toPgn() {
+        let retStr = '';
+        if (this.headers) {
+            for (let n = 0; n < seven_tag_roster.length; n += 1) {
+                retStr += `[${capitalize(seven_tag_roster[n])} "${this.headers[seven_tag_roster[n]] || '*'}"]\n`;
+            }
+            for(let h in this.headers) {
+                if (!seven_tag_roster.includes(h)) {
+                    retStr += `[${capitalize(h)} "${this.headers[h] || '*'}"]\n`;
+                }
+            }
+        }
+        retStr += `\n${this.moveStr} ${this.headers && this.headers.result ? this.headers.result : '*'}\n\n`
+        return retStr;
     }
 
     undo() {
@@ -1181,13 +1223,13 @@ class ChessValidator {
 }
 
 class FakeValidator extends ChessValidator {
-    constructor(fen = defaultFen) {
-        super(fen);
+    constructor(fen = defaultFen, debug = false, mode = 'non-strict') {
+        super(fen, debug, mode);
     }
 
 
     move(from, to, promotion = null, fen = this.fen, onlyEval = false) {
-        this.debug && console.log(`Move from ${from} to ${to} with ${!!promotion ? promotion : 'no'} promotion.`)
+        console.log(`Move from ${from} to ${to} with ${!!promotion ? promotion : 'no'} promotion.`)
         
         const fenobj = fen2obj(fen);
         const lFenPos = fenPos2long(fenobj.fenPos).split('');
@@ -1201,23 +1243,27 @@ class FakeValidator extends ChessValidator {
         fenobj.activeColor = fenobj.activeColor === 'w' ? 'b' : 'w';
         fenobj.fenPos = fenPos2short(lFenPos.join(''));
         const newFen = obj2fen(fenobj);
-        if (!this.isValidFen(newFen)) return MoveEvaluation.INVALID_MOVE;
-        return {fen: newFen, move: {from, to, promotion, figure, san: `${figure}${square2san(to)}`}};
+        // if (!this.isValidFen(newFen)) return MoveEvaluation.INVALID_MOVE;
+        this.fens = [newFen];
+        const retObj = {fen: newFen, move: {from, to, promotion, figure, san: `${figure}${square2san(to)}`}};
+        console.info(retObj);
+        return retObj;
     }
 }
 
 
 class ChessGame extends ChessValidator {
-    constructor(event = 'Internet game',
+    constructor(fen = defaultFen, 
+        debug = false,
+        mode = 'strict',
+        event = 'Internet game',
         site = 'Internet',
         date = pgnDate(),
         round = '1',
         white = 'White Player', 
         black = 'Black Player', 
-        result = GameResults.ONGOING,
-        fen = defaultFen, 
-        debug = false) {
-        super(fen, debug);
+        result = GameResults.ONGOING) {
+        super(fen, debug, mode);
         this.headers = {event, site, date, round, white, black, result};
     }
 
@@ -1236,44 +1282,6 @@ class ChessGame extends ChessValidator {
         termination = '') {
         super.reset(fen);
         this.headers = {event, site, date, round, white, black, result, termination};
-    }
-
-    toHtml() {
-        let retStr = '';
-        for (let n = 0; n < seven_tag_roster.length; n += 1) {
-            retStr += `<div style="margin: 0;">[<span>${capitalize(seven_tag_roster[n])}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[seven_tag_roster[n]] || '*'}</span>]</div>`;
-        }
-        for(let h in this.headers) {
-            if (!seven_tag_roster.includes(h)) {
-                retStr += `<div style="margin: 0;">[<span>${capitalize(h)}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[h]}</span>]</div>`;
-            }
-        }
-        retStr += `<p>&nbsp;</p><div style="display: flex; flex-direction: row; flex-wrap: wrap;">`;
-        const len  = this.moves.length;
-        for (let n = 0; n < len; n += 1) {
-            if (this.moves[n] === null) {
-                retStr += `<span class="san" title="${n}">&nbsp;&nbsp;&nbsp;</span>`;
-            } else {
-                const content = `${this.sansInfo[n - 1].moveColor === 'w' ? (this.moves[n].number + '. ') : ' '}${this.moves[n].san} `;
-                retStr += `<span class="san" title="${n}">${content}&nbsp;</span>`;
-            }
-        }
-        retStr += `&nbsp;<span>${this.headers.result || '*'}</span></div>`;
-        return retStr;
-    }
-
-    toPgn() {
-        let retStr = '';
-        for (let n = 0; n < seven_tag_roster.length; n += 1) {
-            retStr += `[${capitalize(seven_tag_roster[n])} "${this.headers[seven_tag_roster[n]] || '*'}"]\n`;
-        }
-        for(let h in this.headers) {
-            if (!seven_tag_roster.includes(h)) {
-                retStr += `[${capitalize(h)} "${this.headers[h] || '*'}"]\n`;
-            }
-        }
-        retStr += `\n${this.moveStr} ${this.headers.result ? this.headers.result : '*'}\n\n`
-        return retStr;
     }
 
    fromPgn(pgnStr) {

@@ -82,7 +82,7 @@
                 <label id="lblJewels">0 games.</label>
             </p>
             <p>
-                <label for="cboZurich">Zurich 1950 Candidates Tournament</label>
+                <label for="cboZurich">Zurich 1953 Candidates Tournament</label>
                 <!--<button id="btn-add-game">Add game</button>-->
                 &nbsp;&nbsp;&nbsp;
                 <select name="cboZurich" id="cboZurich"></select>
@@ -214,7 +214,7 @@
                 lworker.postMessage('./static/1973-Interzonal-a.pgn');
                 const zworker = new Worker('./gameloader.js');
                 zworker.onmessage = ev => addGame(ev, zurich_games, cboZurich, lblZurich);
-                zworker.postMessage('./static/1950-Candidates.pgn');
+                zworker.postMessage('./static/1953-Candidates.pgn');
                 const jworker = new Worker('./gameloader.js');
                 jworker.onmessage = ev => addGame(ev, jewel_games, cboJewels, lblJewels);
                 jworker.postMessage('./static/joyas.pgn');
