@@ -57,7 +57,7 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            background-color: beige;
+            background-color: cadetblue;
         }
 
     </style>
@@ -99,6 +99,8 @@
             </p>
         </div>
         <div class = "s33">
+            <button id="reset-btn">Reset Board</button>
+            <button id="undo-btn">Undo Last Move</button>
             <button id="engine-move">Engine Move</button>
         </div>
     </div>
@@ -188,6 +190,8 @@
         }
 
         const onload = _ => {
+            document.querySelector('#reset-btn').addEventListener('click', () => board.reset());
+            document.querySelector('#undo-btn').addEventListener('click', () => board.undo());
             document.querySelector('#engine-move').addEventListener('click', engineMove);
             board = document.querySelector("chess-board");
             board.addEventListener('move', onMove);

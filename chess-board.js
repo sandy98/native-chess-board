@@ -101,7 +101,7 @@ export class ChessBoard extends HTMLElement {
         const valid = !!value && value.move && typeof(value.move) === 'function' && value.fens;
         if (!valid) throw new Error('Validator must be an object with a "move" function and an array of "fen" strings.');
         this._validator = value;
-        this.reset(this.validator.fens[0]);
+        //this.reset(this.validator.fens[0]);
         this.current = 0; 
         this.renderHtml();
     }
@@ -578,8 +578,10 @@ export class ChessBoard extends HTMLElement {
         this.set(sq, '0', fen);
     }
 
-    reset = (fen = defaultFen) => {
+    reset = (validator = new ChessGame(), fen = defaultFen) => {
         //this.validator.reset(fen);
+        this.validator = validator;
+        this.validator.fens = [fen];
         this.current = 0;
         this.renderHtml();
     }

@@ -531,12 +531,12 @@ class ChessValidator {
 
     algebraicMove(movestr, fen = this.fen, onlyEval = false) {
         if (!algebraicRegex.test(movestr.replace(/[\-\=\x]/g, ''))) return MoveEvaluation.INVALID_MOVE;
-        const { groups: { from, to , promotion}} = movestr.replace(/[\-\=\x]/g, '').match(/(?<from>[a-h][1-8])(?<to>[a-h][1-8])(?<promotion>[QRBN]?)/);
+        const { groups: { from, to , promotion}} = movestr.replace(/[\-\=\x]/g, '').match(/(?<from>[a-h][1-8])(?<to>[a-h][1-8])(?<promotion>[QqRrBbNn]?)/);
         let rowcol = name2rowcol(from);
         const nfrom = rowcol2index(rowcol.row, rowcol.col);
         rowcol = name2rowcol(to);
         const nto = rowcol2index(rowcol.row, rowcol.col);
-        return this.move(nfrom, nto, promotion ? promotion.toUpperCase(): null, fen, onlyEval);
+        return this.move(nfrom, nto, promotion, fen, onlyEval);
     }
 
     coords2san(from, to, oldFen, newFen) {
