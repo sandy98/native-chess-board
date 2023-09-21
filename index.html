@@ -136,9 +136,9 @@
             }
         }
 
-        const engineMove = () => {
+        const engineMove = (level = gameLevel) => {
             const positionMsg = `position fen ${board.fens[0]} moves ${board.validator.algebraics.join(' ')}`;
-            const goMsg = `go depth ${gameLevel}`;
+            const goMsg = `go depth ${level}`;
             console.log(`MSG 1 from engineMove: '${positionMsg}'`);
             console.log(`MSG 2 from engineMove: '${goMsg}'`);
             engine.postMessage(positionMsg);
