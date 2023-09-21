@@ -245,6 +245,11 @@ class ChessValidator {
     get sans() {
         return this.sansInfo.map(o => o.san);
     }
+    
+    get algebraics() {
+        return this.moves.slice(1).map(o => `${square2san(o.from)}${square2san(o.to)}${o.promotion ? o.promotion.toLowerCase() : ''}`)
+    }
+
 
     move(from, to, promotion = null, fen = this.fen, onlyEval = false) {
         this.debug && console.log(`Move from ${from} to ${to} with ${!!promotion ? promotion : 'no'} promotion.`)
@@ -423,7 +428,9 @@ class ChessValidator {
 
         const figure = figureFrom;
 
-        const retObj = {fen: newFen, movedata: { san, from, to, figure, promotion, number: oldNumber }};
+        const who = figure === figure.toUpperCase() ? 'w' : 'b';
+
+        const retObj = {fen: newFen, movedata: { who, san, from, to, figure, promotion, number: oldNumber }};
 
         this.appendFen(retObj.fen);
         this.appendMove(retObj.movedata);

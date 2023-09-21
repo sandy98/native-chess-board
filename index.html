@@ -71,11 +71,46 @@
         </p>
     </div>
     <script>
+        let human = 'w';
+        let gameLevel = 15;
+        let isPlaying = false;
         let chess, board, cboLeningrad, cboZurich, cboJewels, lblLeningrado, lblZurich, lblJewels /* btnAdd, leningen */;
+        let engine;
         let gameCount = 0;
         const leningrad_games = [];
         const zurich_games = [];
         const jewel_games = [];
+
+        const stopGame = () => isPlaying = false;
+
+        const startGame = (engineColor = 'b', level = gameLevel) => {
+            human = (engineColor === 'b') ?  'w' : 'b';
+            if (level !== gameLevel) gameLevel = level;
+            isPlaying = true;
+            if (board.activeColor !== human) engineMove();
+        }
+
+
+        const engineMessage = ev => {
+            // console.log(`@@@\n${ev.data}\n@@@`);
+            const regexSFMove = /^bestmove (?<algeb>[a-h][1-8][a-h][1-8][QqRrBbNn]?)(?=\b)/;
+            if (!regexSFMove.test(ev.data)) return;
+            const {groups: { algeb }} = ev.data.match(regexSFMove);
+            if (algeb) {
+                console.log(`Now to try engine move ${algeb}`);
+                board.tryMove(algeb);
+            }
+        }
+
+        const engineMove = () => {
+            const positionMsg = `position fen ${board.fens[0]} moves ${board.validator.algebraics.join(' ')}`;
+            const goMsg = `go depth ${gameLevel}`;
+            console.log(`MSG 1 from engineMove: '${positionMsg}'`);
+            console.log(`MSG 2 from engineMove: '${goMsg}'`);
+            engine.postMessage(positionMsg);
+            engine.postMessage(goMsg);
+        }
+
         const chooseLGame = ev => {
             board.validator = new chess.ChessGame();
             board.validator.fromJson(leningrad_games[ev.target.selectedIndex].toJson());
@@ -113,9 +148,16 @@
             document.body.style.cursor = 'default';
         }
 
+        const onMove = ev => {
+            const moveData = ev.detail;
+            if (isPlaying) {
+                if (moveData.who === human) engineMove();
+            }
+        }
 
         const onload = _ => {
             board = document.querySelector("chess-board");
+            board.addEventListener('move', onMove);
             cboLeningrad = document.querySelector("#cboLeningrado");
             cboLeningrad.addEventListener('click', chooseLGame);
             lblLeningrado = document.querySelector('#lblLeningrado');
@@ -139,6 +181,22 @@
                 const jworker = new Worker('./gameloader.js');
                 jworker.onmessage = ev => addGame(ev, jewel_games, cboJewels, lblJewels);
                 jworker.postMessage('./static/joyas.pgn');
+
+                engine = new Worker('./static/stockfish.js');
+                engine.onmessage = engineMessage;
+                engine.postMessage('uci');
+                fetch('./static/komodo.bin')
+                .then(data => {
+                    if (data.ok) {
+                        return data.blob();
+                    } else {
+                        return false;
+                    }
+                })
+                .then(blob => engine.postMessage({book: blob}))
+                .catch(e => {
+                    console.error("ERROR fetching komodo.bin: " + e);
+                })
             })
             .catch(e => console.log(`ERROR importing 'chess-rules.js': ${e}`))
             console.clear()
