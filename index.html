@@ -15,6 +15,12 @@
             font-size: 1.8em;
             min-height: 1.8em;
         }
+
+        button {
+            height: 1.2em;
+            font-size: 100%;
+            padding: 1px;
+        }
         
         .test {
             background: lightskyblue;
@@ -33,42 +39,68 @@
             background: inherit;
             border: none;
         }
+        .main {
+            display: flex;
+            flex-direction: row;
+            justify-content: stretch;
+        }
+        .s66 {
+            width: 70%;
+            min-width: 70%;
+            max-width: 70%;
+        }
+        .s33 {
+            width: 30%;
+            min-width: 30%;
+            max-width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            background-color: beige;
+        }
+
     </style>
     <script type="module" src="chess-board.js">
     </script>
     <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
 </head>
 <body>
-    <div id="main">
+    <div id="main" class="main">
         <!--<h1 class="steelblue centered">Chessboard Test</h1>-->
-        <div class="board-holder">
-            <chess-board board-size="520" debug></chess-board>
+        <div class="s66">
+            <div class="board-holder">
+                <chess-board board-size="520" debug></chess-board>
+            </div>
+            <hr>
+            <p>
+                <label for="cboJewels">Chess Jewels</label>
+                <!--<button id="btn-add-game">Add game</button>-->
+                &nbsp;&nbsp;&nbsp;
+                <select name="cboJewels" id="cboJewels"></select>
+                &nbsp;&nbsp;&nbsp;
+                <label id="lblJewels">0 games.</label>
+            </p>
+            <p>
+                <label for="cboZurich">Zurich 1950 Candidates Tournament</label>
+                <!--<button id="btn-add-game">Add game</button>-->
+                &nbsp;&nbsp;&nbsp;
+                <select name="cboZurich" id="cboZurich"></select>
+                &nbsp;&nbsp;&nbsp;
+                <label id="lblZurich" >0 games.</label>
+            </p>
+            <p>
+                <label for="cboLeningrado">Leningrad 1973 Interzonal Tournament</label>
+                <!--<button id="btn-add-game">Add game</button>-->
+                &nbsp;&nbsp;&nbsp;
+                <select name="cboLeningrado" id="cboLeningrado"></select>
+                &nbsp;&nbsp;&nbsp;
+                <label id="lblLeningrado">0 games.</label>
+            </p>
         </div>
-        <hr>
-        <p>
-            <label for="cboJewels">Chess Jewels</label>
-            <!--<button id="btn-add-game">Add game</button>-->
-            &nbsp;&nbsp;&nbsp;
-            <select name="cboJewels" id="cboJewels"></select>
-            &nbsp;&nbsp;&nbsp;
-            <label id="lblJewels">0 games.</label>
-        </p>
-        <p>
-            <label for="cboZurich">Zurich 1950 Candidates Tournament</label>
-            <!--<button id="btn-add-game">Add game</button>-->
-            &nbsp;&nbsp;&nbsp;
-            <select name="cboZurich" id="cboZurich"></select>
-            &nbsp;&nbsp;&nbsp;
-            <label id="lblZurich" >0 games.</label>
-        </p>
-        <p>
-            <label for="cboLeningrado">Leningrad 1973 Interzonal Tournament</label>
-            <!--<button id="btn-add-game">Add game</button>-->
-            &nbsp;&nbsp;&nbsp;
-            <select name="cboLeningrado" id="cboLeningrado"></select>
-            &nbsp;&nbsp;&nbsp;
-            <label id="lblLeningrado">0 games.</label>
-        </p>
+        <div class = "s33">
+            <button id="engine-move">Engine Move</button>
+        </div>
     </div>
     <script>
         let human = 'w';
@@ -156,6 +188,7 @@
         }
 
         const onload = _ => {
+            document.querySelector('#engine-move').addEventListener('click', engineMove);
             board = document.querySelector("chess-board");
             board.addEventListener('move', onMove);
             cboLeningrad = document.querySelector("#cboLeningrado");

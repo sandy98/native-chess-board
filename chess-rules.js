@@ -536,7 +536,7 @@ class ChessValidator {
         const nfrom = rowcol2index(rowcol.row, rowcol.col);
         rowcol = name2rowcol(to);
         const nto = rowcol2index(rowcol.row, rowcol.col);
-        return this.move(nfrom, nto, promotion, fen, onlyEval);
+        return this.move(nfrom, nto, promotion ? promotion.toUpperCase(): null, fen, onlyEval);
     }
 
     coords2san(from, to, oldFen, newFen) {
