@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 150%;
+            font-size: 1.1vw;
         }
         
         option {
@@ -17,9 +17,9 @@
         }
 
         button {
-            height: 1.2em;
-            font-size: 100%;
-            padding: 1px;
+            height: 1.4em;
+            font-size: 1.2vw;
+            padding-bottom: 5px;
         }
         
         .test {
@@ -59,6 +59,16 @@
             align-items: center;
             background-color: cadetblue;
         }
+        .renglon {
+            display = flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .renglon input[type="number"], select.controls {
+            height: 1.5em;
+            font-size: 100%;
+        }
 
     </style>
     <script type="module" src="chess-board.js">
@@ -75,15 +85,20 @@
             <hr>
             <p>
                 <label for="cboJewels">Chess Jewels</label>
-                <!--<button id="btn-add-game">Add game</button>-->
                 &nbsp;&nbsp;&nbsp;
                 <select name="cboJewels" id="cboJewels"></select>
                 &nbsp;&nbsp;&nbsp;
                 <label id="lblJewels">0 games.</label>
             </p>
             <p>
+                <label for="cboQuicks">Quick Mates</label>
+                &nbsp;&nbsp;&nbsp;
+                <select name="cboQuicks" id="cboQuicks"></select>
+                &nbsp;&nbsp;&nbsp;
+                <label id="lblQuicks">0 games.</label>
+            </p>
+            <p>
                 <label for="cboZurich">Zurich 1953 Candidates Tournament</label>
-                <!--<button id="btn-add-game">Add game</button>-->
                 &nbsp;&nbsp;&nbsp;
                 <select name="cboZurich" id="cboZurich"></select>
                 &nbsp;&nbsp;&nbsp;
@@ -99,21 +114,45 @@
             </p>
         </div>
         <div class = "s33">
+            <div class="renglon">
+                <label for="cbo-colors">Board colors</label>&nbsp;
+                <select class="controls" name="cbo-colors" id="cbo-colors"></select>
+            </div>
+            <div class="renglon">
+                <button onclick="board.showDiagram('f');">Figurines</button>
+                <button onclick="board.showDiagram('i');">Image</button>
+            </div>
+            <button id="cp-btn" onclick="cpFen">Copy position</button>
+            <button id="flip-btn">Flip Board</button>
             <button id="reset-btn">Reset Board</button>
             <button id="undo-btn">Undo Last Move</button>
-            <button id="engine-move">Engine Move</button>
+            <div class="renglon controls">
+                <button id="engine-btn">Engine Move</button>&nbsp;
+                <label for="game-level">Level</label>&nbsp;
+                <input type="number" class="controls" name="game-level" id="game-level" value="15" min="1" max="20" />&nbsp;
+            </div>
         </div>
     </div>
     <script>
         let human = 'w';
         let gameLevel = 15;
         let isPlaying = false;
-        let chess, board, cboLeningrad, cboZurich, cboJewels, lblLeningrado, lblZurich, lblJewels /* btnAdd, leningen */;
+        let chess, board, cboLeningrad, cboZurich, cboJewels, cboQuicks, 
+            lblLeningrado, lblZurich, lblJewels, lblQuicks /* btnAdd, leningen */;
         let engine;
         let gameCount = 0;
         const leningrad_games = [];
         const zurich_games = [];
         const jewel_games = [];
+        const quick_games = [];
+
+        const cpFen = _ =>  {
+            console.log('Copying fen to clipboard...'); 
+            board.copyFen()
+            .then(fen => fen.text())
+            .then(fentext => console.log("Fentext copied to clipboard."))
+            .catch(e => console.log("Something went VERY wrong while copying: " + e))
+        }
 
         const stopGame = () => isPlaying = false;
 
@@ -139,8 +178,8 @@
         const engineMove = (level = gameLevel) => {
             const positionMsg = `position fen ${board.fens[0]} moves ${board.validator.algebraics.join(' ')}`;
             const goMsg = `go depth ${level}`;
-            console.log(`MSG 1 from engineMove: '${positionMsg}'`);
-            console.log(`MSG 2 from engineMove: '${goMsg}'`);
+            //console.log(`MSG 1 from engineMove: '${positionMsg}'`);
+            //console.log(`MSG 2 from engineMove: '${goMsg}'`);
             engine.postMessage(positionMsg);
             engine.postMessage(goMsg);
         }
@@ -160,6 +199,12 @@
         const chooseJGame = ev => {
             board.validator = new chess.ChessGame();
             board.validator.fromJson(jewel_games[ev.target.selectedIndex].toJson());
+            board.goto();
+            board.goto(0);
+        }
+        const chooseQGame = ev => {
+            board.validator = new chess.ChessGame();
+            board.validator.fromJson(quick_games[ev.target.selectedIndex].toJson());
             board.goto();
             board.goto(0);
         }
@@ -190,9 +235,10 @@
         }
 
         const onload = _ => {
-            document.querySelector('#reset-btn').addEventListener('click', () => board.reset());
-            document.querySelector('#undo-btn').addEventListener('click', () => board.undo());
-            document.querySelector('#engine-move').addEventListener('click', engineMove);
+            document.querySelector('#flip-btn').addEventListener('click', _ => board.flip());
+            document.querySelector('#reset-btn').addEventListener('click', _ => board.reset());
+            document.querySelector('#undo-btn').addEventListener('click', _ => board.undo());
+            document.querySelector('#engine-btn').addEventListener('click', _ => engineMove(+document.querySelector('#game-level').value));
             board = document.querySelector("chess-board");
             board.addEventListener('move', onMove);
             cboLeningrad = document.querySelector("#cboLeningrado");
@@ -204,11 +250,25 @@
             cboJewels = document.querySelector("#cboJewels");
             cboJewels.addEventListener('click', chooseJGame);
             lblJewels = document.querySelector('#lblJewels')
+            cboQuicks = document.querySelector("#cboQuicks");
+            cboQuicks.addEventListener('click', chooseQGame);
+            lblQuicks = document.querySelector('#lblQuicks')
             //btnAdd = document.querySelector('#btn-add-game');
             //btnAdd.addEventListener('click', addLenin);
             import("./chess-rules.js")
             .then(m => {
                 chess = m;
+                let index = 0;
+                for (schema in chess.boardColors) {
+                    document.querySelector('#cbo-colors').innerHTML += `
+                    <option value="${schema}">${chess.capitalize(schema)}</option>
+                    `
+                    if (schema === board.backgroundSchema) {
+                        document.querySelector('#cbo-colors').selectedIndex = index;
+                    }
+                    index += 1;
+                }
+                document.querySelector('#cbo-colors').addEventListener('change', ev => board.backgroundSchema = ev.target.value);
                 const lworker = new Worker('./gameloader.js');
                 lworker.onmessage = ev => addGame(ev, leningrad_games, cboLeningrad, lblLeningrado);
                 lworker.postMessage('./static/1973-Interzonal-a.pgn');
@@ -218,6 +278,9 @@
                 const jworker = new Worker('./gameloader.js');
                 jworker.onmessage = ev => addGame(ev, jewel_games, cboJewels, lblJewels);
                 jworker.postMessage('./static/joyas.pgn');
+                const qworker = new Worker('./gameloader.js');
+                qworker.onmessage = ev => addGame(ev, quick_games, cboQuicks, lblQuicks);
+                qworker.postMessage('./static/quick-mates.pgn');
 
                 engine = new Worker('./static/stockfish.js');
                 engine.onmessage = engineMessage;
@@ -235,8 +298,11 @@
                     console.error("ERROR fetching komodo.bin: " + e);
                 })
             })
-            .catch(e => console.log(`ERROR importing 'chess-rules.js': ${e}`))
-            console.clear()
+            .catch(e => {
+                console.log(`ERROR importing 'chess-rules.js': ${e}`);
+                throw e;
+            })
+            //console.clear()
             console.log("Window loaded.");
         }
         self.addEventListener('load', onload)

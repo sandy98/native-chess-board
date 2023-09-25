@@ -1,21 +1,4 @@
 
-/*
-import {
-    versionInfo, version, onePixel, classicSet, asciiHorzLine, asciiVertline, asciiRow, asciiBoard,
-    svg_figures, blackFigures, whiteFigures, figures, rowArray, colArray, resultRegex, headerRegex,
-    algebraicRegex, regexFigure, regexPawn, regexCastling,
-    defaultFen, emptyFen, frenchFen, sicilianFen, caroKanFen, 
-    smotheredFen, helpedMateFen, KnightandBishopFen, mateIn3Fen,
-    evergreen_json, evergreen_pgn, inmortal_json, inmortal_pgn, 
-    boardColors, MoveEvaluation, GameResults, MoveSteps, seven_tag_roster, 
-    pad, isOdd, isEven, capitalize, title, 
-    rowcol2name, name2rowcol, square2san, san2square, rowFromIndex, colFromIndex, 
-    index2rowcol, rowcol2index, colLetterFromIndex, rowNumberFromIndex, 
-    isDarkSquare, isLightSquare, fen2obj, obj2fen, fenPos2short, fenPos2long, 
-    rPosFromFen, activeColorFromFen, pgnDate, 
-    ChessValidator, FakeValidator, ChessGame, ChessGameCollection, pgnReader
-} from './chess-rules.js';
-*/
 
 import {
     versionInfo, version, onePixel, classicSet, asciiBoard,
@@ -203,6 +186,19 @@ export class ChessBoard extends HTMLElement {
         `
     }
 
+
+    async copyFen(fen = this.fen) {
+        // const permissionState = await navigator.permissions.query()
+        console.log("Will try to copy position to clipboard");        
+        try {
+            await navigator.clipboard.writeText(fen);
+            console.log("Fen text copied to clipboard");
+            return fen;
+        } catch(e) {
+            console.error("Error while copying position to clipboard: " + e);
+            return e;
+        }      
+    }
 
     get selectedBackground() {
         switch (this.backgroundSchema) {
