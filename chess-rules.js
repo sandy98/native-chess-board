@@ -242,13 +242,18 @@ class ChessValidator {
             if (this.moves[n] === null) {
                 retStr += `<span class="san" title="${n}">&nbsp;&nbsp;&nbsp;</span>`;
             } else {
+                const figure = this.moves[n].promotion ? 
+                this.moves[n].who === 'w' ? 
+                                              this.moves[n].promotion.toUpperCase() : 
+                                              this.moves[n].promotion.toLowerCase() : 
+                this.moves[n].figure;
                 const content = `${this.sansInfo[n - 1].moveColor === 'w' ? 
                 (this.moves[n].number + '. ') : 
-                ' '}${this.moves[n].san.replace(/[KQRBN]/, unicodeFigures[this.moves[n].figure])} `;
+                ' '}${this.moves[n].san.replace(/[KQRBN]/, unicodeFigures[figure])} `;
                 retStr += `<span class="san" title="${n}">${content}&nbsp;</span>`;
             }
         }
-        retStr += `&nbsp;<span>${this.headers && this.headers.result ? this.headers.result : '*'}</span></div>`;
+        retStr += `&nbsp;<span class="san">${this.headers && this.headers.result ? this.headers.result : '*'}</span></div>`;
         return retStr;
     }
 

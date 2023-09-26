@@ -38,7 +38,7 @@ export class ChessBoard extends HTMLElement {
                 </div>
             </div>
             <div id="accesories-panel" class="panel" style="display: flex;">
-              <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
+              <div id="card-panel" class="panel" style="display: flex; padding: 0;">
                 <chess-card></chess-card>
               </div>
               <div id="setup-panel" class="panel" style="display: none;">Setup</div>
@@ -109,10 +109,10 @@ export class ChessBoard extends HTMLElement {
             cursor: pointer;
         }
         .main-container {
-            width: ${this.boardSize * widthFactor + 2}px;
-            min-width: ${this.boardSize * widthFactor + 2}px;
-            height: ${this.boardSize * heightFactor + 2}px;
-            min-height: ${this.boardSize * heightFactor + 2}px;
+            width: ${this.boardSize * widthFactor + 0}px;
+            min-width: ${this.boardSize * widthFactor + 0}px;
+            height: ${this.boardSize * heightFactor + 0}px;
+            min-height: ${this.boardSize * heightFactor + 0}px;
             display: flex;
             flex-direction: ${flexDirection};
             justify-content: stretch;
@@ -121,10 +121,10 @@ export class ChessBoard extends HTMLElement {
             user-select: none;
         }
         .panel {
-            width: ${this.boardSize + 1}px;
-            min-width: ${this.boardSize + 1}px;
-            height: ${this.boardSize + 1}px;
-            min-height: ${this.boardSize + 1}px;
+            width: ${this.boardSize + 0}px;
+            min-width: ${this.boardSize + 0}px;
+            height: ${this.boardSize + 0}px;
+            min-height: ${this.boardSize + 0}px;
             display: flex;
             flex-direction: column;
             justify-content: stretch;
@@ -898,6 +898,27 @@ export class ChessCard extends HTMLElement {
         this.root = this.attachShadow({mode: 'closed'});
     }
 
+    get fontSize() {
+        const attrFontSize = this.getAttribute('font-size');
+        if ( attrFontSize === null) {
+            return 1.7;
+        } else {
+            return +attrFontSize;
+        }
+    }
+    set fontSize(value) {
+        if (isNaN(value)) return;
+        this.setAttribute('font-size', value);
+    }
+
+    static get observedAttributes() {return ['font-size'];}
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue === newValue) return;
+        if (name === 'font-size')
+            this.render();
+    }
+
     connectedCallback() {
         //console.log("Rendering from connectedCallback!");
         document.body.addEventListener('keyup', this.onkeyup);
@@ -939,6 +960,7 @@ export class ChessCard extends HTMLElement {
         <style>
             span.san {
                 cursor: pointer;
+                font-size: ${this.fontSize}vw;
             }
             span.san:hover {
                 background: lightskyblue;
