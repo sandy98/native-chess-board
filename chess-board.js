@@ -8,6 +8,14 @@ import {
     rPosFromFen, ChessValidator, FakeValidator, ChessGame
  } from './chess-rules.js';
 
+export const boardModes = {
+    analysis: 1,
+    view: 2,
+    play: 3,
+    setup: 4
+} 
+
+
 export class ChessBoard extends HTMLElement {
     constructor() {
         super();
@@ -41,10 +49,45 @@ export class ChessBoard extends HTMLElement {
               <div id="card-panel" class="panel" style="display: flex; padding: 0;">
                 <chess-card></chess-card>
               </div>
-              <div id="setup-panel" class="panel" style="display: none;">Setup</div>
+              <div id="setup-panel" class="panel" style="display: none; padding: 10px;">${this.setupPanel}</div>
             </div>
         </div>
      `;
+    }
+
+    get boardMode() {
+        return +this.getAttribute("board-mode") || boardModes.analysis;
+    }
+    set boardMode(value) {
+        this.setAttribute('board-mode', value);
+    }
+
+    get setupPanel() {
+        let extraSquare = -12;
+        const makeFiguresRow = (figures, backgr = 'dark') => {
+            const backgr1 = backgr === 'dark' ? 'light' : 'dark';
+            let figuresRow = `<div class="row">`;
+            for (let f of figures) {
+            figuresRow += `<div figure="${f}" number="${extraSquare++}" class="square ${isEven(figures.indexOf(f)) ? backgr : backgr1}">
+            <img src="${classicSet[f]}" /></div>`
+            }
+            figuresRow += `</div>`
+            return figuresRow;
+        }
+        const bFiguresRow = makeFiguresRow(blackFigures, 'light');
+        const wFiguresRow = makeFiguresRow(whiteFigures, 'dark');
+        const trashRow = `<div class="row" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: center;">
+                            <div class="square" style="border: solid 1px;" number="-13">Delete</div>
+                          </div>`
+        const html = `
+            <!--<h2 style="color: cadetblue;">Chessboard Setup Panel</h2>-->
+            <div style="display: flex; flex-direction: column; justify-content: stretch; align-items: space-around;">
+            ${bFiguresRow}
+            ${wFiguresRow}
+            </div>
+            ${trashRow}
+        `
+        return html;
     }
 
     get squares() {
@@ -216,7 +259,7 @@ export class ChessBoard extends HTMLElement {
          return this.getAttribute("selected-square") === null ? 64 : +this.getAttribute("selected-square");
     }
     set selectedSquare(value) {
-        if (value < 0 || value > 64) throw new Error('Incorrect index for square.\nMust be between 0 and 63 to select or 64 to unselect.');
+        if (value < -12 || value > 64) throw new Error('Incorrect index for square.\nMust be between 0 and 63 to select or 64 to unselect.');
         this.setAttribute("selected-square", value);
     }
 
@@ -380,12 +423,22 @@ export class ChessBoard extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['selected-square', 'board-size', 'flipped', 'background-schema'];
+        return ['board-mode', 'selected-square', 'board-size', 'flipped', 'background-schema'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) return;
         this.debug && console.log(`'${name}' has changed from '${oldValue}'  to '${newValue}' `);
+
+        if (name === 'board-mode') {
+            if (+newValue === boardModes.setup) {
+                this.root.querySelector('#setup-panel').style.display = 'flex';
+                this.root.querySelector('#card-panel').style.display = 'none';
+            } else {
+                this.root.querySelector('#setup-panel').style.display = 'none';
+                this.root.querySelector('#card-panel').style.display = 'flex';
+            }
+        }
 
         if (name === 'background-schema' || name === 'selected-square') {
             return this.renderStyle();
@@ -684,6 +737,7 @@ export class ChessBoard extends HTMLElement {
     tryMove = (from, to, promotion = this.automaticPromotion) => {
         
         if(typeof(from) !== 'string' && from && to) {
+            if (to < 0) return this.selectedSquare = 64;
             if (from < 0 || to < 0 || from > 63 || to > 63) throw new Error("Squares out of range. Both 'from' and 'to' must be between 0 and 63.");
         }
     
@@ -755,7 +809,26 @@ export class ChessBoard extends HTMLElement {
             return this.selectedSquare = 64;
         } else {
             // this.debug && console.clear() && console.log(`Msg from 'onclickordrag': Will try to move from ${this.selectedSquare} to ${index}`)
-            return this.tryMove(this.selectedSquare, index);
+            if (this.selectedSquare >= 0) {
+                if (index === -13) {
+                    this.unset(this.selectedSquare);
+                    return this.selectedSquare = 64;
+                }
+                if (this.boardMode !== boardModes.setup) {
+                    return this.tryMove(this.selectedSquare, index);
+                } else {
+                    this.set(index, this.root.querySelector(`div.square[number="${this.selectedSquare}"]`)
+                    .getAttribute('figure'));
+                    this.unset(this.selectedSquare);
+                    return this.selectedSquare = 64;
+                }
+            } else {
+                if (index < 0) return this.selectedSquare = index;
+                // console.log("Trying to move from ", this.selectedSquare, " to ", index);
+                this.set(index, this.root.querySelector(`div.square[number="${this.selectedSquare}"]`)
+                .getAttribute('figure'));
+                return this.selectedSquare = 64;
+            }
         }
     }
 
