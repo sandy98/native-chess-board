@@ -94,7 +94,7 @@ export class ChessBoard extends HTMLElement {
         const bFiguresRow = makeFiguresRow(blackFigures, 'light');
         const wFiguresRow = makeFiguresRow(whiteFigures, 'dark');
         const trashRow = `<div class="row" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: center;">
-                            <div class="square" style="border: solid 1px;" number="-13">Delete</div>
+                            <div title="Delete figure" class="square" style="border: solid 1px;" number="-13">${svg_figures.trashbin}</div>
                           </div>`
         const that = this;
         const html = `
