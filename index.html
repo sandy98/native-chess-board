@@ -157,6 +157,7 @@
             </div>
             <!--<button id="cp-btn" onclick="cpFen">Copy position</button>-->
             <button id="flip-btn">Flip Board</button>
+            <button id="setup-btn" onclick="[board.boardMode, document.querySelector('#setup-btn').textContent ] = board.boardMode === 4 ? [1, 'Setup'] : [4, 'Analysis'];">Setup</button>
             <button id="reset-btn">Reset Board</button>
             <button id="undo-btn">Undo Last Move</button>
             <div class="renglon controls">

@@ -5,7 +5,7 @@ import {
     svg_figures, blackFigures, whiteFigures, defaultFen, boardColors, MoveEvaluation, 
     isOdd, isEven,rowcol2name, square2san, san2square,  
     index2rowcol, isDarkSquare, fen2obj, obj2fen, fenPos2short, fenPos2long, 
-    rPosFromFen, ChessValidator, FakeValidator, ChessGame
+    rPosFromFen, ChessValidator, FakeValidator, ChessGame, assortedFens
  } from './chess-rules.js';
 
 export const boardModes = {
@@ -62,8 +62,15 @@ export class ChessBoard extends HTMLElement {
         this.setAttribute('board-mode', value);
     }
 
+    onclickReset = _ => {
+        this.reset(new ChessGame(), `${this.root.querySelector('#cboFens').value}`);
+    }
+
     get setupPanel() {
         let extraSquare = -12;
+        const decamelize = str => str.replace(/([a-z])([A-Z0-9])/g, g => `${g[0]} ${g[1]}`)
+                                  .replace(/^(.)/, g => `${g[0].toUpperCase()}`)
+
         const makeFiguresRow = (figures, backgr = 'dark') => {
             const backgr1 = backgr === 'dark' ? 'light' : 'dark';
             let figuresRow = `<div class="row">`;
@@ -74,18 +81,35 @@ export class ChessBoard extends HTMLElement {
             figuresRow += `</div>`
             return figuresRow;
         }
+
+        let cboFens = `<select id="cboFens">`
+        let index = 0;
+        for (let fen in assortedFens) {
+            cboFens += `<option ${index === 0 ? 'selected' : ''} 
+                           value="${assortedFens[fen]}">${decamelize(fen)}</option>`
+            index += 1;
+        }
+        cboFens += `</select>`
+
         const bFiguresRow = makeFiguresRow(blackFigures, 'light');
         const wFiguresRow = makeFiguresRow(whiteFigures, 'dark');
         const trashRow = `<div class="row" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: center;">
                             <div class="square" style="border: solid 1px;" number="-13">Delete</div>
                           </div>`
+        const that = this;
         const html = `
             <!--<h2 style="color: cadetblue;">Chessboard Setup Panel</h2>-->
+            <div class="renglon">
+              <button id="setup-reset-btn">Reset</button>&nbsp;${cboFens}
+            <div>
+            <p style="max-height: 0.5rem;>&nbsp;</p>
             <div style="display: flex; flex-direction: column; justify-content: stretch; align-items: space-around;">
-            ${bFiguresRow}
-            ${wFiguresRow}
+              ${bFiguresRow}
+              ${wFiguresRow}
             </div>
+            <p style="max-height: 0.5rem;">&nbsp;</p>
             ${trashRow}
+            <p style="max-height: 0.5rem;>&nbsp;</p>
         `
         return html;
     }
@@ -424,6 +448,10 @@ export class ChessBoard extends HTMLElement {
 
     static get observedAttributes() {
         return ['board-mode', 'selected-square', 'board-size', 'flipped', 'background-schema'];
+    }
+
+    static get boardModes() {
+        return boardModes;
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -940,6 +968,8 @@ export class ChessBoard extends HTMLElement {
             f.addEventListener('drag', this.ondrag);
             f.addEventListener('dragend', this.ondragend);
         })
+        this.root.querySelector('#setup-reset-btn') && this.root.querySelector('#setup-reset-btn')
+                                     .addEventListener('click', this.onclickReset);
     }
 
     removeListeners() {
@@ -957,6 +987,8 @@ export class ChessBoard extends HTMLElement {
             f.removeEventListener('drag', this.ondrag);
             f.removeEventListener('dragend', this.ondragend);
         })
+        this.root.querySelector('#setup-reset-btn') && this.root.querySelector('#setup-reset-btn')
+                                    .removeEventListener('click', this.onclickReset);
     }
 
 
