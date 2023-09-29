@@ -151,7 +151,7 @@ export class ChessBoard extends HTMLElement {
             <div ${renglonStyle}>
               <span>Automatic Promotion</span>&nbsp;&nbsp;&nbsp;
               <div title="No automatic promotion" figure="0" class="square ${!this.automaticPromotion ? 'dark' : 'light'} autoprom">
-                &nbsp;
+                ${svg_figures.navail}
               </div>
               <div title="Queen" figure="Q" class="square ${this.automaticPromotion === 'Q' ? 'dark' : 'light'} autoprom">
                 <img src="${classicSet[promotionFigures[0]]}" />
