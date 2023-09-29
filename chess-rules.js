@@ -1,4 +1,4 @@
-const versionInfo = {major: 1, minor: 5, release: 7};
+const versionInfo = {major: 1, minor: 7, release: 14};
 const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
 //////////////
@@ -90,9 +90,16 @@ const regexCastling = /^[O0]-[O0](?<longCastling>-[O0])?[\+\#\!\?]*$/;
 const assortedFens = {
     default: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
     empty: '8/8/8/8/8/8/8/8 w KQkq - 0 1',
+    kingGambit: 'rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2',
+    ruyLopez: 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3',
+    italian: 'r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4',
     french: 'rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
     sicilian: 'rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
     caroKan: 'rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2',
+    kingIndian: 'rnbq1rk1/ppp2pbp/3p1np1/4p3/2PPP3/2N2N2/PP2BPPP/R1BQ1RK1 b - - 1 7',
+    grunfeld: 'rnbqkb1r/ppp1pp1p/5np1/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq d6 0 4',
+    orthodox: 'rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4',
+    semislav: 'rnbqkb1r/pp3ppp/2p1pn2/3p4/2PP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq - 0 5',
     smothered: '4k3/4P3/3K4/8/8/8/8/8 w - - 1 50',
     helpedMate: 'r1bqkbnr/pppnpppp/7P/3p4/8/8/PPPPPPP1/RNBQKBNR b KQkq - 0 3',
     knightAndBishop: '4k3/8/8/8/8/8/8/N3K2B w - - 0 1',

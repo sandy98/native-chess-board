@@ -66,6 +66,15 @@ export class ChessBoard extends HTMLElement {
         this.reset(new ChessGame(), `${this.root.querySelector('#cboFens').value}`);
     }
 
+    handleAutopromotion = ev => {
+        const figure = ev.target.getAttribute('figure') || ev.target.parentNode.getAttribute('figure');
+        if (figure === '0' || !figure) {
+            this.automaticPromotion = null;
+        } else {
+            this.automaticPromotion = figure;
+        }
+    }
+
     get setupPanel() {
         let extraSquare = -12;
         const decamelize = str => str.replace(/([a-z])([A-Z0-9])/g, g => `${g[0]} ${g[1]}`)
@@ -94,25 +103,112 @@ export class ChessBoard extends HTMLElement {
         const bFiguresRow = makeFiguresRow(blackFigures, 'light');
         const wFiguresRow = makeFiguresRow(whiteFigures, 'dark');
         const trashRow = `<div class="row" style="margin-top: 10px; display: flex; flex-direction: row; justify-content: center;">
-                            <div title="Delete figure" class="square" style="border: solid 1px;" number="-13">${svg_figures.trashbin}</div>
+                            &nbsp;
+                            <div title="Delete figure" class="square light" style="border: solid 1px;" number="-13">${svg_figures.trashbin}</div>
                           </div>`
-        const that = this;
+
+        const castling = this.castling.split('');
+        const renglonStyle = 'style="margin: 2px; display: flex; flex-direction: row; justify-content: stretch; align-items: center;"';
+        const castlingRow = `<div ${renglonStyle}>
+          <span>Castling</span>&nbsp;&nbsp;&nbsp;
+          <div class="square ${castling.includes('K') ? 'dark' : 'light'}" 
+            id="w-king-castle-btn"
+          >
+            <img draggable="false" src="${classicSet.K}" />
+          </div>
+          <div class="square ${castling.includes('Q') ? 'dark' : 'light'}" 
+            id="w-queen-castle-btn"
+          >
+            <img draggable="false" src="${classicSet.Q}" />
+          </div>
+          <div class="square ${castling.includes('k') ? 'dark' : 'light'}" 
+            id="b-king-castle-btn"
+          >
+            <img draggable="false" src="${classicSet.k}" />
+          </div>
+          <div class="square ${castling.includes('q') ? 'dark' : 'light'}" 
+            id="b-queen-castle-btn"
+          >
+            <img draggable="false" src="${classicSet.q}" />
+          </div>
+        </div>`;
+        const activeColorRow = `<div ${renglonStyle}>
+            <span>Active Color</span>&nbsp;&nbsp;&nbsp;
+            <button id="active-color-btn"><img draggable="false" src="${this.activeColor === 'b' ? 
+                classicSet.k : 
+                classicSet.K}" />
+            </button>
+        </div>`;
+        const humanSideRow = `<div ${renglonStyle}>
+            <span>Human Side</span>&nbsp;&nbsp;&nbsp;
+            <button id="human-side-btn"><img draggable="false" src="${this.humanSide === 'b' ? 
+                classicSet.k : 
+                classicSet.K}" />
+            </button>
+        </div>`;
+        const promotionFigures = this.activeColor === 'w' ? 'QRBN' : 'qrbn';
+        const automaticPromotionRow = `
+            <div ${renglonStyle}>
+              <span>Automatic Promotion</span>&nbsp;&nbsp;&nbsp;
+              <div title="No automatic promotion" figure="0" class="square ${!this.automaticPromotion ? 'dark' : 'light'} autoprom">
+                &nbsp;
+              </div>
+              <div title="Queen" figure="Q" class="square ${this.automaticPromotion === 'Q' ? 'dark' : 'light'} autoprom">
+                <img src="${classicSet[promotionFigures[0]]}" />
+              </div>
+              <div title="Rook" figure="R" class="square ${this.automaticPromotion === 'R' ? 'dark' : 'light'} autoprom">
+                <img src="${classicSet[promotionFigures[1]]}" />
+              </div>
+              <div title="Bishop" figure="B" class="square ${this.automaticPromotion === 'B' ? 'dark' : 'light'} autoprom">
+                <img src="${classicSet[promotionFigures[2]]}" />
+              </div>
+              <div title="Knight" figure="N" class="square ${this.automaticPromotion === 'N' ? 'dark' : 'light'} autoprom">
+                <img src="${classicSet[promotionFigures[3]]}" />
+              </div>
+            </div>
+        `
         const html = `
             <!--<h2 style="color: cadetblue;">Chessboard Setup Panel</h2>-->
+        <div id="setup-panel-container" style="overflow-y: auto;">
             <div class="renglon">
-              <button id="setup-reset-btn">Reset</button>&nbsp;${cboFens}
+              <button id="setup-reset-btn">Reset</button>&nbsp;&nbsp;&nbsp;${cboFens}
             <div>
-            <p style="max-height: 0.5rem;>&nbsp;</p>
-            <div style="display: flex; flex-direction: column; justify-content: stretch; align-items: space-around;">
-              ${bFiguresRow}
-              ${wFiguresRow}
+            <div style="max-height: 0.5vw;">&nbsp;</div>
+            <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+              <div style="width: 15%; max-width: 15%; display: flex; flex-direction: column; justify-content: stretch; align-items: space-around;">
+                ${trashRow}
+              </div>
+              <div style="width: 60%; max-width: 60%; display: flex; flex-direction: column; justify-content: stretch; align-items: space-around;">
+                ${bFiguresRow}
+                ${wFiguresRow}
+              </div>
             </div>
-            <p style="max-height: 0.5rem;">&nbsp;</p>
-            ${trashRow}
-            <p style="max-height: 0.5rem;>&nbsp;</p>
+            <div style="max-height: 0.5vw;">&nbsp;</div>
+            ${castlingRow}
+            <div style="max-height: 0.5vw;">&nbsp;</div>
+            ${activeColorRow}
+            <div style="max-height: 0.3vw;">&nbsp;</div>
+            <div class="renglon">
+              <span style="font-size: 0.8vw;">FEN</span>&nbsp;
+              <span style="user-select: text; font-size: 0.8vw; padding-left: 3px; padding-right: 3px; border: solid 1px;">${this.fen}</span>
+            </div>
+            <div style="max-height: 0.5vw;">&nbsp;</div>
+            ${humanSideRow}
+            <div style="max-height: 0.5vw;">&nbsp;</div>
+            ${automaticPromotionRow}
+        </div>
         `
         return html;
     }
+
+    get humanSide() {
+        return this.getAttribute('human-side') || 'w';
+    }
+    set humanSide(value) {
+        if (!['w', 'b'].includes(value)) return;
+        this.setAttribute('human-side', value);
+    }
+
 
     get squares() {
         return this.root.querySelectorAll('.row .square');
@@ -175,6 +271,9 @@ export class ChessBoard extends HTMLElement {
         .square.promotion img {
             cursor: pointer;
         }
+        .autoprom {
+            cursor: pointer;
+        }
         .main-container {
             width: ${this.boardSize * widthFactor + 0}px;
             min-width: ${this.boardSize * widthFactor + 0}px;
@@ -194,10 +293,11 @@ export class ChessBoard extends HTMLElement {
             min-height: ${this.boardSize + 0}px;
             display: flex;
             flex-direction: column;
-            justify-content: stretch;
-            align-items: stretch;
-            background: transparent;
+            justify-content: flex-start;
+            align-items: auto;
+            background: whitesmoke;
             z-index: 1;
+            overflow: hidden;
         }
         .board {
             width: ${this.boardSize}px;
@@ -213,6 +313,7 @@ export class ChessBoard extends HTMLElement {
             z-index: 2;
             border: solid 1px black;
             margin-right: 2px;
+            overflow: hidden;
         }
         .row {
             width: ${this.boardSize / 8}px;
@@ -354,6 +455,7 @@ export class ChessBoard extends HTMLElement {
         this.the_board && (this.the_board.innerHTML = boardRows);
         this.promotionDialog && (this.promotionDialog.innerHTML = promotionDialogContent);
         this.chessCard && this.chessCard.render && this.chessCard.render();
+        this.root.querySelector('#setup-panel').innerHTML = this.setupPanel;
         this.addProperties();
         this.addListeners();
         this.emitRepaint('content');
@@ -393,12 +495,6 @@ export class ChessBoard extends HTMLElement {
             boardRows += `</div>`;
         }
 
-        // let promotionDialog = `
-        // <div
-        //    id="promotion-dialog" 
-        //    style="opacity: 1; display: none; border: solid 1px; padding: 0; top: ${this.top - this.top}px; left: ${this.left - this.leftt}px; position: absolute; z-index: 1007; flex-direction: ${flexDirection};"
-        //  >
-        //  `
         this.promotionDialog.style.flexDirection = flexDirection;
         let promotionDialogContent = ``;
         const figures = this.activeColor === 'w' ? 'QRBN' : 'qrbn';
@@ -421,25 +517,7 @@ export class ChessBoard extends HTMLElement {
         
         return { promotionDialogContent, boardRows};
         
-        // promotionDialog += '</div>';
-        
-        // const markup = `
-        // ${promotionDialog}
-        // <div id="board-div" class="panel">
-        //     <div id="the-board" class="board">
-        //       ${rows}
-        //     </div>
-        // </div>
-        // <div id="accesories-panel" class="panel" style="display: flex;">
-        //   <div id="card-panel" class="panel" style="display: flex; padding: 10px;">
-        //     <chess-card></chess-card>
-        //   </div>
-        //   <div id="setup-panel" class="panel" style="display: none;">Setup</div>
-        // </div>
-        // `;
-        // return markup;
-
-    }
+     }
 
     emitRepaint(reason = "content") {
         const ev = new CustomEvent('repaint', {detail: {reason, current: this.current}});
@@ -447,7 +525,14 @@ export class ChessBoard extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['board-mode', 'selected-square', 'board-size', 'flipped', 'background-schema'];
+        return ['human-side', 
+                'board-mode', 
+                'selected-square', 
+                'board-size', 
+                'flipped', 
+                'background-schema',
+                'automatic-promotion'
+               ];
     }
 
     static get boardModes() {
@@ -468,11 +553,19 @@ export class ChessBoard extends HTMLElement {
             }
         }
 
+        if (name === 'human-side') {
+            if (newValue === 'b') {
+                this.flipped = true;
+            } else {
+                this.flipped = false;
+            }
+        }
+
         if (name === 'background-schema' || name === 'selected-square') {
             return this.renderStyle();
         }
 
-        if (name === 'flipped') {
+        if (name === 'flipped' || name === 'automatic-promotion') {
             return this.renderHtml();
         }
 
@@ -649,7 +742,78 @@ export class ChessBoard extends HTMLElement {
         this.validator.fens[this.current] = obj2fen(fenobj);
         this.renderHtml();
         return true;
-    }   
+    }  
+
+    toggleActiveColor = (_, fen = this.fen) => {
+        const newActiveColor = this.activeColor === 'w' ? 'b' : 'w';
+        const fenobj = fen2obj(fen);
+        fenobj.activeColor = newActiveColor;
+        const newFen = obj2fen(fenobj);
+        this.validator.fens[this.current] = newFen;
+        this.renderHtml();
+    } 
+
+    toggleHumanSide = (_, fen = this.fen) => {
+        this.humanSide = this.humanSide === 'w' ? 'b' : 'w';
+        this.renderHtml();
+    } 
+
+    toggleCastling = (fen = this.fen, color = 'w', side = 'k') => {
+        let newCastling = this.castling;
+        let arrCastling = new Array(4);
+        if (newCastling.includes('K')) {
+            arrCastling[0] = 'K';
+        } else {
+            arrCastling[0] = null;
+        }
+        if (newCastling.includes('Q')) {
+            arrCastling[1] = 'Q';
+        } else {
+            arrCastling[1] = null;
+        }
+        if (newCastling.includes('k')) {
+            arrCastling[2] = 'k';
+        } else {
+            arrCastling[2] = null;
+        }
+        if (newCastling.includes('q')) {
+            arrCastling[3] = 'q';
+        } else {
+            arrCastling[3] = null;
+        }
+
+        const [toReplace, order] = color === 'w' ? (side === 'k' ? ['K', 0] : ['Q', 1]) : 
+        (side === 'k' ? ['k', 2] : ['q', 3]);
+        if (arrCastling.includes(toReplace)) {
+            arrCastling[order] = null;
+        } else {
+            arrCastling[order] = toReplace;
+        }
+        newCastling = arrCastling.join('');
+        if (!newCastling.length) newCastling = '-';
+
+        const fenobj = fen2obj(fen);
+        fenobj.castling = newCastling;
+        const newFen = obj2fen(fenobj);
+        this.validator.fens[this.current] = newFen;
+        this.renderHtml();
+    }
+
+    toggleWKCastling = (_, fen = this.fen) => {
+        this.toggleCastling(fen, 'w', 'k');
+    }
+
+    toggleWQCastling = (_, fen = this.fen) => {
+        this.toggleCastling(fen, 'w', 'q');
+    }
+    
+    toggleBKCastling = (_, fen = this.fen) => {
+        this.toggleCastling(fen, 'b', 'k');
+    }
+    
+    toggleBQCastling = (_, fen = this.fen) => {
+        this.toggleCastling(fen, 'b', 'q');
+    }
     
     unset(sq, fen = this.fen) {
         this.set(sq, '0', fen);
@@ -970,6 +1134,19 @@ export class ChessBoard extends HTMLElement {
         })
         this.root.querySelector('#setup-reset-btn') && this.root.querySelector('#setup-reset-btn')
                                      .addEventListener('click', this.onclickReset);
+        this.root.querySelector('#active-color-btn') && this.root.querySelector('#active-color-btn')
+                                     .addEventListener('click', this.toggleActiveColor);
+        this.root.querySelector('#human-side-btn') && this.root.querySelector('#human-side-btn')
+                                     .addEventListener('click', this.toggleHumanSide);
+        this.root.querySelector("#w-king-castle-btn") && this.root.querySelector("#w-king-castle-btn")
+                                     .addEventListener('click', this.toggleWKCastling);
+        this.root.querySelector("#w-queen-castle-btn") && this.root.querySelector("#w-queen-castle-btn")
+                                     .addEventListener('click', this.toggleWQCastling);
+        this.root.querySelector("#b-king-castle-btn") && this.root.querySelector("#b-king-castle-btn")
+                                     .addEventListener('click', this.toggleBKCastling);
+        this.root.querySelector("#b-queen-castle-btn") && this.root.querySelector("#b-queen-castle-btn")
+                                     .addEventListener('click', this.toggleBQCastling);
+        this.root.querySelectorAll('div.autoprom').forEach(ap => ap.addEventListener('click', this.handleAutopromotion));
     }
 
     removeListeners() {
@@ -989,6 +1166,20 @@ export class ChessBoard extends HTMLElement {
         })
         this.root.querySelector('#setup-reset-btn') && this.root.querySelector('#setup-reset-btn')
                                     .removeEventListener('click', this.onclickReset);
+        this.root.querySelector('#active-color-btn') && this.root.querySelector('#active-color-btn')
+                                    .removeEventListener('click', this.toggleActiveColor);
+        this.root.querySelector('#human-side-btn') && this.root.querySelector('#human-side-btn')
+                                    .removeEventListener('click', this.toggleHumanSide);
+       this.root.querySelector("#w-king-castle-btn") && this.root.querySelector("#w-king-castle-btn")
+                                    .removeEventListener('click', this.toggleWKCastling);
+       this.root.querySelector("#w-queen-castle-btn") && this.root.querySelector("#w-queen-castle-btn")
+                                    .removeEventListener('click', this.toggleWQCastling);
+       this.root.querySelector("#b-king-castle-btn") && this.root.querySelector("#b-king-castle-btn")
+                                    .removeEventListener('click', this.toggleBKCastling);
+       this.root.querySelector("#b-queen-castle-btn") && this.root.querySelector("#b-queen-castle-btn")
+                                    .removeEventListener('click', this.toggleBQCastling);
+       this.root.querySelectorAll('div.autoprom').forEach(ap => ap.removeEventListener('click', this.handleAutopromotion));
+
     }
 
 
