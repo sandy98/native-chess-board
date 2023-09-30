@@ -356,6 +356,20 @@ export class ChessBoard extends HTMLElement {
         `
     }
 
+    downloadPgn() {
+        const element = document.createElement('a');
+        const filename = `${this.validator.headers.white}-${this.validator.headers.black}.pgn`;
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.validator.toPgn()));
+        element.setAttribute('download', filename);
+      
+        element.style.display = 'none';
+        document.body.appendChild(element);
+      
+        element.click();
+      
+        document.body.removeChild(element);
+      }
+      
 
     async copyFen(fen = this.fen) {
         // const permissionState = await navigator.permissions.query()
