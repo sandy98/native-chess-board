@@ -265,7 +265,7 @@ class ChessValidator {
                                               this.moves[n].promotion.toLowerCase() : 
                 this.moves[n].figure;
                 const content = `${this.sansInfo[n - 1].moveColor === 'w' ? 
-                (this.moves[n].number + '. ') : 
+                (this.moves[n].number + '. ') : n === 1 ? (this.moves[n].number + '... ') :
                 ' '}${this.moves[n].san.replace(/[KQRBN]/, unicodeFigures[figure])} `;
                 retStr += `<span class="san" title="${n}">${content}&nbsp;</span>`;
             }
