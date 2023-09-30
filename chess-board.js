@@ -1,5 +1,4 @@
 
-
 import {
     versionInfo, version, onePixel, classicSet, asciiBoard,
     svg_figures, blackFigures, whiteFigures, defaultFen, boardColors, MoveEvaluation, 
@@ -59,6 +58,9 @@ export class ChessBoard extends HTMLElement {
         return +this.getAttribute("board-mode") || boardModes.analysis;
     }
     set boardMode(value) {
+        if (value < boardModes.analysis || value > boardModes.setup) {
+            throw new Error("Board Mode must be one of 'analysis', 'view', 'play', 'setup'.");
+        }
         this.setAttribute('board-mode', value);
     }
 
@@ -479,7 +481,7 @@ export class ChessBoard extends HTMLElement {
                 const figure = position[sqIndex];
                 const backColor = (isEven(r) && isEven(c)) || (isOdd(r) && isOdd(c)) ? 'light' : 'dark'
                 const sqSize = this.boardSize / 8;
-                const sqContent =  figure === '0' ? '' : `<img  width="${sqSize}px" height="${sqSize}px" src="${classicSet[figure]}" />`
+                const sqContent =  figure === '0' ? '' : `<img  style="cursor:${this.canHumanMove(number) ? 'grab' : 'not-allowed'}" width="${sqSize}px" height="${sqSize}px" src="${classicSet[figure]}" />`
                 boardRows += `<div 
                           class="square ${backColor}" 
                           index="${sqIndex}" 
@@ -551,6 +553,7 @@ export class ChessBoard extends HTMLElement {
                 this.root.querySelector('#setup-panel').style.display = 'none';
                 this.root.querySelector('#card-panel').style.display = 'flex';
             }
+            this.renderHtml();
         }
 
         if (name === 'human-side') {
@@ -559,6 +562,7 @@ export class ChessBoard extends HTMLElement {
             } else {
                 this.flipped = false;
             }
+            this.renderHtml();
         }
 
         if (name === 'background-schema' || name === 'selected-square') {
@@ -570,7 +574,8 @@ export class ChessBoard extends HTMLElement {
         }
 
         if (name === 'board-size') {
-            return this.render();
+            this.render();
+            return this.emitRepaint('resize');
         }
     }
 
@@ -996,6 +1001,7 @@ export class ChessBoard extends HTMLElement {
         const index = +square.getAttribute("number");
         if (this.selectedSquare === 64) {
             if (square.isEmpty) return;
+            if (this.boardMode === boardModes.play && !this.canHumanMove(index)) return;
             return this.selectedSquare = index;
         } else if (+index === +this.selectedSquare) {
             return this.selectedSquare = 64;
@@ -1182,6 +1188,32 @@ export class ChessBoard extends HTMLElement {
 
     }
 
+    canHumanMove(fromSquare, fen = this.fen) {
+        if (typeof(fromSquare) === 'string') fromSquare = san2square(fromSquare);
+        let realSquare = null;
+        for(let sq of this.squares) {
+            if (+sq.number === fromSquare) {
+                realSquare = sq;
+                break;
+            }
+        } 
+        if (!realSquare) return false;
+        if (realSquare.isEmpty) return false;
+        const activeColor = fen2obj(fen).activeColor;
+        if (activeColor === 'w' && realSquare.isBlack) return false;
+        if (activeColor === 'b' && realSquare.isWhite) return false;
+
+        const { analysis, view, setup } = boardModes;
+        const mode = this.boardMode;
+        if (mode === analysis || mode === view || mode === setup) {
+            return true;
+        }
+        if (activeColor === 'w' && this.humanSide === 'b') return false;
+        if (activeColor === 'b' && this.humanSide === 'w') return false;
+
+        return true;
+
+    }
 
 }
 
@@ -1267,7 +1299,7 @@ export class ChessCard extends HTMLElement {
             }
         </style>
         <div class = "panel"
-         style="border: solid 1px; 
+         style="border: none; 
                 width: ${size}px;
                 /* top: ${this.parent ? this.parent.top : 0}px; */ 
                 /* position: fixed; */

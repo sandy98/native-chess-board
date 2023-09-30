@@ -1,4 +1,4 @@
-const versionInfo = {major: 1, minor: 7, release: 14};
+const versionInfo = {major: 1, minor: 8, release: 3};
 const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
 //////////////
@@ -245,6 +245,13 @@ class ChessValidator {
                     retStr += `<div style="margin: 0;">[<span>${capitalize(h)}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[h]}</span>]</div>`;
                 }
             }
+            if (this.fenHeader) {
+                retStr += `<div style="margin: 0;">[<span>FEN</span>&nbsp;&nbsp;&nbsp;<span style="font-size: 0.8vw; color: green;">${this.fenHeader}</span>]</div>`;
+            }
+            if (this.setupHeader) {
+                retStr += `<div style="margin: 0;">[<span>Setup</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.setupHeader}</span>]</div>`;
+            }
+            retStr += `<div style="margin: 0;">[<span>Plycount</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.plyCount}</span>]</div>`;
         }
         retStr += `<p>&nbsp;</p><div style="display: flex; flex-direction: row; flex-wrap: wrap;">`;
         const len  = this.moves.length;
@@ -278,6 +285,13 @@ class ChessValidator {
                     retStr += `[${capitalize(h)} "${this.headers[h] || '*'}"]\n`;
                 }
             }
+            if (this.fenHeader) {
+                retStr += `[FEN "${this.fenHeader}"]\n`;    
+            }
+            if (this.setupHeader) {
+                retStr += `[Setup "${this.setupHeader}"]\n`;    
+            }
+            retStr += `[Plycount "${this.plyCount}"]\n`;
         }
         retStr += `\n${this.moveStr} ${this.headers && this.headers.result ? this.headers.result : '*'}\n\n`
         return retStr;
@@ -1304,10 +1318,6 @@ class ChessGame extends ChessValidator {
         this.headers = {event, site, date, round, white, black, result};
     }
 
-    get title() {
-        return `${this.headers.white} - ${this.headers.black}   ${this.headers.result || '*'}`
-    }
-
     reset(fen = this.fens[0], 
         event = 'Internet game',
         site = 'Internet',
@@ -1319,6 +1329,30 @@ class ChessGame extends ChessValidator {
         termination = '') {
         super.reset(fen);
         this.headers = {event, site, date, round, white, black, result, termination};
+    }
+
+    get fenHeader() {
+        if (this.fens[0] === defaultFen) {
+            return null;
+        } else {
+            return this.fens[0];
+        }
+    }
+    
+    get setupHeader() {
+        if (this.fens[0] === defaultFen) {
+            return null;
+        } else {
+            return "1";
+        }
+    }
+
+    get plyCount() {
+        return this.sans.length;
+    }
+
+    get title() {
+        return `${this.headers.white} - ${this.headers.black}   ${this.headers.result || '*'}`
     }
 
    fromPgn(pgnStr) {

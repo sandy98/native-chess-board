@@ -40,9 +40,12 @@
             border: none;
         }
         .main {
+            width: 90%;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            margin-left: 1em;
+            margin-right: 1em;
         }
         .s66 {
             float: left;
@@ -51,9 +54,9 @@
             max-width: 70%;
         }
         .s33 {
-            width: 30%;
-            min-width: 30%;
-            max-width: 30%;
+            width: 25%;
+            min-width: 25%;
+            max-width: 25%;
             float: right;
             display: flex;
             flex-direction: column;
@@ -61,6 +64,8 @@
             align-items: center;
             background-color: cadetblue;
             border-radius: 6px;
+            margin-right: 10px;
+            overflow-x: hidden;
         }
         .renglon {
             display: flex;
@@ -125,14 +130,14 @@
                 <button 
                 title="Enlarge board" 
                 style="height: 40pt; width: 40pt;" 
-                  onclick="board.boardSize *= 1.05; onresize();"
+                  onclick="board.boardSize *= 1.05; /*onresize();*/"
                 >
                     <img id="bigKing" src="" alt="Black King" width="40px" height="40px"/>
                 </button>
                 <button 
                 title="Diminish board" 
                 style="height: 40pt; width: 40pt;" 
-                  onclick="board.boardSize *= 0.95; onresize();"
+                  onclick="board.boardSize *= 0.95; /*onresize();*/"
                 >
                     <img id="littleKing" src="" alt="Black King" width="20px" height="20px"/>
                 </button>
@@ -198,15 +203,15 @@
         }
 
         const onresize = ev => {
-            console.log(`${ev.target.constructor.name} resized resized resized!!!.`);
+            // console.log(`${ev.target.constructor.name} resized resized resized!!!.`);
             const windowWidth = self.innerWidth;
-            document.querySelector(".s66").style.width = `${board.boardSize * 2 + 2}px`;
-            document.querySelector(".s66").style.minWidth = `${board.boardSize * 2 + 2}px`;
-            document.querySelector(".s66").style.maxWidth = `${board.boardSize * 2 + 2}px`;
-            document.querySelector(".s33").style.width = `${windowWidth - (board.boardSize * 2 + 2)}px`;
-            document.querySelector(".s33").style.minWidth = `${windowWidth - (board.boardSize * 2 + 2)}px`;
-            document.querySelector(".s33").style.maxWidth = `${windowWidth - (board.boardSize * 2 + 2)}px`;
-            document.querySelector(".s33").style.left = `${board.boardSize * 2 + 2}px`;
+            document.querySelector(".s66").style.width = `${board.boardSize * 2 + 10}px`;
+            document.querySelector(".s66").style.minWidth = `${board.boardSize * 2 + 10}px`;
+            document.querySelector(".s66").style.maxWidth = `${board.boardSize * 2 + 10}px`;
+            document.querySelector(".s33").style.width = `${windowWidth - (board.boardSize * 2 + 20)}px`;
+            document.querySelector(".s33").style.minWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
+            document.querySelector(".s33").style.maxWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
+            document.querySelector(".s33").style.left = `${board.boardSize * 2 + 10}px`;
         }
 
         const engineMessage = ev => {
@@ -287,6 +292,7 @@
             document.querySelector('#engine-btn').addEventListener('click', _ => engineMove(+document.querySelector('#game-level').value));
             board = document.querySelector("chess-board");
             board.addEventListener('move', onMove);
+            board.addEventListener('repaint', onresize);
             cboLeningrad = document.querySelector("#cboLeningrado");
             cboLeningrad.addEventListener('click', chooseLGame);
             lblLeningrado = document.querySelector('#lblLeningrado');
@@ -301,6 +307,7 @@
             lblQuicks = document.querySelector('#lblQuicks')
             //btnAdd = document.querySelector('#btn-add-game');
             //btnAdd.addEventListener('click', addLenin);
+            onresize(null);
             import("./chess-rules.js")
             .then(m => {
                 chess = m;
