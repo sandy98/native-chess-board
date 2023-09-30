@@ -167,6 +167,12 @@
             <button id="setup-btn" onclick="[board.boardMode, document.querySelector('#setup-btn').textContent ] = board.boardMode === 4 ? [1, 'Setup'] : [4, 'Analysis'];">Setup</button>
             <button id="reset-btn">Reset Board</button>
             <button id="undo-btn">Undo Last Move</button>
+            <button id="replay-btn" onclick="board.replay();">Replay Game</button>
+            <div class="renglon">
+                <button id="download-pgn-btn" onclick="board.downloadPgn();">Get PGN</button>
+                &nbsp;&nbsp;&nbsp;
+                <button id="download-img-btn" onclick="board.downloadImage();">Get Image</button>
+            </div>
             <div class="renglon controls">
                 <button id="engine-btn">Engine Move</button>&nbsp;
                 <label for="game-level">Level</label>&nbsp;

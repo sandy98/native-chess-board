@@ -358,17 +358,26 @@ export class ChessBoard extends HTMLElement {
 
     downloadPgn() {
         const element = document.createElement('a');
-        const filename = `${this.validator.headers.white}-${this.validator.headers.black}.pgn`;
+        const filename = `${this.validator.headers.white.replace(/[\s\,]+/g, '_')}-${this.validator.headers.black.replace(/[\s\,]+/g, '_')}.pgn`;
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.validator.toPgn()));
         element.setAttribute('download', filename);
       
-        element.style.display = 'none';
-        document.body.appendChild(element);
+        // element.style.display = 'none';
+        // document.body.appendChild(element);
       
         element.click();
       
-        document.body.removeChild(element);
-      }
+        // document.body.removeChild(element);
+    }
+      
+    downloadImage() {
+        const element = document.createElement('a');
+        const image = this.imageDiagram(100, this.fen).toDataURL();
+        const filename = `${this.validator.headers.white.replace(/[\s\,]+/g, '_')}-${this.validator.headers.black.replace(/[\s\,]+/g, '_')}-${this.current}.png`;
+        element.setAttribute('href', image);
+        element.setAttribute('download', filename);
+        element.click();
+    }
       
 
     async copyFen(fen = this.fen) {
