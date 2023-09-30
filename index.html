@@ -8,6 +8,7 @@
         body {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 1.1vw;
+            padding: 0;
         }
         
         option {
@@ -31,6 +32,7 @@
         .centered {
             text-align: center;
         }
+        /*
         .board-holder {
             width: 525px;
             min-width: 525px;
@@ -39,25 +41,25 @@
             background: inherit;
             border: none;
         }
+        */
         .main {
-            width: 90%;
+            /* width: 98%; */
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
-            margin-left: 1em;
-            margin-right: 1em;
+            justify-content: flex-start;
+            margin: 1em auto;
         }
         .s66 {
-            float: left;
-            width: 70%;
-            min-width: 70%;
-            max-width: 70%;
+            width: 60%;
+            /* min-width: 60%; */
+            max-width: 60%;
+            /* float: left; */
         }
         .s33 {
-            width: 25%;
-            min-width: 25%;
-            max-width: 25%;
-            float: right;
+            width: 40%;
+            min-width: 20%; 
+            max-width: 40%;
+            /* float: left; */
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -206,11 +208,11 @@
             // console.log(`${ev.target.constructor.name} resized resized resized!!!.`);
             const windowWidth = self.innerWidth;
             document.querySelector(".s66").style.width = `${board.boardSize * 2 + 10}px`;
-            document.querySelector(".s66").style.minWidth = `${board.boardSize * 2 + 10}px`;
+            //document.querySelector(".s66").style.minWidth = `${board.boardSize * 2 + 10}px`;
             document.querySelector(".s66").style.maxWidth = `${board.boardSize * 2 + 10}px`;
-            document.querySelector(".s33").style.width = `${windowWidth - (board.boardSize * 2 + 20)}px`;
-            document.querySelector(".s33").style.minWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
-            document.querySelector(".s33").style.maxWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
+            //document.querySelector(".s33").style.width = `${windowWidth - (board.boardSize * 2 + 20)}px`;
+            //document.querySelector(".s33").style.minWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
+            //document.querySelector(".s33").style.maxWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
             document.querySelector(".s33").style.left = `${board.boardSize * 2 + 10}px`;
         }
 
