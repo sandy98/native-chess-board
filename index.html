@@ -159,8 +159,9 @@
                 </button>
             </div>
             <div class="renglon">
-                <button onclick="board.showDiagram('f');">Figurines</button>
-                <button onclick="board.showDiagram('i');">Image</button>
+                <button onclick="board.showDiagram('f');">Show Figurines</button>
+                &nbsp;&nbsp;&nbsp;
+                <button onclick="board.showDiagram('i');">Show Image</button>
             </div>
             <!--<button id="cp-btn" onclick="cpFen">Copy position</button>-->
             <button id="flip-btn">Flip Board</button>
@@ -170,6 +171,8 @@
             <button id="replay-btn" onclick="board.replay();">Replay Game</button>
             <div class="renglon">
                 <button id="download-pgn-btn" onclick="board.downloadPgn();">Get PGN</button>
+                &nbsp;&nbsp;&nbsp;
+                <button id="download-json-btn" onclick="board.downloadJson();">Get JSON</button>
                 &nbsp;&nbsp;&nbsp;
                 <button id="download-img-btn" onclick="board.downloadImage();">Get Image</button>
             </div>

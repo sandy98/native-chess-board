@@ -370,6 +370,14 @@ export class ChessBoard extends HTMLElement {
         // document.body.removeChild(element);
     }
       
+    downloadJson() {
+        const element = document.createElement('a');
+        const filename = `${this.validator.headers.white.replace(/[\s\,]+/g, '_')}-${this.validator.headers.black.replace(/[\s\,]+/g, '_')}.json`;
+        element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.validator.toJson())));
+        element.setAttribute('download', filename);
+        element.click();
+    }
+      
     downloadImage() {
         const element = document.createElement('a');
         const image = this.imageDiagram(100, this.fen).toDataURL();
