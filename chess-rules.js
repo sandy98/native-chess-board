@@ -1,4 +1,4 @@
-const versionInfo = {major: 1, minor: 10, release: 9};
+const versionInfo = {major: 1, minor: 12, release: 7};
 const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
 //////////////

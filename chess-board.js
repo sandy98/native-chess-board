@@ -35,6 +35,73 @@ export class ChessBoard extends HTMLElement {
         this.mainDiv.className = 'main-container';
         this.root.appendChild(this.mainDiv);
         this.mainDiv.innerHTML = `
+        <!--Begin of context menu-->
+        <div 
+          id="context-menu" 
+          class="context-menu"
+        >
+            <div class="context-menu-item">
+              ${this.flipped ? 'Unf' : 'F'}lip&nbsp;&nbsp;&nbsp;board
+            </div>
+            <div class="context-menu-item">
+                <button index="1" title="Enlarge board" style="height: 30pt; width: 30pt;">
+                    <img id="bigKing" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAFC0lEQVR42u1YWUhtVRi+zjnhPJZppWiKZYqCiIIVqShiPiqiIPgQ6oMT4ohDzhM4pC8Ol1SUQHG65MNFxCm8KggJqTlGimOamTj9rW+xtxztnsF7D3QIf/g4Z501ffuf93n27Eme5P8leQz9DJaqRkyDQYthmoEY3Bk0VYngc4bfGM4Fgr8zrDF8oCoEuxl2GC4EgvsC4Q9VheA7DPoMLwWCnzHoMaipmi+OCATt/ovLjQSTWclYMyUQ9JQyry+cYaNMYoEMPzBsCUEA//qRIfwB+UGBHAlrv5SYd2JoYvhVOOOQ4SeGZAadNyWGtPEdLnRzc6OCggLq6emhiooK8vb2Fokget+HabW0tKi/v5/W1tbI09MTc38xfMIQw3BmYWFBycnJ1NnZSY2NjRQSEiKe8YrB7bHktEV/KisrI1EuLy/vvjc1NZGOjg4uONDX16eRkREaHR2l7Oxs2tvbIy8vL8z9gTOioqLo+PiY77u5ubk7Y2JigpycnLDuiMHrMQQbNTQ0qK+vjx80MDBAPj4+ZGpqSh4eHlyTkLGxMU7S1dWVj11cXLhWtre3qaGhgX9PS0vjc1tbWxQZGUmWlpbk6OhIubm5/PejoyNyd3fH2g0GU0XIwSyUl5fHDxAveghRs11dXXzc1tZGvb29FBERQbu7u6Snp0fBwcF8zcLCAif28IygoCA+v7y8LFqjWBGC3xobG9P5+TktLi6+lpwIkIOEhoaSoaEh7e/v833x8fGkpqbGx4eHh2Rrayv1DLgEBG7Axr8I7iU7lwUGBvJNKSkpMgmamJjQyckJrays8HFrayv3MUnTxsXFyTzDzs6Obm9vqaOjA+O/Fak+L2EmiaeSifz8fL42ICCA/P39qbm5mf9+cHBAq6urpK6uLnO/kZERXV1d0dDQEMY3DB/LI/g9AgJSWFgol6CNjQ1dX1/T4OAgNyvMGRYWxvcnJibK3Y/AkvD1Q0VatW/gsNAATCdPAwCiHVowMzPjY5BFShLHspCTk8MJCnlxUpEgeQ/ZPjMzk29MSEiQe0l4eDhfizQCLV5cXPCkLW+flZUVnZ6eclfQ1NQkobIoJM1IvqgKuMzZ2VnmRciP0Fh9fT3Pk5CYmBi5BIeHh/lapCOhXTNSlCD84MDX15cfAFODhKzL5ufnaXp6+s5k8h4KJRNSV1cn/hb72HL3NTYip0GmpqZ4xEm7ECZFOUO5Q9DY29tLXZuVlcXPxFrBx3ve5iXoLplCQ9bW1uTg4EDR0dHcpOPj41zDoiBRQ1CP5+bmqLu7mzcJyAxwG1HDMzMzZGBgAHKzQhv2xlIHkmLtPDs7I0nBGBUHkdve3k4tLS285EHjOzs799aiqojWEFzmZwZbZfSE5UiiSUlJvHyhWYiNjeVNgq6urlRTIjLFvFhZWckbBjyIoLk5ZTeufbKcHrW4pKSE+6LY1cjAnwzvKrvlf4FyBn96qDVUk6WlpXvmRE6UXIP2zc/Pj1JTUzG+ZvhI2W9tG6Wlpfzy9PT0e5dra2vz1ml2dpYnXiR5c3Pze2uQHxHdmAdZIUsoTfACfoUO5aFmHgKRKm0O0V9VVSX2hlnKJBiMfJWRkUFFRUVUXV1NtbW1/wICAVp+3VxNTQ0VFxdTeXm5mMSfK5NgKoJgcnKSNjY2aH19/Y2xubkpNgavlPrfC5oAaBGfbwOcIVSP88fUXnnyKcNXDJ8rCV8I79u6T/9YPomqyz+Q/sFvovNp2gAAAABJRU5ErkJggg==" alt="Black King" width="20px" height="20px">
+                </button>
+                <button index="2" title="Diminish board" style="height: 30pt; width: 30pt;">
+                    <img id="littleKing" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAFC0lEQVR42u1YWUhtVRi+zjnhPJZppWiKZYqCiIIVqShiPiqiIPgQ6oMT4ohDzhM4pC8Ol1SUQHG65MNFxCm8KggJqTlGimOamTj9rW+xtxztnsF7D3QIf/g4Z501ffuf93n27Eme5P8leQz9DJaqRkyDQYthmoEY3Bk0VYngc4bfGM4Fgr8zrDF8oCoEuxl2GC4EgvsC4Q9VheA7DPoMLwWCnzHoMaipmi+OCATt/ovLjQSTWclYMyUQ9JQyry+cYaNMYoEMPzBsCUEA//qRIfwB+UGBHAlrv5SYd2JoYvhVOOOQ4SeGZAadNyWGtPEdLnRzc6OCggLq6emhiooK8vb2Fokget+HabW0tKi/v5/W1tbI09MTc38xfMIQw3BmYWFBycnJ1NnZSY2NjRQSEiKe8YrB7bHktEV/KisrI1EuLy/vvjc1NZGOjg4uONDX16eRkREaHR2l7Oxs2tvbIy8vL8z9gTOioqLo+PiY77u5ubk7Y2JigpycnLDuiMHrMQQbNTQ0qK+vjx80MDBAPj4+ZGpqSh4eHlyTkLGxMU7S1dWVj11cXLhWtre3qaGhgX9PS0vjc1tbWxQZGUmWlpbk6OhIubm5/PejoyNyd3fH2g0GU0XIwSyUl5fHDxAveghRs11dXXzc1tZGvb29FBERQbu7u6Snp0fBwcF8zcLCAif28IygoCA+v7y8LFqjWBGC3xobG9P5+TktLi6+lpwIkIOEhoaSoaEh7e/v833x8fGkpqbGx4eHh2Rrayv1DLgEBG7Axr8I7iU7lwUGBvJNKSkpMgmamJjQyckJrays8HFrayv3MUnTxsXFyTzDzs6Obm9vqaOjA+O/Fak+L2EmiaeSifz8fL42ICCA/P39qbm5mf9+cHBAq6urpK6uLnO/kZERXV1d0dDQEMY3DB/LI/g9AgJSWFgol6CNjQ1dX1/T4OAgNyvMGRYWxvcnJibK3Y/AkvD1Q0VatW/gsNAATCdPAwCiHVowMzPjY5BFShLHspCTk8MJCnlxUpEgeQ/ZPjMzk29MSEiQe0l4eDhfizQCLV5cXPCkLW+flZUVnZ6eclfQ1NQkobIoJM1IvqgKuMzZ2VnmRciP0Fh9fT3Pk5CYmBi5BIeHh/lapCOhXTNSlCD84MDX15cfAFODhKzL5ufnaXp6+s5k8h4KJRNSV1cn/hb72HL3NTYip0GmpqZ4xEm7ECZFOUO5Q9DY29tLXZuVlcXPxFrBx3ve5iXoLplCQ9bW1uTg4EDR0dHcpOPj41zDoiBRQ1CP5+bmqLu7mzcJyAxwG1HDMzMzZGBgAHKzQhv2xlIHkmLtPDs7I0nBGBUHkdve3k4tLS285EHjOzs799aiqojWEFzmZwZbZfSE5UiiSUlJvHyhWYiNjeVNgq6urlRTIjLFvFhZWckbBjyIoLk5ZTeufbKcHrW4pKSE+6LY1cjAnwzvKrvlf4FyBn96qDVUk6WlpXvmRE6UXIP2zc/Pj1JTUzG+ZvhI2W9tG6Wlpfzy9PT0e5dra2vz1ml2dpYnXiR5c3Pze2uQHxHdmAdZIUsoTfACfoUO5aFmHgKRKm0O0V9VVSX2hlnKJBiMfJWRkUFFRUVUXV1NtbW1/wICAVp+3VxNTQ0VFxdTeXm5mMSfK5NgKoJgcnKSNjY2aH19/Y2xubkpNgavlPrfC5oAaBGfbwOcIVSP88fUXnnyKcNXDJ8rCV8I79u6T/9YPomqyz+Q/sFvovNp2gAAAABJRU5ErkJggg==" alt="Black King" width="10px" height="10px">
+                </button>
+                <button index="3" title="Enlarge fonts" style="font-size: 1.8vw; height: 30pt; width: 30pt;">
+                A
+                </button>
+                <button index="4" title="Diminish fonts" style="font-size: 0.6vw; height: 30pt; width: 30pt;">
+                A
+                </button>
+            </div>
+
+            <div class="context-menu-item">
+                <label for="cbo-colors">Board colors</label>&nbsp;
+                <select class="controls" name="cbo-colors" id="cbo-colors">
+                    <option value="blue">Blue</option>
+                    
+                    <option value="acqua">Acqua</option>
+                    
+                    <option value="green">Green</option>
+                </select>
+            </div>            
+            <div class="context-menu-separator">
+            </div>
+            <div class="context-menu-item">
+                Show Board Figurines
+            </div>
+            <div class="context-menu-item">
+                Show Board Image
+            </div>
+            <div class="context-menu-item">
+                Save Board Image
+            </div>
+            <div class="context-menu-item">
+                Save Game (PGN format)
+            </div>
+            <div class="context-menu-item">
+                Save Game (JSON format)
+            </div>
+            <div class="context-menu-separator">
+            </div>
+            <div class="context-menu-item">
+                Replay Game
+            </div>
+            <div class="context-menu-item">
+                Undo last move
+            </div>
+            <div class="context-menu-item">
+                Reset board
+            </div>
+            <div class="context-menu-item">
+                Setup mode
+            </div>
+        </div>
+        <!--End of context menu-->
+
         <div
            id="promotion-dialog" 
            style="opacity: 1; display: none; border: solid 1px; padding: 0; top: 0px; left: 0px; position: absolute; z-index: 1007; flex-direction: column;"
@@ -51,7 +118,8 @@ export class ChessBoard extends HTMLElement {
               <div id="setup-panel" class="panel" style="display: none; padding: 10px;">${this.setupPanel}</div>
             </div>
         </div>
-     `;
+        `;
+        this.contextMenu = this.root.querySelector('#context-menu');
     }
 
     get boardMode() {
@@ -276,6 +344,44 @@ export class ChessBoard extends HTMLElement {
         .autoprom {
             cursor: pointer;
         }
+        .context-menu {
+            position: absolute;
+            left: ${this.left + this.squareSize}px;
+            top: ${this.top + this.squareSize}px;
+            z-index: 2000;
+            display: none;
+            background: white;
+            color: black;
+            flex-direction: column;
+            justify-content: stretch;
+            align-items: center;
+            border: solid 1px;
+        }
+        .context-menu-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            border-bottom: solid 1px;
+            font-size: 1.7vw;
+            width: 100%;
+            min-width: 100%;
+            padding: 6px;
+            cursor: pointer;
+        }
+        .context-menu-item:hover {
+            color: whitesmoke;
+            background: steelblue;
+        }
+        .context-menu-separator {
+            width: 100%;
+            min-width: 100%;
+            height: 10px;
+            min-height: 10px;
+            background-color: cadetblue;
+            border-bottom: solid 1px;
+        }
+
         .main-container {
             width: ${this.boardSize * widthFactor + 0}px;
             min-width: ${this.boardSize * widthFactor + 0}px;
@@ -597,7 +703,7 @@ export class ChessBoard extends HTMLElement {
         }
 
         if (name === 'background-schema' || name === 'selected-square') {
-            return this.renderStyle();
+            return this.render();
         }
 
         if (name === 'flipped' || name === 'automatic-promotion') {
@@ -614,6 +720,94 @@ export class ChessBoard extends HTMLElement {
         return this.root.querySelector("chess-card");
     }
 
+    onBlurContextMenu = ev => {
+        this.debug && alert(`keyCode: ${ev.keyCode}`);
+        if (ev.keyCode === 27) {
+            this.contextMenu.style.display = 'none';
+        }
+    }
+
+    get menuHandlers() {
+        return [
+            ev => {
+                this.debug && console.log("Menu handler 0: Flip/Unflip");
+                this.contextMenu.style.display = 'none';
+                this.flipped = !this.flipped;
+                // if (this.flipped) {
+                //     ev.target.textContent = 'Unflip board';
+                // } else {
+                //     ev.target.textContent = 'Flip board';
+                // }
+            },
+            ev => {
+                const index = ev.target.getAttribute('index') || ev.target.parentNode.getAttribute('index');
+                switch (index) {
+                    case "1":
+                        this.boardSize *= 1.05;
+                        break;
+                    case "2":
+                        this.boardSize *= 0.95;
+                        break;
+                    case "3":
+                        this.chessCard.fontSize += 0.1;
+                        break;
+                    case "4":
+                        this.chessCard.fontSize -= 0.1;
+                        break;
+                    default:
+                        break;
+                }
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.backgroundSchema = this.root.querySelector('#cbo-colors').value;
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.showDiagram('f');
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.showDiagram('i');
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.downloadImage();
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.downloadPgn();
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.downloadJson();
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.replay();
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.undo();
+                this.contextMenu.style.display = 'none';
+            },
+            _ => {
+                this.reset();
+                this.contextMenu.style.display = 'none';
+            },
+            ev => {
+                if (this.boardMode === boardModes.analysis) {
+                    this.boardMode = boardModes.setup;
+                    ev.target.textContent = "Analysis mode"
+                } else {
+                    this.boardMode = boardModes.analysis;
+                    ev.target.textContent = "Setup mode"
+                }
+                this.contextMenu.style.display = 'none';
+            },
+
+        ]
+    }
     connectedCallback() {
         this.the_board = this.root.querySelector('#the-board');
         if (this.chessCard) {
@@ -623,6 +817,8 @@ export class ChessBoard extends HTMLElement {
         window.addEventListener('resize', this.checkLimits);
         this.mainDiv.addEventListener('contextmenu', this.oncontextMenu);
         this.mainDiv.addEventListener('dblclick', this.dblclick);
+        this.mainDiv.addEventListener('keyup', this.onBlurContextMenu);
+        this.root.querySelectorAll('.context-menu-item').forEach((it, index) => it.addEventListener('click', this.menuHandlers[index]));
         this.debug && console.log("Connected to DOM. Now rendering...");
         this.render();
         this.checkLimits();
@@ -632,6 +828,8 @@ export class ChessBoard extends HTMLElement {
         window.removeEventListenerEventListener('resize', this.checkLimits);
         this.mainDiv.removeEventListener('contextmenu', this.oncontextMenu);
         this.mainDiv.removeEventListener('dblclick', this.dblclick);
+        this.mainDiv.removeEventListener('keyup', this.onBlurContextMenu);
+        this.root.querySelectorAll('.context-menu-item').forEach((it, index) => it.removeEventListener('click', this.menuHandlers[index]));
         this.debug && console.log("Diconnected from DOM. Bye for now...");
         this.removeListeners();
     }
@@ -956,10 +1154,20 @@ export class ChessBoard extends HTMLElement {
     } 
 
     oncontextMenu = ev => {
-        if (this.debug) return true;
+        // if (this.debug) return true;
         ev.stopPropagation();
         ev.preventDefault();
-        return false;
+        if (this.boardMode === boardModes.play) {
+            //alert("Should not display custom menu.")
+            return false;
+        } else {
+            this.debug && console.log(`Right click at X: ${ev.x} - Y: ${ev.y}`);
+            this.contextMenu.style.top = `${ev.y}px`;
+            this.contextMenu.style.left = `${ev.x}px`;
+            this.contextMenu.style.display = `flex`;
+            this.contextMenu.focus();
+            return true;
+        }
     }
 
     tryMove = (from, to, promotion = this.automaticPromotion) => {
@@ -1028,6 +1236,7 @@ export class ChessBoard extends HTMLElement {
 
     onclickordrag = ev => {
         // ev && this.debug && console.log(`Type: ${ev.type} - Target: ${ev.target.constructor.name}.`)
+        this.contextMenu.style.display = 'none';
         const square = ev.target.constructor.name === "HTMLDivElement" ? ev.target : ev.target.parentNode;
         const index = +square.getAttribute("number");
         if (this.selectedSquare === 64) {
