@@ -16,12 +16,16 @@ export const boardModes = {
 
 
 export class ChessBoard extends HTMLElement {
+    #waitingForPromotion
+    #validator
+
     constructor() {
         super();
         this.version = version;
         this.versionInfo = versionInfo;
         this.selectedSquare = 64;
-        this._validator = new ChessGame();
+        this.#waitingForPromotion = false;
+        this.#validator = new ChessGame();
         this.defaultPos = `rnbqkbnrpppppppp${'0'.repeat(32)}PPPPPPPPRNBQKBNR`;
         this.automaticPromotion = null;
         this.current = 0;
@@ -309,14 +313,14 @@ export class ChessBoard extends HTMLElement {
     }
 
     get validator() {
-        if (!this._validator) this._validator = new ChessGame();
-        return this._validator;
+        if (!this.#validator) this.#validator = new ChessGame();
+        return this.#validator;
     }
 
     set validator(value) {
         const valid = !!value && value.move && typeof(value.move) === 'function' && value.fens;
         if (!valid) throw new Error('Validator must be an object with a "move" function and an array of "fen" strings.');
-        this._validator = value;
+        this.#validator = value;
         //this.reset(this.validator.fens[0]);
         this.current = 0; 
         this.renderHtml();
@@ -702,8 +706,12 @@ export class ChessBoard extends HTMLElement {
             this.renderHtml();
         }
 
-        if (name === 'background-schema' || name === 'selected-square') {
+        if (name === 'background-schema') {
             return this.render();
+        }
+
+        if (name === 'selected-square') {
+            return this.renderStyle();
         }
 
         if (name === 'flipped' || name === 'automatic-promotion') {
@@ -1133,7 +1141,7 @@ export class ChessBoard extends HTMLElement {
         this.promotionDialog.from = from;
         this.promotionDialog.to = to;
         this.squares.forEach(sq => sq.style.opacity = 0.4)
-        this._waitingForPromotion = true;
+        this.#waitingForPromotion = true;
         this.promotionDialog.style.display = 'flex';
         //this.promotionDialog.showModal();
     }
@@ -1149,7 +1157,7 @@ export class ChessBoard extends HTMLElement {
         const figure = target.getAttribute("figure");
         this.promotionDialog.style.display = 'none'; 
         this.squares.forEach(sq => sq.style.opacity = 1)
-        this._waitingForPromotion = false;
+        this.#waitingForPromotion = false;
         this.tryMove(this.promotionDialog.from, this.promotionDialog.to, figure);
     } 
 
@@ -1274,15 +1282,16 @@ export class ChessBoard extends HTMLElement {
 
         ev && ev.stopPropagation();
         ev && ev.preventDefault();
-        if (this._waitingForPromotion) return false;
+        if (this.#waitingForPromotion) return false;
         const evtarget = ev.target.constructor.name === "HTMLImageElement" ? ev.target.parentNode : ev.target;
         ev && this.debug && console.log(`Click on X: ${ev.x} - Y: ${ev.y} - Number: ${evtarget.getAttribute("number")}`);
         return this.onclickordrag(ev);
     }
 
     ondragstart = ev => {
+        //this.debug && alert("Started dragging...")
         ev && ev.stopPropagation();
-        if (this._waitingForPromotion) {
+        if (this.#waitingForPromotion) {
             ev.preventDefault();
             return false;
         }
@@ -1301,10 +1310,11 @@ export class ChessBoard extends HTMLElement {
         ev.dataTransfer.setDragImage(canvas, 0, 0);
         ev.target.style.opacity = .1;
         this.onclickordrag(ev);
+        return true;
     }
 
     ondrag = ev => {
-        // ev && this.debug && console.log(`Dragging on X: ${ev.x} - Y: ${ev.y}`);
+        //ev && this.debug && console.log(`Dragging on X: ${ev.x} - Y: ${ev.y}`);
     }
 
     ondragend = ev => {

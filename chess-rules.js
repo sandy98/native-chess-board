@@ -1,4 +1,4 @@
-const versionInfo = {major: 1, minor: 12, release: 7};
+const versionInfo = {major: 1, minor: 13, release: 9};
 const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
 //////////////
@@ -100,6 +100,7 @@ const assortedFens = {
     kingIndian: 'rnbq1rk1/ppp2pbp/3p1np1/4p3/2PPP3/2N2N2/PP2BPPP/R1BQ1RK1 b - - 1 7',
     grunfeld: 'rnbqkb1r/ppp1pp1p/5np1/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq d6 0 4',
     orthodox: 'rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4',
+    sicilianDragon: 'rnbqkb1r/pp2pp1p/3p1np1/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6',
     semislav: 'rnbqkb1r/pp3ppp/2p1pn2/3p4/2PP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq - 0 5',
     smothered: '4k3/4P3/3K4/8/8/8/8/8 w - - 1 50',
     helpedMate: 'r1bqkbnr/pppnpppp/7P/3p4/8/8/PPPPPPP1/RNBQKBNR b KQkq - 0 3',
