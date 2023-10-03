@@ -248,28 +248,30 @@
         const chooseLGame = ev => {
             board.validator = new chess.ChessGame();
             board.validator.fromJson(leningrad_games[ev.target.selectedIndex].toJson());
-            board.goto();
-            board.goto(0);
+            startViewingGame();
         }
         const chooseZGame = ev => {
             board.validator = new chess.ChessGame();
             board.validator.fromJson(zurich_games[ev.target.selectedIndex].toJson());
-            board.goto();
-            board.goto(0);
+            startViewingGame();
         }
         const chooseJGame = ev => {
             board.validator = new chess.ChessGame();
             board.validator.fromJson(jewel_games[ev.target.selectedIndex].toJson());
-            board.goto();
-            board.goto(0);
+            startViewingGame();
         }
         const chooseQGame = ev => {
             board.validator = new chess.ChessGame();
             board.validator.fromJson(quick_games[ev.target.selectedIndex].toJson());
-            board.goto();
-            board.goto(0);
+            startViewingGame();
         }
     
+        const startViewingGame = () => {
+            board.goto();
+            board.goto(0);
+            board.boardMode = chess.boardModes.view;
+        }
+
         const addGame = (ev, arr, control, label) => {
             document.body.style.cursor = 'wait';
             // const game = leningen.next().value;

@@ -1062,6 +1062,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     reset = (validator = new ChessGame(), fen = defaultFen) => {
+        if (this.boardMode === boardModes.view || this.boardMode === boardModes.play) return;
         //this.validator.reset(fen);
         this.validator = validator;
         this.validator.fens = [fen];
@@ -1070,6 +1071,7 @@ export class ChessBoard extends HTMLElement {
     }
 
     undo = () => {
+        if (this.boardMode === boardModes.view || this.boardMode === boardModes.play) return;
         this.validator.undo();
         this.goto();
     }
@@ -1187,7 +1189,7 @@ export class ChessBoard extends HTMLElement {
     
        if (this.current !== this.validator.fens.length - 1) return false;
         
-       this.selectedSquare = 64;
+       // this.selectedSquare = 64;
        const response = typeof(from) === 'string' ? 
        this.validator.strMove(from) :
        this.validator.move(from, to, promotion);
@@ -1244,6 +1246,7 @@ export class ChessBoard extends HTMLElement {
 
     onclickordrag = ev => {
         // ev && this.debug && console.log(`Type: ${ev.type} - Target: ${ev.target.constructor.name}.`)
+        if (this.boardMode === boardModes.view) return this.selectedSquare = 64;
         this.contextMenu.style.display = 'none';
         const square = ev.target.constructor.name === "HTMLDivElement" ? ev.target : ev.target.parentNode;
         const index = +square.getAttribute("number");
@@ -1261,7 +1264,8 @@ export class ChessBoard extends HTMLElement {
                     return this.selectedSquare = 64;
                 }
                 if (this.boardMode !== boardModes.setup) {
-                    return this.tryMove(this.selectedSquare, index);
+                    this.tryMove(this.selectedSquare, index);
+                    return this.selectedSquare = 64;
                 } else {
                     this.set(index, this.root.querySelector(`div.square[number="${this.selectedSquare}"]`)
                     .getAttribute('figure'));
@@ -1455,7 +1459,8 @@ export class ChessBoard extends HTMLElement {
 
         const { analysis, view, setup } = boardModes;
         const mode = this.boardMode;
-        if (mode === analysis || mode === view || mode === setup) {
+        if (mode === view) return false;
+        if (mode === analysis || mode === setup) {
             return true;
         }
         if (activeColor === 'w' && this.humanSide === 'b') return false;
