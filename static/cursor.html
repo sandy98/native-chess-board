@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <title>Chessboard Test</title>
+    <style>
+        body {
+            user-select: none;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.5vw;
+            padding: 0;
+	        background: silver;
+        }
+        .main {
+            width: 99%;
+            min-width: 99%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .cadetblue {
+	        color: cadetblue;
+	    } 
+	    .centered {
+	        text-align: center;
+	    }
+        .active {
+            background: steelblue;
+        }
+        .inactive {
+            background: whitesmoke;
+        }
+        .square {
+            border: solid 1px black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            max-width: 100px;
+            min-height: 100px;
+            max-height: 100px;
+            /* background: white; */
+            cursor: pointer;
+        }
+    </style>
+    <script type="module" src="chess-board.js">
+    </script>
+    <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+</head>
+<body>
+    <h1 class="cadetblue centered">Chessboard Test</h1>
+    <div id="main" class="main">
+            <div class="square active" id="sq1">
+                <img id="w-k" src="K.png" width="100px" height="100px" alt="White King" />
+            </div>
+            <div class="square inactive" id="sq2">
+            </div>
+        </div>
+    </div>
+    <img id="one-pixel" src="" alt="one pixel" style="position: absolute; left: -100px; top: -100px;">
+    <img id="proxy-king" src="K.png" width="100px" height="100px" alt="proxy king" style="position: absolute; left: -200px; top: -200px;">
+    <script>
+        const onePixel = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=`
+        let onePixelImg = document.querySelector('#one-pixel');
+        let selectedSq, whitek, proxyk, squares, sq_left_1, sq_top_1, sq_left_2, sq_top_2;
+        let _isDragging = false;
+
+        const onDragStart = ev => {
+            console.log("Begin dragging.");
+            _isDragging = true;
+            whitek.style.cursor = 'none';
+            proxyk.style.cursor = 'none';
+            proxyk.style.opacity = '1';
+            whitek.style.opacity = '0.1';
+            ev.dataTransfer.setDragImage(onePixelImg, 0, 0);
+            ev.dataTransfer.effectAllowed = 'move';
+            selectedSq = null;
+            ev.stopPropagation();
+            // ev.preventDefault();
+        }
+
+        const onDragEnd = ev => {
+            console.log("End dragging.");
+            _isDragging = false;
+            whitek.style.cursor = 'pointer';
+            proxyk.style.cursor = 'pointer';
+            proxyk.style.transform = 'translate3d(-500px, -500px, 0)';
+            proxyk.style.opacity = '0';
+            whitek.style.opacity = '1';
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
+
+        const translate = ev => {
+            const x = ev.x;
+            const y = ev.y;
+            if (_isDragging) {
+                console.log("Dragging the king!");
+                // const left = whitek.parentNode === squares[0] ? sq_left_1 : sq_left_2;
+                // const top = whitek.parentNode === squares[0] ? sq_top_1 : sq_top_2;
+                // proxyk.style.cursor = `url(${onePixel})`;
+                proxyk.style.transform = `translate3d(${x + 150}px, ${y + 150}px, 0)`;
+            }
+            ev.preventDefault();
+        }
+
+        const ondragover = ev => {
+            // const target = ev.target;
+            // const parent = target.parentNode;
+            // if (target.id) console.log("Dragover target id = " + target.id);
+            // if (parent && parent.id) console.log("Dragover parent id = " + parent.id);
+            // if (target.id === 'sq1' ||  target.id === 'sq2') {
+            //     selectedSq = target;
+            // } else if (parent.id === 'sq1' || target.id === 'sq2') {
+            //     selectedSq = parent;
+            // } else {
+            //     selectedSq = null;
+            // }
+            //ev.stopPropagation();
+            ev.preventDefault();
+        }
+
+        const ondrop = ev => {
+            ev.preventDefault();
+            ev.cancelBubble = true;
+            ev.stopPropagation();
+            console.log(`Msg from '${ev.target.parentNode.id}'\nDropped the king at x: ${ev.x} - y: ${ev.y}`);
+            const x = ev.x;
+            const y = ev.y;
+            let switched = false;
+            if (x >= sq_left_1 
+                && x <= (sq_left_1 + 100) 
+                && y >= sq_top_1 
+                && y <= (sq_top_1 + 100)
+                && whitek.parentNode === squares[1]) {
+                console.log("Transferring ownership to squares[0]");
+                squares[0].appendChild(whitek);
+                switched = true;        
+            }  
+            if (x >= sq_left_2 
+                && x <= (sq_left_2 + 100) 
+                && y >= sq_top_2 
+                && y <= (sq_top_2 + 100)
+                && whitek.parentNode === squares[0]) {
+                console.log("Transferring ownership to squares[1]");
+                squares[1].appendChild(whitek);
+                switched = true;        
+            }
+            // if (selectedSq && selectedSq !== whitek.parentNode) {
+            //     switched = true;
+            //     console.log("Transferring ownership to squares identified by '" + selectedSq.id + "'");
+            //     selectedSq.appendChild(whitek);
+            // }
+            if (switched) {
+                squares.forEach(sq => {
+                    sq.classList.toggle('active');
+                    sq.classList.toggle('inactive');
+                })
+            }
+        }
+
+	    const onload = _ => {
+            onePixelImg = document.querySelector('#one-pixel');
+            onePixelImg.src = onePixel;
+
+            whitek = document.querySelector('#w-k');
+            proxyk = document.querySelector('#proxy-king');
+            squares = document.querySelectorAll('.square');
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let rect = squares[0].getBoundingClientRect();
+            sq_top_1 = rect.top + scrollTop;
+            sq_left_1 = rect.left + scrollLeft;
+            rect = squares[1].getBoundingClientRect();
+            sq_top_2 = rect.top + scrollTop;
+            sq_left_2 = rect.left + scrollLeft;
+
+            document.querySelector("#w-k").addEventListener('dragstart', onDragStart);
+            document.querySelector("#w-k").addEventListener('dragend', onDragEnd);
+            document.body.addEventListener('dragover', translate);
+            squares.forEach(sq => {
+                sq.addEventListener('mouseover', ondragover);
+                sq.addEventListener('dragenter', ondragover);
+                sq.addEventListener('dragover', ondragover);
+                proxyk.addEventListener('drop', ondrop);
+            });
+
+            console.log("Document loaded.");
+        }
+        self.addEventListener('load', onload);
+    </script>
+</body>
+</html>

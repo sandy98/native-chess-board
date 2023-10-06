@@ -125,6 +125,10 @@
         </div>
         <div class = "s33">
             <div class="renglon">
+                <button id="context-menu-btn">Board Menu</button>
+            </div>
+            <!--
+            <div class="renglon">
                 <label for="cbo-colors">Board colors</label>&nbsp;
                 <select class="controls" name="cbo-colors" id="cbo-colors"></select>
             </div>
@@ -163,7 +167,9 @@
                 &nbsp;&nbsp;&nbsp;
                 <button onclick="board.showDiagram('i');">Show Image</button>
             </div>
+            -->
             <!--<button id="cp-btn" onclick="cpFen">Copy position</button>-->
+            <!--
             <button id="flip-btn">Flip Board</button>
             <button id="setup-btn" onclick="[board.boardMode, document.querySelector('#setup-btn').textContent ] = board.boardMode === 4 ? [1, 'Setup'] : [4, 'Analysis'];">Setup</button>
             <button id="reset-btn">Reset Board</button>
@@ -176,6 +182,8 @@
                 &nbsp;&nbsp;&nbsp;
                 <button id="download-img-btn" onclick="board.downloadImage();">Get Image</button>
             </div>
+            -->
+
             <div class="renglon controls">
                 <button id="engine-btn">Engine Move</button>&nbsp;
                 <label for="game-level">Level</label>&nbsp;
@@ -196,6 +204,18 @@
         const jewel_games = [];
         const quick_games = [];
 
+        const contextMenuBtn = _ => {
+            ev = {
+                stopPropagation() {;},
+                preventDefault() {;},
+                cancelBubble: true,
+                x: '0px',
+                y: '0px'
+            }
+            board.oncontextMenu(ev);
+        }
+
+        /*
         const cpFen = _ =>  {
             console.log('Copying fen to clipboard...'); 
             board.copyFen()
@@ -213,6 +233,8 @@
             if (board.activeColor !== human) engineMove();
         }
 
+        */
+
         const onresize = ev => {
             // console.log(`${ev.target.constructor.name} resized resized resized!!!.`);
             const windowWidth = self.innerWidth;
@@ -224,7 +246,7 @@
             //document.querySelector(".s33").style.maxWidth = `${windowWidth - (board.boardSize * 2 + 20)}px`;
             document.querySelector(".s33").style.left = `${board.boardSize * 2 + 10}px`;
         }
-
+        
         const engineMessage = ev => {
             // console.log(`@@@\n${ev.data}\n@@@`);
             const regexSFMove = /^bestmove (?<algeb>[a-h][1-8][a-h][1-8][QqRrBbNn]?)(?=\b)/;
@@ -269,7 +291,7 @@
         const startViewingGame = () => {
             board.goto();
             board.goto(0);
-            board.boardMode = chess.boardModes.view;
+            board.boardMode = board.constructor.boardModes.view;
         }
 
         const addGame = (ev, arr, control, label) => {
@@ -299,10 +321,18 @@
 
         const onload = _ => {
             self.addEventListener('resize', onresize);
-            document.querySelector('#flip-btn').addEventListener('click', _ => board.flip());
-            document.querySelector('#reset-btn').addEventListener('click', _ => board.reset());
-            document.querySelector('#undo-btn').addEventListener('click', _ => board.undo());
-            document.querySelector('#engine-btn').addEventListener('click', _ => engineMove(+document.querySelector('#game-level').value));
+            document.querySelector('#context-menu-btn').addEventListener('click', contextMenuBtn);
+            // document.querySelector('#flip-btn').addEventListener('click', _ => board.flip());
+            // document.querySelector('#reset-btn').addEventListener('click', _ => board.reset());
+            // document.querySelector('#undo-btn').addEventListener('click', _ => board.undo());
+            document.querySelector('#engine-btn').addEventListener('click', _ => {
+                if (board.boardMode !== board.constructor.boardModes.view 
+                && board.boardMode !== board.constructor.boardModes.play) { 
+                    engineMove(+document.querySelector('#game-level').value);
+                } else {
+                    alert('Cannot use engine in "play" or "view" mode, only in "analysis" mode.');
+                }
+            });
             board = document.querySelector("chess-board");
             board.addEventListener('move', onMove);
             board.addEventListener('repaint', onresize);
@@ -324,19 +354,19 @@
             import("./chess-rules.js")
             .then(m => {
                 chess = m;
-                document.querySelector("#littleKing").src = chess.classicSet.k;
-                document.querySelector("#bigKing").src = chess.classicSet.k;
-                let index = 0;
-                for (schema in chess.boardColors) {
-                    document.querySelector('#cbo-colors').innerHTML += `
-                    <option value="${schema}">${chess.capitalize(schema)}</option>
-                    `
-                    if (schema === board.backgroundSchema) {
-                        document.querySelector('#cbo-colors').selectedIndex = index;
-                    }
-                    index += 1;
-                }
-                document.querySelector('#cbo-colors').addEventListener('change', ev => board.backgroundSchema = ev.target.value);
+                // document.querySelector("#littleKing").src = chess.classicSet.k;
+                // document.querySelector("#bigKing").src = chess.classicSet.k;
+                // let index = 0;
+                // for (schema in chess.boardColors) {
+                //     document.querySelector('#cbo-colors').innerHTML += `
+                //     <option value="${schema}">${chess.capitalize(schema)}</option>
+                //     `
+                //     if (schema === board.backgroundSchema) {
+                //         document.querySelector('#cbo-colors').selectedIndex = index;
+                //     }
+                //     index += 1;
+                // }
+                // document.querySelector('#cbo-colors').addEventListener('change', ev => board.backgroundSchema = ev.target.value);
                 const lworker = new Worker('./gameloader.js');
                 lworker.onmessage = ev => addGame(ev, leningrad_games, cboLeningrad, lblLeningrado);
                 lworker.postMessage('./static/1973-Interzonal-a.pgn');

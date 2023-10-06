@@ -4,7 +4,7 @@ import {
     svg_figures, blackFigures, whiteFigures, defaultFen, boardColors, MoveEvaluation, 
     isOdd, isEven,rowcol2name, square2san, san2square,  
     index2rowcol, isDarkSquare, fen2obj, obj2fen, fenPos2short, fenPos2long, 
-    rPosFromFen, ChessValidator, FakeValidator, ChessGame, assortedFens
+    rPosFromFen, ChessValidator, FakeValidator, ChessGame, assortedFens, capitalize
  } from './chess-rules.js';
 
 export const boardModes = {
@@ -21,6 +21,7 @@ export class ChessBoard extends HTMLElement {
 
     constructor() {
         super();
+        this.boardMode = boardModes.analysis;
         this.version = version;
         this.versionInfo = versionInfo;
         this.selectedSquare = 64;
@@ -38,6 +39,24 @@ export class ChessBoard extends HTMLElement {
         this.mainDiv.setAttribute("id", "main-div");
         this.mainDiv.className = 'main-container';
         this.root.appendChild(this.mainDiv);
+        let cboModes = `
+        <select class="controls" name="cbo-modes" id="cbo-modes">
+        `;
+        for (let mode in boardModes) {
+            cboModes += `<option ${boardModes[mode] === this.boardMode ? 'selected' : ''} value="${boardModes[mode]}">${capitalize(mode)}</option>`
+        }
+        cboModes += `
+        </select>
+        `
+        let cboColors = `
+        <select class="controls" name="cbo-colors" id="cbo-colors">
+        `;
+        for (let op in boardColors) {
+            cboColors += `<option ${op === this.backgroundSchema ? 'selected' : ''} value="${op}">${capitalize(op)}</option>`
+        }
+        cboColors += `
+        </select>
+        `
         this.mainDiv.innerHTML = `
         <!--Begin of context menu-->
         <div 
@@ -64,13 +83,7 @@ export class ChessBoard extends HTMLElement {
 
             <div class="context-menu-item">
                 <label for="cbo-colors">Board colors</label>&nbsp;
-                <select class="controls" name="cbo-colors" id="cbo-colors">
-                    <option value="blue">Blue</option>
-                    
-                    <option value="acqua">Acqua</option>
-                    
-                    <option value="green">Green</option>
-                </select>
+                ${cboColors}
             </div>            
             <div class="context-menu-separator">
             </div>
@@ -101,8 +114,9 @@ export class ChessBoard extends HTMLElement {
                 Reset board
             </div>
             <div class="context-menu-item">
-                Setup mode
-            </div>
+                <label for="cbo-modes">Board mode</label>&nbsp;
+                ${cboModes}
+            </div>            
         </div>
         <!--End of context menu-->
 
@@ -741,11 +755,6 @@ export class ChessBoard extends HTMLElement {
                 this.debug && console.log("Menu handler 0: Flip/Unflip");
                 this.contextMenu.style.display = 'none';
                 this.flipped = !this.flipped;
-                // if (this.flipped) {
-                //     ev.target.textContent = 'Unflip board';
-                // } else {
-                //     ev.target.textContent = 'Flip board';
-                // }
             },
             ev => {
                 const index = ev.target.getAttribute('index') || ev.target.parentNode.getAttribute('index');
@@ -804,13 +813,14 @@ export class ChessBoard extends HTMLElement {
                 this.contextMenu.style.display = 'none';
             },
             ev => {
-                if (this.boardMode === boardModes.analysis) {
-                    this.boardMode = boardModes.setup;
-                    ev.target.textContent = "Analysis mode"
-                } else {
-                    this.boardMode = boardModes.analysis;
-                    ev.target.textContent = "Setup mode"
-                }
+                this.boardMode = +this.root.querySelector('#cbo-modes').value;
+                // if (this.boardMode === boardModes.analysis) {
+                //     this.boardMode = boardModes.setup;
+                //     ev.target.textContent = "Analysis mode"
+                // } else {
+                //     this.boardMode = boardModes.analysis;
+                //     ev.target.textContent = "Setup mode"
+                // }
                 this.contextMenu.style.display = 'none';
             },
 
@@ -1062,11 +1072,12 @@ export class ChessBoard extends HTMLElement {
     }
 
     reset = (validator = new ChessGame(), fen = defaultFen) => {
-        if (this.boardMode === boardModes.view || this.boardMode === boardModes.play) return;
+        if (this.boardMode === boardModes.play) return;
         //this.validator.reset(fen);
         this.validator = validator;
         this.validator.fens = [fen];
         this.current = 0;
+        this.boardMode = boardModes.analysis;
         this.renderHtml();
     }
 
@@ -1512,7 +1523,10 @@ export class ChessCard extends HTMLElement {
         document.body.removeEventListener('keyup', this.onkeyup);
     }
 
-    onclick = ev => this.parent.goto(+ev.target.title)
+    onclick = ev => {
+        this.parent && this.parent.goto(ev && ev.target && ev.target.title ? +ev.target.title : 500);
+        this.parent && (this.parent.contextMenu.style.display = 'none');
+    }
 
     onkeyup = ev => {
         // console.log(ev.keyCode);
