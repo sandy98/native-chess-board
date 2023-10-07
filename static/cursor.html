@@ -44,7 +44,7 @@
             cursor: pointer;
         }
     </style>
-    <script type="module" src="chess-board.js">
+    <!--<script type="module" src="chess-board.js">-->
     </script>
     <!--[if lt IE 9]><script src="js/html5shiv-printshiv.js" media="all"></script><![endif]-->
 </head>
@@ -52,22 +52,40 @@
     <h1 class="cadetblue centered">Chessboard Test</h1>
     <div id="main" class="main">
             <div class="square active" id="sq1">
-                <img id="w-k" src="K.png" width="100px" height="100px" alt="White King" />
+                <img id="w-k" src="" width="100px" height="100px" alt="White King" />
             </div>
             <div class="square inactive" id="sq2">
             </div>
         </div>
     </div>
     <img id="one-pixel" src="" alt="one pixel" style="position: absolute; left: -100px; top: -100px;">
-    <img id="proxy-king" src="K.png" width="100px" height="100px" alt="proxy king" style="position: absolute; left: -200px; top: -200px;">
+    <img id="proxy-king" src="" width="100px" height="100px" alt="proxy king" style="position: absolute; left: -200px; top: -200px;">
     <script>
+        let selectedSq, whitek, proxyk, squares;
         const onePixel = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=`
+        const whiteKing = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEQklEQVR42u1YbSjlaRQfb2MZuvLBtMwqRDaZ8RKJEuslUst8kCL5JDVliiU14tMO+SBSM1ZeylqNKezW1GykS8oMZry3IYbbtFFmjLdd1NDZ83t6/nLNZf5/86+9TU79ui/Pc8753eec/znnudeuXcmVfF1SyfiD4WFtxOwYDoyXDGIEM+ytieCvjL8Z+5LgGmOF4WMtBJ8w1hmHkuA7SdjXWgh+w7jBMEqCoQxnho215eJzSfC7/8O5QYbs5gV7XkiCYees35A2vtWTWDyjm/FWPgTIrz7Gj2fIP5PkSO5NPLXuz3jMeCNtbDLGGPcZjpclhrLRCIdBQUFUWVlJ7e3tVFVVRZGRkQoRPL3eCK2DgwN1dHTQ1NQUhYSEYO1fxm1GLuMfDw8PKiwspLa2Nqqvr6fU1FTFxmtGkFZy15V8qq6upqOjIzorjY2N5OjoCAfvnZ2dqbe392Rtc3OTQkNDsbYNGzk5ObS+vv6JjaGhIfL398e+D4xwLQQf2dnZmTm1JIODg4JkYGDgJ2v4YSBXWlp6oY2NjQ0KDg7GXhPDXQ05hEWEVI10dnYKInV1dSffmUwmcnJyopSUFFU25ufnlWj8rIbgQzc3N9ra2iK1kpSURC4uLrSzsyM+5+bmCtIgqlays7OhsyjT6+JaFh8fT1pkdnZWEGpubqaDgwPxvqioSJON1tZW6B2o6T7GjIwM0ip4smNjY6mpqUkQXFlZ0aTf09MDvWPG958j+FtERIRmgiBmY2NDXl5eFBUVpVkfOSzr42dHtXtI2NXVVU0OFhcXCbUQp1dTU6OZYHJyMnRH1Dwkt1DtS0pKNDk4Pj4mX19fQdBoNGrSnZmZIZQ12VlUyS8oEwsLC5ocJSYmCoLLy8ua9BISEkiOawa1BJEH75FLlrrIeZKXl0f29va0vb2tWqe2tlZpeXla291dKBYUFKh2VlxcLOqhWunr61NC+/RLLkEWuwrC2N3dLdYyMzMpOjqa0JOxPywsTAwDGA5QG8fGxujw8NBMf3R0lFxdXbH/lRzDLi31cFpeXi4KckVFBQUEBChhESfg5+cnCKanp1NWVhah0KO/GgyGk30gg6FhYGCA+vv7Cd2Kv/+L4anHTFgji6hwhtbW0NBAExMTtLu7e24IcWoo2F1dXZSfn0/u7u50amac0Htw/d3Hx4f29vYskkHvRg7GxcXR+Pj4hXnKtvYYXnqP/H8iZJgDz57a0tISeXp6nj4damlpMduDajAyMkIxMTFYP2L46X1rMynOy8rKzJxjQMDsiLkQXQgPztramtme4eFhsx8gq4Ruggv4R29vbzF17O/vWwwf6h9O05LgBBH6tLQ00bPZ3gM9CabY2trS9PQ06SHh4eHKfUY3+QllAiUCl6LJyclLY25uTkza8rKk338vCAtOEa9fAtgA5PXToBfBO4xkxg86IUHet52u/rG8EmuX/wAA3De94co77gAAAABJRU5ErkJggg==';
         let onePixelImg = document.querySelector('#one-pixel');
-        let selectedSq, whitek, proxyk, squares, sq_left_1, sq_top_1, sq_left_2, sq_top_2;
         let _isDragging = false;
+        
+        const within = (element, x, y) => {
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const oRect = element.getBoundingClientRect();
+            const rect = {top: oRect.top + scrollTop, 
+                bottom: oRect.bottom + scrollTop,
+                left: oRect.left + scrollLeft,
+                right: oRect.right + scrollLeft 
+            }
+            const { top, bottom, left, right } = rect;
+
+            return x >= left && x <= right && y >= top && y <= bottom; 
+
+        }
 
         const onDragStart = ev => {
-            console.log("Begin dragging.");
+            const target = ev.target;
+            console.clear();
+            console.log("Begin dragging of " + ((target && target.id) ? target.id : target.constructor.name));
             _isDragging = true;
             whitek.style.cursor = 'none';
             proxyk.style.cursor = 'none';
@@ -76,27 +94,38 @@
             ev.dataTransfer.setDragImage(onePixelImg, 0, 0);
             ev.dataTransfer.effectAllowed = 'move';
             selectedSq = null;
-            ev.stopPropagation();
+            //ev.stopPropagation();
             // ev.preventDefault();
         }
 
         const onDragEnd = ev => {
-            console.log("End dragging.");
+            const target = ev.target;
+            console.log("End dragging of " + ((target && target.id) ? target.id : target.constructor.name));
             _isDragging = false;
             whitek.style.cursor = 'pointer';
             proxyk.style.cursor = 'pointer';
-            proxyk.style.transform = 'translate3d(-500px, -500px, 0)';
-            proxyk.style.opacity = '0';
+            proxyk.style.transform = 'translate3d(-200px, -200px, 0)';
+            proxyk.style.opacity = '0.5';
             whitek.style.opacity = '1';
-            ev.stopPropagation();
+            //ev.stopPropagation();
             ev.preventDefault();
         }
 
-        const translate = ev => {
+        const onDragEnter = ev => {
             const x = ev.x;
             const y = ev.y;
+            const target = ev.target;
+            console.log("Entering the king over " + ((target && target.id) ? target.id : target.constructor.name));
+            ev.preventDefault();
+        }
+
+        const onDragOver = ev => {
+            const x = ev.x;
+            const y = ev.y;
+            const target = ev.target;
+
             if (_isDragging) {
-                console.log("Dragging the king!");
+                console.log("Dragging the king over " + ((target && target.id) ? target.id : target.constructor.name));
                 // const left = whitek.parentNode === squares[0] ? sq_left_1 : sq_left_2;
                 // const top = whitek.parentNode === squares[0] ? sq_top_1 : sq_top_2;
                 // proxyk.style.cursor = `url(${onePixel})`;
@@ -105,7 +134,7 @@
             ev.preventDefault();
         }
 
-        const ondragover = ev => {
+        // const onDragOver = ev => {
             // const target = ev.target;
             // const parent = target.parentNode;
             // if (target.id) console.log("Dragover target id = " + target.id);
@@ -118,41 +147,22 @@
             //     selectedSq = null;
             // }
             //ev.stopPropagation();
-            ev.preventDefault();
-        }
+            //ev.preventDefault();
+        //}
 
-        const ondrop = ev => {
-            ev.preventDefault();
-            ev.cancelBubble = true;
-            ev.stopPropagation();
-            console.log(`Msg from '${ev.target.parentNode.id}'\nDropped the king at x: ${ev.x} - y: ${ev.y}`);
+        const onDrop = ev => {
+            console.log(`Msg from '${ev.target.id}'\nDropped the king at x: ${ev.x} - y: ${ev.y}`);
             const x = ev.x;
             const y = ev.y;
-            let switched = false;
-            if (x >= sq_left_1 
-                && x <= (sq_left_1 + 100) 
-                && y >= sq_top_1 
-                && y <= (sq_top_1 + 100)
-                && whitek.parentNode === squares[1]) {
-                console.log("Transferring ownership to squares[0]");
-                squares[0].appendChild(whitek);
-                switched = true;        
-            }  
-            if (x >= sq_left_2 
-                && x <= (sq_left_2 + 100) 
-                && y >= sq_top_2 
-                && y <= (sq_top_2 + 100)
-                && whitek.parentNode === squares[0]) {
-                console.log("Transferring ownership to squares[1]");
-                squares[1].appendChild(whitek);
-                switched = true;        
-            }
-            // if (selectedSq && selectedSq !== whitek.parentNode) {
-            //     switched = true;
-            //     console.log("Transferring ownership to squares identified by '" + selectedSq.id + "'");
-            //     selectedSq.appendChild(whitek);
-            // }
-            if (switched) {
+            selectedSq == null;
+            squares.forEach(sq => {
+                if (within(sq, x, y) && whitek.parentNode !== sq) {
+                    selectedSq = sq;
+                }
+            })
+            if (selectedSq) {
+                console.log(`Transferring ownership of White King to '${selectedSq.id}'`);
+                selectedSq.appendChild(whitek);
                 squares.forEach(sq => {
                     sq.classList.toggle('active');
                     sq.classList.toggle('inactive');
@@ -165,25 +175,19 @@
             onePixelImg.src = onePixel;
 
             whitek = document.querySelector('#w-k');
+            whitek.src = whiteKing;
             proxyk = document.querySelector('#proxy-king');
+            proxyk.src = whiteKing;
             squares = document.querySelectorAll('.square');
-            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            let rect = squares[0].getBoundingClientRect();
-            sq_top_1 = rect.top + scrollTop;
-            sq_left_1 = rect.left + scrollLeft;
-            rect = squares[1].getBoundingClientRect();
-            sq_top_2 = rect.top + scrollTop;
-            sq_left_2 = rect.left + scrollLeft;
-
             document.querySelector("#w-k").addEventListener('dragstart', onDragStart);
             document.querySelector("#w-k").addEventListener('dragend', onDragEnd);
-            document.body.addEventListener('dragover', translate);
+            document.body.addEventListener('dragover', onDragOver);
             squares.forEach(sq => {
-                sq.addEventListener('mouseover', ondragover);
-                sq.addEventListener('dragenter', ondragover);
-                sq.addEventListener('dragover', ondragover);
-                proxyk.addEventListener('drop', ondrop);
+                // sq.addEventListener('mouseover', onDragOver);
+                sq.addEventListener('dragenter', onDragEnter);
+                sq.addEventListener('dragover', onDragOver);
+                // sq.addEventListener('drop', onDrop);
+                proxyk.addEventListener('drop', onDrop);
             });
 
             console.log("Document loaded.");
