@@ -93,7 +93,7 @@
             whitek.style.cursor = 'none';
             proxyk.style.cursor = 'none';
             proxyk.style.opacity = '1';
-            whitek.style.opacity = '0.1';
+            whitek.style.opacity = '0.01';
             ev.dataTransfer.setDragImage(onePixelImg, 0, 0);
             ev.dataTransfer.effectAllowed = 'move';
             selectedSq = null;
@@ -119,7 +119,8 @@
             proxyk.style.left = '-200px';
             proxyk.style.top = '-200px';
             proxyk.style.opacity = '0';
-            whitek.style.opacity = '1';
+            // whitek.style.visibility = '';
+            whitek.style.opacity = '';
             squares.forEach(sq => sq.style.opacity = '1');
             //ev.stopPropagation();
             ev.preventDefault();
@@ -133,6 +134,7 @@
             target.style.opacity = '0.2';
             console.clear();
             dragCount = 0;
+            selectedSq = target;
             ev.preventDefault();
         }
 
@@ -141,6 +143,7 @@
             if (ev.target.nodeName === 'DIV') {
                 ev.target.style.opacity = '1';
             }
+            selectedSq = null;
             ev.preventDefault();
         }
 
@@ -164,14 +167,14 @@
         const onDrop = ev => {
             console.log(`Dropping on ${ev.target.nodeName} identified by ${ev.target.id}`);
             // console.log(`Msg from '${ev.target.id}'\nDropped the king at x: ${ev.x} - y: ${ev.y}`);
-            const x = ev.x;
-            const y = ev.y;
-            selectedSq == null;
-            squares.forEach(sq => {
-                if (within(sq, x, y) && whitek.parentNode !== sq) {
-                    selectedSq = sq;
-                }
-            })
+            // const x = ev.x;
+            // const y = ev.y;
+            // selectedSq == null;
+            // squares.forEach(sq => {
+            //     if (within(sq, x, y) && whitek.parentNode !== sq) {
+            //         selectedSq = sq;
+            //     }
+            // })
             if (selectedSq) {
                 console.log(`Transferring ownership of White King to '${selectedSq.id}'`);
                 squares.forEach(sq => {
