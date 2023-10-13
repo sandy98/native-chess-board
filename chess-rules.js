@@ -1,4 +1,4 @@
-const versionInfo = {major: 1, minor: 15, release: 10};
+const versionInfo = {major: 1, minor: 16, release: 3};
 const version = `${versionInfo.major}.${versionInfo.minor}.${versionInfo.release}`;
 
 //////////////
@@ -106,6 +106,7 @@ const assortedFens = {
     helpedMate: 'r1bqkbnr/pppnpppp/7P/3p4/8/8/PPPPPPP1/RNBQKBNR b KQkq - 0 3',
     knightAndBishop: '4k3/8/8/8/8/8/8/N3K2B w - - 0 1',
     mateIn3: '3krn2/p1p1p3/3n4/2N2b1q/Q7/6p1/4P1P1/1R4K1 w - - 0 1',
+    againstAll: '8/8/8/2p5/1pp5/brpp4/qpprpK1P/1nkbn3 w - - 0 50',
 }
 
 const defaultFen = assortedFens.default;
@@ -242,7 +243,7 @@ class ChessValidator {
                 retStr += `<div style="margin: 0;">[<span>${capitalize(seven_tag_roster[n])}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[seven_tag_roster[n]] || '*'}</span>]</div>`;
             }
             for(let h in this.headers) {
-                if (!seven_tag_roster.includes(h) && this.headers[h] && this.headers[h].length) {
+                if (!seven_tag_roster.includes(h) && this.headers[h] && this.headers[h].length && h.toLowerCase() !== 'plycount') {
                     retStr += `<div style="margin: 0;">[<span>${capitalize(h)}</span>&nbsp;&nbsp;&nbsp;<span style="color: green;">${this.headers[h]}</span>]</div>`;
                 }
             }
